@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Site</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/cliMAX/static/css/modify_movie.css">
+</head>
+<body >
+<div class="row">
+    <div class="col-md-8 mb-8">
+      <div class="card mb-4">
+        <div class="card-header py-3">
+          <h5 class="mb-0">Movie details</h5>
+          
+        </div>
+        <hr>
+        <div class="form-outline mb row justify-content-center">
+            <a href="add_movie.html" id="add-btn" class="btn col-sm-4">ADD</a>
+            <a href="modify_movie.html"id="modify-btn"class="btn col-sm-4" selected>MODIFY</a>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
+                <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
+                    <option>2</option>
+                </select>
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="staticName" class="col-form-label col-sm-5 ">Movie name</label>
+                <input type="text"  class="col-form-control col-sm-5 " id="staticName" value="SPIDER-MAN Louvain-la-Never">
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="description" class="col-form-label col-sm-5 ">DESCRIPTION</label>
+                <textarea class="col-form-control col-sm-5 " id="description" rows="3"></textarea>
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="date" class="col-form-label col-sm-5 ">RELEASE DATE</label>
+                <input type="date"class="col-form-control col-sm-5 -plaintext" id="date">
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="duration" class="col-form-label col-sm-5 ">DURATION</label>
+                <input type="text" class="col-form-control col-sm-5 -plaintext" id="duration">
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="genre" class="col-form-label col-sm-5 ">GENRE</label>
+                <input type="text" class="col-form-control col-sm-5 -plaintext" id="genre">
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="country" class="col-form-label col-sm-5 ">COUNTRY</label>
+                <input type="text" class="col-form-control col-sm-5 -plaintext" id="country">
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="imdb" class="col-form-label col-sm-5 ">IMDB SCORE</label>
+                <input type="text" class="col-form-control col-sm-5 -plaintext" id="imdb">
+            </div>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="image" class="col-form-label col-sm-5">IMAGE</label>
+                <div id="image-label" class="col-form-label col-sm-5 " id="image">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile" value="">
+                        <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon"><label>
+                    </div>
+                    <div class="border rounded-lg text-center p-3">
+                        <img src="/cliMAX/static/images/f325581f9612cdc77538f205e66a3d3f.jpg" class="img-fluid" id="preview" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-outline mb-3 row justify-content-center float">                
+                <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
+                <button class="btn-success col-sm-5" type="submit">Submit</button>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-4 mb-4">
+      <div class="card mb-4">
+        <div class="card-header py-3">
+          <h5 class="mb-0">USER</h5>
+        </div>
+        <hr>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <div class="form-outline mb-4 row ">
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12">Username</li>
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12" >admin</li>
+                </div>
+                <div class="form-outline mb-4 row ">
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12">Email</li>
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12" >admin@climax.com</li>
+                </div>
+                <div class="form-outline mb-4 row ">
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12">Phone</li>
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12" >+352 123 456 789</li>
+                </div>
+                <div class="form-outline mb-4 row ">
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12">Movies</li>
+                    <li class="col-form-label-user list-group-output d-flex justify-content-center align-items-center px-0 col-sm-12" >2</li>
+                </div>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
