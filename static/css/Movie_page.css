@@ -1,0 +1,53 @@
+body{
+    margin: 0;
+}
+
+.shortcuts{
+    margin: 50px;
+    float: right;
+}
+
+.shortcuts a{
+    border-radius: 4px;
+    font-size: 20px;
+    border: 2px solid #00c3af;
+    background-color: #009c8c;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 24px;
+    transition-duration: 0.4s;
+}
+
+.shortcuts a:hover{
+    border: 2px solid #009c8c;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.movie-synopsys{
+    padding: 5%;
+    font-family: 'montserrat';
+    display: flex;
+}
+
+.movie-info{
+    padding: 3px;
+    background-color: #032331;
+    height: fit-content;
+    color: white;
+}
+
+.movie-info div{
+    padding: 10px;
+    display: flex;
+}
+
+.movie-info div div{
+    flex-basis: 50%;
+    display: block;
+}
+
+.movie-description{
+    padding-left: 20px;
+}
