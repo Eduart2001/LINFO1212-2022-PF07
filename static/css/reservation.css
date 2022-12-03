@@ -1,0 +1,401 @@
+body{
+  margin-top: 5%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+#regForm {
+    background-color: rgb(255, 255, 255,0.5);
+    margin: 100px auto;
+    padding: 40px;
+  }
+  
+  /* Style the input fields */
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  /* Mark the active step: */
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #04AA6D;
+  }
+  .col-form-label {
+    border-radius:25px;
+    margin-left: 3%;
+    margin-right:3%;
+    height: 5%;
+    font-weight:bold;
+    background-color: rgb(255, 255, 255,0.5);
+  }
+  #table-label{
+    border: 2px solid ;
+    border-color: black;
+  }
+  .card-body{
+    margin-left:1%;
+    margin-right:1%;
+    margin-bottom:1%;
+    background-color: rgb(132, 156, 183,0.7);
+    border-radius: 25px;
+  }
+  
+
+
+
+
+
+
+  .seats {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding: 0 0 100%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.seats.is-drag {
+	overflow: hidden;
+}
+
+.seats-info {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@media screen and (min-width: 768px) {
+	.seats {
+		padding: 0 0 65%;
+	}
+}
+
+.seating-container {
+	padding: 0 15px;
+}
+
+.seats-screen {
+    text-align: center;
+    text-transform: uppercase;
+    color: black;
+    position: relative;
+    /*top: 15px;*/
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: block;
+    clear: both;
+    /*background: #2b2b2b;*/
+	border: solid 5px #2b2b2b;
+	border-color: transparent transparent #2b2b2b transparent;
+	border-radius: 80%/0 0 80px 80px;
+	height: 30px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.seats-screen:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 34px solid #fff;
+    border-right: 34px solid transparent;
+    position: absolute;
+    z-index: 0;
+    top: -1px;
+    left: -1px;
+}
+
+.seats-screen:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 34px solid #fff;
+    border-left: 34px solid transparent;
+    position: absolute;
+    z-index: 0;
+    top: -1px;
+    right: -1px;
+}
+
+.seats-container:before,
+.seats-container:after {
+    content: " ";
+    display: table;
+}
+
+.seats-container:after {
+    clear: both;
+}
+
+.seats-container {
+    margin: 0;
+    width: 100%;
+    height: 432px;
+    padding: 20px 84px 68px 20px;
+    position: absolute;
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    box-sizing: content-box;
+}
+
+.seats-labels,
+.seats-theatre {
+	float: left;
+	position: relative;
+	height: 100%;
+}
+
+.seats-labels {
+	width: 27px;
+}
+
+.seats-label {
+	position: absolute;
+	z-index: 0;
+}
+
+.seats-label td {
+    height: 27px;
+    width: 27px;
+    color: #000;
+    vertical-align: top;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.seats-labels ~ .seats-labels td {
+    text-align: right;
+}
+
+.seats-area {
+	position: absolute;
+	z-index: 0;
+	table-layout: fixed;
+}
+
+.seats-spacer {
+	width: 27px;
+	height: 27px;
+}
+
+[class*="seats-seat-"] {
+	position: relative;
+}
+
+.seat-input {
+	position: absolute;
+	z-index: -1;
+	visibility: hidden;
+}
+
+.seat-icon:hover {
+	transform: scale(1.4);
+}
+
+.seat-icon {
+	width: 27px;
+	height: 27px;
+	box-sizing: border-box;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	background-position: 50% 50%;
+	cursor: pointer;
+	display: block;
+}
+
+[class*="seats-seat-"][class*="sofa_left"] .seat-icon {
+	background-position: 0 50%;
+	float: left;
+}
+
+/*[class*="seats-seat-"][class*="sofa_middle"] .seat-icon {
+	background-size: 27px 25px;
+}*/
+
+[class*="seats-seat-"][class*="sofa_right"] .seat-icon {
+	background-position: 100% 50%;
+	float: right;
+}
+
+.seating-title {
+	text-align: center;
+	margin: 0;
+    margin-top: 10px;
+}
+
+.seat-key {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+	background: #f1f5f6;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.seat-key li {
+    display: block;
+    margin-top: 20px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 33.33%;
+    flex: 1 1 33.33%;
+}
+
+@media screen and (min-width: 768px) {
+	.seat-key li {
+		display: inline-block;
+		vertical-align: top;
+	}
+}
+
+.seat-key-image {
+    height: 20px;
+    vertical-align: top;
+}
+
+.seat-key-copy {
+    display: block;
+    margin-top: -6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+}
+
+.seats-zoom {
+	position: absolute;
+	z-index: 0;
+	top: 20px;
+	right: 0;
+	display: none;
+	padding: 0 20px;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.h-db {
+    display: block;
+    top: 35%;
+}
+
+.seats-zoom-in,
+.seats-zoom-out {
+	width: 44px;
+	height: 44px;
+	line-height: 50px;
+	text-indent: -99999px;
+	display: block;
+	color: #fff;
+	font-size: 30px;
+	text-align: center;
+	cursor: pointer;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	background-size: 100%;
+}
+
+.seats-zoom-in {
+	background-image: url(/content/images/liv/zoom-in.svg);
+}
+
+.seats-zoom-out {
+	background-image: url(/content/images/liv/zoom-out.svg);
+	margin-top: 5px;
+}
+
+.seats-zoom-in.is-disabled,
+.seats-zoom-out.is-disabled {
+	opacity: .5;
+	cursor: default;
+	pointer-events: none;
+}
+
+.seats-move {
+	color: #888;
+	font-weight: bold;
+    align-self: center;
+	margin: 0;
+}
+
+.seats-move-icon {
+	position: relative;
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
+	line-height: 1;
+	vertical-align: middle;
+	display: inline-block;
+	margin: -6px 10px 0 0;
+}
+
+.seats-move-icon:before,
+.seats-move-icon:after {
+	position: absolute;
+	z-index: 0;
+	top: 0;
+}
+
+.seating-container {
+	background: #f1f5f6; 
+}
+
+.seats-move-icon:before {
+	content: "\2194";
+	left: 0;
+}
+
+.seats-move-icon:after {
+	content: "\2195";
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
