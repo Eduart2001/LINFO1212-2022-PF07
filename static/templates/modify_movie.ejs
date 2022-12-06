@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bootstrap Site</title>
+  <title>cliMAX</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/static/css/add_movie.css">
+  <link rel="stylesheet" href="../css/modify_movie.css">
 </head>
 <body >
 <div class="row">
@@ -19,11 +19,17 @@
         </div>
         <hr>
         <div class="form-outline mb row justify-content-center">
-            <a href="add_movie.html" id="add-btn" class="btn col-sm-4" selected>ADD</a>
-            <a href="modify_movie.html" id="modify-btn"class="btn col-sm-4">MODIFY</a>
+            <a href="add_movie" id="add-btn" class="btn col-sm-4">ADD</a>
+            <a href="modify_movie"id="modify-btn"class="btn col-sm-4" selected>MODIFY</a>
         </div>
         <div class="card-body">
           <form>
+            <div class="form-outline mb-3 row justify-content-center">
+                <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
+                <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
+                    <option>2</option>
+                </select>
+            </div>
             <div class="form-outline mb-3 row justify-content-center">
                 <label for="staticName" class="col-form-label col-sm-5 ">Movie name</label>
                 <input type="text"  class="col-form-control col-sm-5 " id="staticName" value="SPIDER-MAN Louvain-la-Never">
@@ -60,11 +66,12 @@
                         <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon"><label>
                     </div>
                     <div class="border rounded-lg text-center p-3">
-                        <img src="/static/images/programming pepe.jpg" class="img-fluid" id="preview" />
+                        <img src="../images/programming pepe.jpg" alt="wrong path"class="img-fluid" id="preview" />
                     </div>
                 </div>
             </div>
-            <div class="form-outline mb-3 row justify-content-center float">
+            <div class="form-outline mb-3 row justify-content-center float">                
+                <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
                 <button class="btn-success col-sm-5" type="submit">Submit</button>
             </div>
   
