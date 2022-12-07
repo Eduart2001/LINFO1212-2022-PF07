@@ -4,43 +4,16 @@
     <meta charset="UTF-8">
     <title>User Page</title>
 </head>
-<style>
-body {
-    background-color: black;
-}
-#navbar {
-    overflow: hidden;
-    background-color: #0C144F;
+<link rel="stylesheet" href="../css/user_page.css">
 
-}
-
-/* Navbar links */
-#navbar a {
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px;
-    text-decoration: none;
-}
-
-.box{
-    background-color: #212B78;
-    width: available;
-    padding: 50px;
-    margin: 40px;
-    height: 400px;
-}
-
-</style>
 <body>
 
 <div id="navbar">
-    <a style="horiz-align: center" href="Page_film.html">CLIMAX</a>
-
+    <a style="float: left" href="Page_film.html">CLIMAX</a>
 </div>
 
 <div class="box">
-    <h1 style="font-family: Calibri; font-size: 40px">Profile Changes</h1>
+    <h1>Profile Changes</h1>
 
     <form >
         <label for="fname">First name: </label>
@@ -55,10 +28,13 @@ body {
         <input type="password" id="password" name="password"><br><br>
         <label for="passwordrep">Retype password: </label>
         <input type="password" id="passwordrep" name="passwordrep"><br><br>
-        <p>Any chnages are permanent to your profile!</p>
+        <p>Any changes are permanent to your profile!</p>
         <input type="submit" value="Change">
     </form>
 </div>
+<div class="box">
+    <h1>Films résérvé:</h1>
+</div> 
 
 
 </body>
