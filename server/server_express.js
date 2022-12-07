@@ -27,5 +27,8 @@ app.get('/admin/modify_movie', function(req,res,next){
 app.get('/reservation', function(req,res,next){
     res.render('reservation.ejs');
 });
+app.get('/user',function(req,res,next){
+    res.render('User_page.ejs')
+})
 
 app.listen(8080);
