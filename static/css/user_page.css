@@ -1,0 +1,31 @@
+body {
+    background-color: white;
+}
+#navbar {
+    overflow: hidden;
+    background-color: rgba(139, 183, 132, 0.7);
+    height: 90px;
+
+}
+
+/* Navbar links */
+#navbar a {
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    font-size: 55px;
+}
+
+.box{
+    background-color: rgba(139, 183, 132, 0.7);
+    width: available;
+    padding: 50px;
+    margin: 40px;
+    height: 400px;
+}
+.h1{
+    font-family: Calibri;
+     font-size: 40px;
+}
