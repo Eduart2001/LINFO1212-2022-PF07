@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>clIMAX</title>
+        <link rel="stylesheet" type="text/css" href="../css/login_page.css">
+        <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+        <!-- <link rel="shortcut icon" href=""> -->
+    </head>
+    <body>
+        <div class="main" style="margin-top: 20px; padding-bottom: 25px;">
+            <h1>Sign up</h1>
+            <p class="incorrect-passsword"></p>
+            <form action="/register" method="post">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" name="email" placeholder="Type your email" required>
+                </div>
+                <div>
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" id="password" placeholder="Type your password" required>
+                </div>
+                <div>
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" id="confPassword" placeholder="Type your password again" required>
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="Type your entire name" required>
+                </div>
+                <div>
+                    <label for="birthday">Date of Birth</label>
+                    <input type="date" name="date of birth" value="2000-11-18" min="1899-01-01" id="birthday" required>
+                </div>
+                <button type="submit" onclick="validatePassword()">Sign up</button>
+            </form>
+            <div class="new">
+                <a href="./login_page.html">Already have an account?</a>
+            </div>
+        </div>
+    </body>
+    <script src="../script/script-register.js"></script>
+</html>
