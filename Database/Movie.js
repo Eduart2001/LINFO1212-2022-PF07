@@ -10,6 +10,14 @@ Movie.init({
         allowNull: false,
         primaryKey: true
     },
+    genre:{
+        type: DataTypes.TEXT,
+        allowNull: false,
+        references: {
+            model: Genre,
+            key: "genreCode"
+        }
+    },
     movieName: {
         type: DataTypes.TEXT,
         allowNull: false,

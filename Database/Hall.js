@@ -1,5 +1,6 @@
 const {Model, DataTypes} = require("sequelize");
 const sequelize = require("./database");
+const Seat = require("./Seat");
 
 class Hall extends Model {
 }
@@ -12,8 +13,7 @@ Hall.init({
     },
     capacity:{        
         type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey:true
+        allowNull: false
     },
     movieId:{
         type: DataTypes.INTEGER,
@@ -24,14 +24,13 @@ Hall.init({
         },
         primaryKey:true
     },
-    time:{
-        type: DataTypes.TIME,
+    seat:{
+        type: DataTypes.TEXT,
         allowNull: false,
         references: {
-            model: TimeTable,
-            key: "time"
-        },
-        primaryKey:true
+            model: Seat,
+            key: "id"
+        }
     },
     timestamps: true,
     createdAt: false,

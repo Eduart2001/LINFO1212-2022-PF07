@@ -6,24 +6,14 @@ class Seat extends Model {
 }
 
 Seat.init({
-    id:{        
-        type: DataTypes.INTEGER,
+    id:{
+        type: DataTypes.TEXT,
         allowNull: false,
         primaryKey:true
     },
-    codeAvaible:{        
+    codeAvaible:{
         type: DataTypes.BOOLEAN,
-        defaultValue:true,
-        primaryKey:true
-    },
-    hallId:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: Hall,
-            key: "id"
-        },
-        primaryKey:true
+        defaultValue:true
     },
     timestamps: true,
     createdAt: false,

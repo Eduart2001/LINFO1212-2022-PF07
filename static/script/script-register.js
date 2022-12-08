@@ -9,3 +9,20 @@ function validatePassword(){
         confirm.setCustomValidity('');
     }
 }
+
+function validateNumber(){
+    var phone = document.getElementById("phone");
+    if (phone.value == "") return;
+    var valid = true;
+
+    for (let i=0;i<phone.value.length;i++){
+        if (!"0123456789".includes(phone.value[i])){
+            valid = false;
+            break;
+        }
+    }
+    console.log(valid);
+
+    if (!valid || phone.value.length!=9) phone.setCustomValidity("Please enter a valid phone number");
+    else phone.setCustomValidity("");
+}
