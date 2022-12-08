@@ -11,8 +11,8 @@
     <body>
         <div class="main" style="margin-top: 20px; margin-bottom: 20px; padding-bottom: 25px;">
             <h1>Sign up</h1>
-            <p class="incorrect-passsword"></p>
-            <form action="/register" method="post">
+            <p class="incorrect-passsword"><%= incorrect %></p>
+            <form action="/signUp" method="post">
                 <div>
                     <label for="email">Email</label>
                     <input type="email" name="email" placeholder="Type your email" required>
@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     <label for="birthday">Date of Birth</label>
-                    <input type="date" name="date of birth" value="2000-11-18" min="1899-01-01" id="birthday" required>
+                    <input type="date" name="birthdate" value="2000-11-18" min="1899-01-01" id="birthday" required>
                 </div>
                 <button type="submit" onclick="validatePassword(); validateNumber()">Sign up</button>
             </form>

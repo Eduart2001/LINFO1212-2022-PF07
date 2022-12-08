@@ -22,6 +22,10 @@ User.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
+    phoneNumber:{
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
     admin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false

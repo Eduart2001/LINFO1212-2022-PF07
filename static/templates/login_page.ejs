@@ -7,12 +7,11 @@
         <link rel="stylesheet" type="text/css" href="../css/login_page.css">
         <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
         <!-- <link rel="shortcut icon" href=""> -->
-        <!-- <script src="login.js"></script> -->
     </head>
     <body>
         <div class="main">
             <h1>Login</h1>
-            <p class="incorrect-passsword"></p>
+            <p class="incorrect-passsword"><%= incorrect %></p>
             <form action="/ident" method="post">
                 <div>
                     <label for="email">Email</label>
@@ -26,7 +25,7 @@
                 <button type="submit">login</button>
             </form>
             <div class="new">
-                <a href="./login_page.html">Create an account</a>
+                <a href="/register">Create an account</a>
             </div>
         </div>
     </body>
