@@ -13,7 +13,7 @@ Feature: PeronalArea
 
     Scenario: User is admin
     Given user role has been changed to admin
-    Then the user can add or modify movies
+    Then the user can add, delete or modify movies
 
     Scenario: User is not admin
     Then the user can only buy tickets, surf and change his password and phone number

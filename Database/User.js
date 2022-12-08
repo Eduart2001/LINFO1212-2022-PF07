@@ -18,19 +18,7 @@ User.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
-    firstName: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    lastName: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    phoneNumber:{
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    sex:{
+    name: {
         type: DataTypes.TEXT,
         allowNull: false
     },
