@@ -18,7 +18,7 @@ app.get('/login', function(req,res,next){
     res.render('login.ejs');
 });
 
-app.post('/admin/add_movie', function(req,res,next){
+app.get('/admin/add_movie', function(req,res,next){
     res.render('add_movie.ejs');
 });
 app.get('/admin/modify_movie', function(req,res,next){

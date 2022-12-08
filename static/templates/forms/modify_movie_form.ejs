@@ -1,0 +1,53 @@
+<form>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
+        <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
+            <option>2</option>
+        </select>
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="staticName" class="col-form-label col-sm-5 ">Movie name</label>
+        <input type="text"  class="col-form-control col-sm-5 " id="staticName" value="SPIDER-MAN Louvain-la-Never">
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="description" class="col-form-label col-sm-5 ">DESCRIPTION</label>
+        <textarea class="col-form-control col-sm-5 " id="description" rows="3"></textarea>
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="date" class="col-form-label col-sm-5 ">RELEASE DATE</label>
+        <input type="date"class="col-form-control col-sm-5 -plaintext" id="date">
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="duration" class="col-form-label col-sm-5 ">DURATION</label>
+        <input type="text" class="col-form-control col-sm-5 -plaintext" id="duration">
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="genre" class="col-form-label col-sm-5 ">GENRE</label>
+        <input type="text" class="col-form-control col-sm-5 -plaintext" id="genre">
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="country" class="col-form-label col-sm-5 ">COUNTRY</label>
+        <input type="text" class="col-form-control col-sm-5 -plaintext" id="country">
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="imdb" class="col-form-label col-sm-5 ">IMDB SCORE</label>
+        <input type="text" class="col-form-control col-sm-5 -plaintext" id="imdb">
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="image" class="col-form-label col-sm-5">IMAGE</label>
+        <div id="image-label" class="col-form-label col-sm-5 " id="image">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile" value="">
+                <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon"><label>
+            </div>
+            <div class="border rounded-lg text-center p-3">
+                <img src="../images/programming pepe.jpg" alt="wrong path"class="img-fluid" id="preview" />
+            </div>
+        </div>
+    </div>
+    <div class="form-outline mb-3 row justify-content-center float">                
+        <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
+        <button class="btn-success col-sm-5" type="submit">Submit</button>
+    </div>
+
+  </form>
