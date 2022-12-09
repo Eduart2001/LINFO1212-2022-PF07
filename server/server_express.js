@@ -27,23 +27,32 @@ app.use(session({
         httpOnly:true
     }
 }));
+
+//database
 const sequelize = require("../Database/database");
 const User = require("../Database/User");
-const Genre = require("../Database/Genre");
 const Hall = require("../Database/Hall");
 const TimeTable = require("../Database/TimeTable");
 const Movie = require("../Database/Movie");
 const Seat = require("../Database/Seat");
-sequelize.sync()
+sequelize.sync().then(() => {login.emptyDB(), console.log("db is ready")});
 
+// exports variables
 module.exports={
+    app: app,
+    sequelize: sequelize,
     User : User,
-    Genre:Genre,
     Hall : Hall,
     TimeTable :TimeTable, 
     Movie :Movie,
     Seat :Seat
 }
+
+//imports
+const login = require("./login");
+// const movie = require("./movie");
+
+
 app.get('/', async function(req,res,next){
     res.render('home_page.ejs');
 });
@@ -77,7 +86,7 @@ app.post('/signUp', async function(req, res, next){
                 email: email,
                 name: req.body.name,
                 phoneNumber: req.body.phoneNumber,
-                birthdate: req.body.birthdate.split(" ")[0],
+                birthdate: req.body.birthdate,
                 password: crypto.createHash("md5").update(req.body.password1).digest('hex'),
                 admin: false
             }).then(console.log("User added"));
@@ -91,6 +100,11 @@ app.post('/signUp', async function(req, res, next){
 
 app.get('/register', function(req, res, next){
     res.render('register_page.ejs', {incorrect: ""});
+});
+
+app.get('/movie', async function(req, res, next){
+    let result = movie.getMovieById(req.query.id);
+    res.render('movie_page.ejs')
 });
 
 app.get('/admin/add_movie', function(req,res,next){
