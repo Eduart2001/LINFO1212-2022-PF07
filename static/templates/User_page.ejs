@@ -5,11 +5,12 @@
     <title>User Page</title>
 </head>
 <link rel="stylesheet" href="../css/user_page.css">
+<script src="../script/script-user-page.js"></script>
 
 <body>
 
     <div class="navbar">
-        <a>CLimax</a>
+        <a href="\">CLimax</a>
     </div>
 
 <div class="box">
@@ -27,11 +28,11 @@
         <label for="password">Old password: </label>
         <input type="password" id="oldpassword" name="oldpassword"><br><br>
         <label for="password">New password: </label>
-        <input type="'password" id="newpass" name="newpassord"><br><br>
+        <input type="password" id="newpasword" name="newpassword"><br><br>
         <label for="passwordrep">Retype password: </label>
         <input type="password" id="passwordrep" name="passwordrep"><br><br>
         <p>Any changes are permanent to your profile!</p>
-        <input type="submit" value="Change">
+        <input type="submit" value="Change" id="clicked" onclick="change_password(oldpassword,newpassword,passwordrep);">
     </form>
 </div>
 
