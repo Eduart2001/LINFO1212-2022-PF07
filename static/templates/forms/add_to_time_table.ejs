@@ -1,0 +1,66 @@
+<div class="card-body">
+<form>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
+        <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
+            <option>2</option>
+        </select>
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
+        <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
+            <option>2</option>
+        </select>
+    </div>
+    <section>
+
+    <div class="select-hour">
+        <table class="time-table">
+            <thead>
+              <tr>
+                <th  scope="col"><span >Time\Day</span></th>
+                <th  scope="col" ><span >Monday</span></th>
+                <th  scope="col" ><span >Tuesday</span></th>
+                <th  scope="col" ><span >Wednesday</span></th>
+                <th  scope="col" ><span >Thursday</span></th>
+                <th  scope="col" ><span >Friday</span></th>
+                <th  scope="col" ><span >Saturday</span></th>
+                <th  scope="col" ><span >Sunday</span></th>
+              </tr>
+            </thead>
+            <tbody>
+                <% for(var j=0; j< 5; j++) { %>
+                    <tr class="container-slot">
+                        <th data-label="Time\Day"><span ><%= 8 + 3*j %>:00</span></th>
+                        <% var table=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]%>
+                        <% for(var i=0; i< 7; i++) { %>
+                                <td class="slot" onclick="myFunction(id)" id=<%= i+j*7 %>  data-label=<%= table[i] %> ><span>12:50</span></td>
+                        <% } %>
+                    </tr>
+                    
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+
+    </section>
+
+    <div class="form-outline mb-3 row justify-content-center float">                
+        <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
+        <button class="btn-success col-sm-5" type="submit">Submit</button>
+    </div>
+  </form>
+  <script>
+    function myFunction(i){
+        let selected =document.getElementsByClassName('slot selected');
+        if(selected!=null || selected!=undefined){
+            if(selected.length!=0){
+                document.getElementById(selected[0].id).className="slot";
+            }
+        }
+        document.getElementById(i).className = "slot selected";
+    }
+  </script>
+</div>
