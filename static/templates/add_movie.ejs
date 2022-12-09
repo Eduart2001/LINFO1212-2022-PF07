@@ -11,8 +11,9 @@
         </div>
         <hr>
         <div class="form-outline mb row justify-content-center">
-            <a href="add_movie" id="add-btn" class="btn col-sm-4" selected>ADD</a>
-            <a href="modify_movie" id="modify-btn"class="btn col-sm-4">MODIFY</a>
+          <a href="add_movie" id="add-btn" class="btn col-sm-3" selected>ADD</a>
+          <a href="modify_movie" id="modify-btn"class="btn col-sm-3">MODIFY</a>
+          <a href="time_table" id="timeTable-btn"class="btn col-sm-3">TIME TABLE</a>
         </div>
         <div class="card-body">
           <%- include("./forms/add_movie_form.ejs") %>
@@ -21,6 +22,7 @@
     </div>
 
     <%- include("./cards/user_card.ejs") %>
+    <%- include("./forms/add_to_time_table.ejs") %>
     
 </div>
 </body>

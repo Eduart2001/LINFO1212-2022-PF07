@@ -1,0 +1,26 @@
+<div class="col-md-4 mb-4">
+    <div class="card mb-4">
+      <div class="card-header py-3">
+        <h5 class="mb-0">Movies</h5>
+      </div>
+      <hr>
+      <div class="card-body">
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr class="bg-light-gray">
+                    <th class="text-uppercase">Id</th>
+                    <th class="text-uppercase">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i < data.length; i++) { %>
+                    <tr>
+                      <td ><%= data[i].id %></td>
+                      <td ><%= data[i].name %></td>
+                    </tr>
+                  <% } %>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

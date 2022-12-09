@@ -27,24 +27,24 @@ app.use(session({
         httpOnly:true
     }
 }));
-
-//database
 const sequelize = require("../Database/database");
-const User = require('../Database/User');
-sequelize.sync().then(() => {console.log("db is ready")});
+const User = require("../Database/User");
+const Genre = require("../Database/Genre");
+const Hall = require("../Database/Hall");
+const TimeTable = require("../Database/TimeTable");
+const Movie = require("../Database/Movie");
+const Seat = require("../Database/Seat");
+sequelize.sync()
 
-//exporting variables
-module.exports = {
-    app: app,
-    sequelize: sequelize,
-    User: User
+module.exports={
+    User : User,
+    Genre:Genre,
+    Hall : Hall,
+    TimeTable :TimeTable, 
+    Movie :Movie,
+    Seat :Seat
 }
-
-//imports
-const login = require("../static/script/script-login");
-
-
-app.get('/', function(req,res,next){
+app.get('/', async function(req,res,next){
     res.render('home_page.ejs');
 });
 
@@ -98,6 +98,9 @@ app.get('/admin/add_movie', function(req,res,next){
 });
 app.get('/admin/modify_movie', function(req,res,next){
     res.render('modify_movie.ejs');
+});
+app.get('/admin/time_table', function(req,res,next){
+    res.render('time_table.ejs',{data : [{id:"1",name:"spider-man"},{id:"2",name:"spider-man"},{id:"3",name:"spider-man"},{id:"4",name:"spider-man"}]});
 });
 app.get('/reservation', function(req,res,next){
     res.render('reservation.ejs');

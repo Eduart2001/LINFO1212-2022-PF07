@@ -1,6 +1,7 @@
 const {Model, DataTypes} = require("sequelize");
 const sequelize = require("./database");
-
+const Hall = require("./Hall");
+const Movie = require("./Movie");
 class TimeTable extends Model {
 }
 

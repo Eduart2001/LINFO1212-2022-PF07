@@ -1,6 +1,6 @@
 const {Model, DataTypes} = require("sequelize");
 const sequelize = require("./database");
-
+const Genre=require("./Genre")
 class Movie extends Model {
 }
 
@@ -9,14 +9,6 @@ Movie.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
-    },
-    genre:{
-        type: DataTypes.TEXT,
-        allowNull: false,
-        references: {
-            model: Genre,
-            key: "genreCode"
-        }
     },
     movieName: {
         type: DataTypes.TEXT,
@@ -46,6 +38,14 @@ Movie.init({
     IMDBscore:{
         type: DataTypes.TEXT,
         allowNull: false
+    },
+    genre:{
+        type: DataTypes.TEXT,
+        allowNull: false,
+        references: {
+            model: Genre,
+            key: "genreCode"
+        }
     },
     timestamps: false,
     createdAt: false,
