@@ -6,6 +6,11 @@ class TimeTable extends Model {
 }
 
 TimeTable.init({
+    TimeTableId:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey:true
+    },
     hall:{
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -13,7 +18,6 @@ TimeTable.init({
             model: Hall,
             key: "id"
         },
-        primaryKey:true
     },
     movieId:{
         type: DataTypes.INTEGER,
@@ -22,10 +26,14 @@ TimeTable.init({
             model: Movie,
             key: "id"
         },
+    },
+    day:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
         primaryKey:true
     },
     time:{
-        type: DataTypes.TIME,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey:true
     },

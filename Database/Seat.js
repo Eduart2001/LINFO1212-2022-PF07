@@ -1,19 +1,23 @@
 const {Model, DataTypes} = require("sequelize");
 const sequelize = require("./database");
-const Hall = require("./Hall");
+const TimeTable = require("./TimeTable");
 
 class Seat extends Model {
 }
 
 Seat.init({
     id:{
-        type: DataTypes.TEXT,
+        type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey:true
     },
-    codeAvaible:{
-        type: DataTypes.BOOLEAN,
-        defaultValue:true
+    timeTableId:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: TimeTable,
+            key: "timeTableId"
+        },
     },
     timestamps: true,
     createdAt: false,

@@ -12,30 +12,45 @@
     <div class="navbar">
         <a href="\">CLimax</a>
     </div>
+    <div class="box">
+        <h1>Profile Changes</h1>
 
-<div class="box">
-    <h1>Profile Changes</h1>
-
-    <form >
-        <label for="fname">First name: </label>
-        <input type="text" id="fname" name="fname"><br><br>
-        <label for="lname">Last name: </label>
-        <input type="text" id="lname" name="lname"><br><br>
-        <label for="bday">Birthday: </label>
-        <input type="date" id="bday" name="bday"><br><br>
-        <label for="email">Email: </label>
-        <input type="email" id="email" name="email" oninvalid="this.setCustomValidity('Please Enter A Valid Email')" ><br><br>
-        <label for="password">Old password: </label>
-        <input type="password" id="oldpassword" name="oldpassword"><br><br>
-        <label for="password">New password: </label>
-        <input type="password" id="newpasword" name="newpassword"><br><br>
-        <label for="passwordrep">Retype password: </label>
-        <input type="password" id="passwordrep" name="passwordrep"><br><br>
-        <p>Any changes are permanent to your profile!</p>
-        <input type="submit" value="Change" id="clicked" onclick="change_password(oldpassword,newpassword,passwordrep);">
-    </form>
-</div>
-
+      
+        <!-- Different form sections -->
+        <div id="name" name="name">
+          <form>
+            <label for="fname">First Name: </label>
+            <input type="text" id="fname" name="fname" required><br><br>
+      
+            <label for="lname">Last Name: </label>
+            <input type="text" id="lname" name="lname" required><br><br>
+      
+            <input type="submit" value="Change" id="name_change">
+          </form>
+        </div>
+        <div id="email" style="text-align: right;">
+          <form id="formemail" onsubmit="return change_mail()">
+            <label for="old_email">Old email: </label>
+            <input type="email" id="old_email" name="old_email" required><br><br>
+            <label for="new_email">New email: </label>
+            <input type="email" id="new_mail" name="new_mail" required><br><br> 
+      
+            <input type="submit" value="Change" id="email_change">
+          </form>
+        </div>
+        <div id="password" style="text-align: right;">
+          <form id="formpass" onsubmit="return change_password()">
+            <label for="password">Old password: </label>
+            <input type="password" id="oldpassword" name="oldpassword" required><br><br>
+            <label for="password">New password: </label>
+            <input type="password" id="newpassword" name="newpassword" required><br><br>
+            <label for="passwordrep">Retype password: </label>
+            <input type="password" id="passwordrep" name="passwordrep" required><br><br>
+            <input type="submit" value="Change" id="password_change">
+          </form>
+        </div>
+      </div>
+      
 
 <div class="box" style="width: 1000px; margin-left: 200px;height: auto" >
     <h1> Movies reserved</h1>

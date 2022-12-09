@@ -1,27 +1,62 @@
 let submit=document.getElementById("clicked");
 
-function change_password(old_pass,new_pass,new_pass_rep){
 
-    
-    if(old_pass.value===new_pass.value){
-        alert('old password is the same as new password');
-    
-    }
-    else if(new_pass.value!==new_pass_rep.value){
-        alert(new_pass+" "+new_pass_rep);
-    }
-    else{alert("hi");}
-    
+function change_password() {
+    var oldpassword = document.getElementById('oldpassword');
+    var newpassword = document.getElementById('newpassword');
+    var passwordrep = document.getElementById('passwordrep');
+        if (oldpassword.value === newpassword.value) {
+            alert('The old password and new password cannot be the same!');
+              return false;
+        }
+         else if(newpassword.value != passwordrep.value){
+            alert('Please retype your password correctly');
+            return false;
+        }
+        else 
+            {alert('Password has been changed successfully!');
+            return true;}
+        }
+        
 
-    //add part to change password
+
+
+var formpass=document.getElementById('formpass');
+
+formpass.addEventListener('password_change', function(event) {
+    if (!change_password()) {
+      event.preventDefault();
+    }
+  });
+
+  
+function change_email(){
+    var oldemail=document.getElementById("old_email");
+    var newmail=document.getElementById("new_mail");
+    if (oldemail===newmail){
+        alert("Cannot change email")
+        return false;
+    }
+    else{
+        alert("Email has been successfully changed!")
+        return true;
+    }
+
 }
 
-function email(){
-    const mail=document.getElementById("email");
-    //change email
-}
+var formemail=document.getElementById('formemail')
+formemail.addEventListener('email_change', function(event){
+    if(!change_email()){
+        event.preventDefault();
+    }
+});
+
+
+
 
 function first_name(){
+
+
     const fname=document.getElementById("fname");
     //change first name
 }

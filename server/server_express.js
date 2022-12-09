@@ -110,6 +110,21 @@ app.get('/movie', async function(req, res, next){
 app.get('/admin/add_movie', function(req,res,next){
     res.render('add_movie.ejs');
 });
+app.post('/add', async function(req, res, next){
+    let body =await req.body
+    Movie.create({
+        movieName:body.movieName,
+        description:body.description,
+        releaseDate:body.date,
+        trailerURL:body.trailerURL,
+        country:body.country,
+        ageRestriction:body.age,
+        IMDBscore:body.imdb,
+        genre:body.genre,
+        duration:body.duration
+    })
+    res.redirect("/");
+});
 app.get('/admin/modify_movie', function(req,res,next){
     res.render('modify_movie.ejs');
 });
