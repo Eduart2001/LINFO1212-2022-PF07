@@ -104,8 +104,8 @@ app.get('/register', function(req, res, next){
 
 app.get('/movie', async function(req, res, next){
     let result = await movie.getMovieById(req.query.id);
-    if (typeof(result)=='string'){
-        res.send(`${result}`);
+    if (!result.length > 0){
+        res.send(`Movie with such id does not exist`);
     } else {
         res.render('movie_page.ejs', {movieName: result[0].movieName, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
     }

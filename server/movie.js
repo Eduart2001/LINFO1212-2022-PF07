@@ -3,12 +3,12 @@ const Movie = require("./server_express").Movie;
 
 async function getMovieById(movieId){
     try {
-        if (movieId==undefined || movieId==="") return "No id was given";
+        if (movieId==undefined || movieId==="") return [];
         const result = await sequelize.query(`Select * From Movies where id = '${movieId}'`);
-        if (!result[0].length > 0) return "Movie with such id does not exist";
+        if (!result[0].length > 0) return [];
         return result[0];
     } catch (e){
-        return e;
+        throw e;
     }
 }
 
