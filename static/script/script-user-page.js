@@ -1,6 +1,3 @@
-let submit=document.getElementById("clicked");
-
-
 function change_password() {
     var oldpassword = document.getElementById('oldpassword');
     var newpassword = document.getElementById('newpassword');
@@ -9,7 +6,7 @@ function change_password() {
             alert('The old password and new password cannot be the same!');
               return false;
         }
-         else if(newpassword.value != passwordrep.value){
+         else if(newpassword.value !== passwordrep.value){
             alert('Please retype your password correctly');
             return false;
         }
@@ -30,43 +27,36 @@ formpass.addEventListener('password_change', function(event) {
   });
 
   
+
 function change_email(){
-    var oldemail=document.getElementById("old_email");
-    var newmail=document.getElementById("new_mail");
-    if (oldemail===newmail){
-        alert("Cannot change email")
-        return false;
+    var oldemail = document.getElementById("old_email");
+    var newmail = document.getElementById("new_email");
+    console.log("old email: ", oldemail.value, "new email: ", newmail.value);
+    if (oldemail.value === newmail.value) {
+        alert("Cannot change email");
+    } else {
+        alert("Email has been successfully changed!");
+        console.log("email changed successfully");
     }
-    else{
-        alert("Email has been successfully changed!")
-        return true;
     }
 
-}
-
-var formemail=document.getElementById('formemail')
+var formemail = document.getElementById('formemail');
 formemail.addEventListener('email_change', function(event){
-    if(!change_email()){
+    if (!change_email()){
         event.preventDefault();
     }
 });
 
 
-
-
-function first_name(){
-
-
-    const fname=document.getElementById("fname");
-    //change first name
+function name_change(){
+    alert("hello");
+    return true;
 }
 
-function last_name(){
-    const lname=document.getElementById("fname");
-    //change last name
-}
+var formname= document.getElementById("formname");
+formname.addEventListener('name_change',function(event){
+    if (!name_change){
+        event.preventDefault();
+    }
+})
 
-function birthday(){
-    const bday=document.getElementById("bday");
-    //change birthday
-}
