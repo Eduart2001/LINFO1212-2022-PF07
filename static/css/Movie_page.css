@@ -2,7 +2,52 @@ body{
     margin: 0;
 }
 
-.shortcuts{
+.title{
+    margin-top: 100px;
+    margin-bottom: 0px;
+    text-align: center;
+    color: black;
+    font-size: xx-large;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(65, 166, 255);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: fit-content;
+}
+  
+li {
+    float: right;
+}
+
+.home{
+    float: left;
+}
+
+.home a{
+    padding: 0px;
+    height: fit-content;
+    padding-left: 10px;
+    padding-top: 2px;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 40px;
+}
+
+/* .shortcuts{
     margin: 50px;
     float: right;
 }
@@ -23,10 +68,12 @@ body{
     border: 2px solid #009c8c;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-}
+} */
 
 .movie-synopsys{
     padding: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
     font-family: 'montserrat';
     display: flex;
 }
@@ -50,4 +97,27 @@ body{
 
 .movie-description{
     padding-left: 20px;
+}
+
+.reservation{
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.reservation a{
+    border-radius: 4px;
+    font-size: 20px;
+    border: 2px solid #00c3af;
+    background-color: #009c8c;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 24px;
+    transition-duration: 0.4s;
+}
+
+.reservation a:hover{
+    border: 2px solid #009c8c;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
 }

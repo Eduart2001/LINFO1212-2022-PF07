@@ -4,7 +4,8 @@ var session = require("express-session");
 var bodyParser = require("body-parser");
 var crypto = require("crypto");
 var https = require("https");
-var fs = require('fs');
+var fs = require("fs");
+const multer = require("multer");
 var app = express ()
 
 
@@ -50,9 +51,13 @@ module.exports={
 
 //imports
 const login = require("./login");
-const require1= require("../static/script/script-index");
 // const movie = require("./movie");
 
+app.post('/test', upload.single("myFile"), function(req, res, next){
+    console.log(req.body);
+    console.log(req.file);
+    res.send(`ok`);
+});
 
 app.get('/', async function(req,res,next){
     res.render('home_page.ejs', require1.add_movies_test("Avatar 2"));
@@ -104,18 +109,25 @@ app.get('/register', function(req, res, next){
 });
 
 app.get('/movie', async function(req, res, next){
-    let result = movie.getMovieById(req.query.id);
-    res.render('movie_page.ejs')
+    let result = await movie.getMovieById(req.query.id);
+    if (!result.length > 0){
+        res.send(`Movie with such id does not exist`);
+    } else {
+        res.render('movie_page.ejs', {movieName: result[0].movieName, actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+    }
 });
 
 app.get('/admin/add_movie', function(req,res,next){
     res.render('add_movie.ejs');
 });
-app.post('/add', async function(req, res, next){
+
+app.post('/add', upload.single('upload'), async function(req, res, next){
     let body =await req.body
     Movie.create({
         movieName:body.movieName,
         description:body.description,
+        actors:body.actors,
+        directors:body.directors,
         releaseDate:body.date,
         trailerURL:body.trailerURL,
         country:body.country,
@@ -126,15 +138,19 @@ app.post('/add', async function(req, res, next){
     })
     res.redirect("/");
 });
+
 app.get('/admin/modify_movie', function(req,res,next){
     res.render('modify_movie.ejs');
 });
+
 app.get('/admin/time_table', function(req,res,next){
     res.render('time_table.ejs',{data : [{id:"1",name:"spider-man"},{id:"2",name:"spider-man"},{id:"3",name:"spider-man"},{id:"4",name:"spider-man"}]});
 });
+
 app.get('/reservation', function(req,res,next){
     res.render('reservation.ejs');
 });
+
 app.get('/user',function(req,res,next){
     res.render('User_page.ejs')
 })

@@ -19,6 +19,14 @@ Movie.init({
         type: DataTypes.TEXT,
         allowNull: false
     },
+    actors: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    directors: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
     releaseDate: {
         type: DataTypes.DATE,
         allowNull: false
