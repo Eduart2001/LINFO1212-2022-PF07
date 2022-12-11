@@ -3,7 +3,7 @@ body{
 }
 
 .title{
-    margin-top: 5%;
+    margin-top: 100px;
     margin-bottom: 0px;
     text-align: center;
     color: black;
@@ -16,7 +16,7 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(65, 166, 255);
     position: fixed;
     top: 0;
     width: 100%;
@@ -26,6 +26,17 @@ ul {
 li {
     float: right;
 }
+
+.home{
+    float: left;
+}
+
+.home a{
+    padding: 0px;
+    height: fit-content;
+    padding-left: 10px;
+    padding-top: 2px;
+}
   
 li a {
     display: block;
@@ -33,12 +44,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 20px;
-}
-  
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #111;
+    font-size: 40px;
 }
 
 /* .shortcuts{
