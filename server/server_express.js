@@ -50,11 +50,12 @@ module.exports={
 
 //imports
 const login = require("./login");
+const require1= require("../static/script/script-index");
 // const movie = require("./movie");
 
 
 app.get('/', async function(req,res,next){
-    res.render('home_page.ejs');
+    res.render('home_page.ejs', require1.add_movies_test("Avatar 2"));
 });
 
 //login
