@@ -248,7 +248,19 @@ body{
 .time-table tbody tr:nth-child(even){
 	background-color: #f5f5f5;
 }
-
+input[type="radio"]{
+	display: none;
+}
+input[type="radio"]:checked + label{
+	width: 100%;
+	background-color: #01cc65;
+	color: white;
+}
+input[type="radio"]:checked + label::before{
+	width: 100%;
+	background-color: #01cc65;
+	color: white;
+}
 /*responsive*/
 @media(max-width: 1300px){
 	.time-table thead{

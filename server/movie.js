@@ -12,4 +12,15 @@ async function getMovieById(movieId){
     }
 }
 
-exports.getMovieById = getMovieById;
+async function getAllMovies(){
+    try {
+        const [result, meta] = await sequelize.query("SELECT * from Movies");
+        return result;
+    } catch {
+        return [];
+    }
+}
+module.exports={
+    getMovieById : getMovieById,
+    getAllMovies: getAllMovies,
+}

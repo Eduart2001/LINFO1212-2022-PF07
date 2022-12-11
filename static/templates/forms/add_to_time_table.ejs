@@ -1,66 +1,60 @@
 <div class="card-body">
-<form>
+<form id="timeTableForm" action="/add/movie/to/timetable" method="POST">
     <div class="form-outline mb-3 row justify-content-center">
-        <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
-        <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
-            <option>2</option>
+        <label for="staticName" class="col-form-label col-sm-5 ">Hall id</label>
+        <select class="col-form-control col-sm-5 " id="hall-selector"  name="hallSelector" onchange="hallSelectChanged()" >
+            <option>None</option>
+            <% for(var i=1; i<= halls.length; i++) { %> 
+            <option name=<%= i %> id=<%= i %> > <%=halls[i-1].id%></option>
+            <% } %>
         </select>
     </div>
     <div class="form-outline mb-3 row justify-content-center">
-        <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
-        <select class="col-form-control col-sm-5 " id="staticName" ><option>1</option>
-            <option>2</option>
+        <label for="staticName" class="col-form-label col-sm-5 ">Movie Name</label>
+        <select class="col-form-control col-sm-5 " id="movie-selector" name="movieSelector">
+            <option>None</option>
+            <% for(var i=1; i<= movies.length; i++) { %> 
+                <option name=<%= movies[i-1].movieName %> > <%= movies[i-1].movieName%>  id-<%= i%></option>
+            <% } %>
         </select>
     </div>
     <section>
-
-    <div class="select-hour">
         <table class="time-table">
+ 
             <thead>
-              <tr>
-                <th  scope="col"><span >Time\Day</span></th>
-                <th  scope="col" ><span >Monday</span></th>
-                <th  scope="col" ><span >Tuesday</span></th>
-                <th  scope="col" ><span >Wednesday</span></th>
-                <th  scope="col" ><span >Thursday</span></th>
-                <th  scope="col" ><span >Friday</span></th>
-                <th  scope="col" ><span >Saturday</span></th>
-                <th  scope="col" ><span >Sunday</span></th>
-              </tr>
-            </thead>
+                <tr>
+                  <th  scope="col" ><span >Time</span></th>
+                  <th  scope="col" ><span >Monday</span></th>
+                  <th  scope="col" ><span >Tuesday</span></th>
+                  <th  scope="col" ><span >Wednesday</span></th>
+                  <th  scope="col" ><span >Thursday</span></th>
+                  <th  scope="col" ><span >Friday</span></th>
+                  <th  scope="col" ><span >Saturday</span></th>
+                  <th  scope="col" ><span >Sunday</span></th>
+                </tr>
+              </thead>
+           
             <tbody>
-                <% for(var j=0; j< 5; j++) { %>
-                    <tr class="container-slot">
-                        <th data-label="Time\Day"><span ><%= 8 + 3*j %>:00</span></th>
-                        <% var table=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]%>
-                        <% for(var i=0; i< 7; i++) { %>
-                                <td class="slot" onclick="myFunction(id)" id=<%= i+j*7 %>  data-label=<%= table[i] %> ><span>12:50</span></td>
-                        <% } %>
-                    </tr>
-                    
+                <% for(let j=0;j< 5 ;j++){ %>
+                    <tr>
+                        <th scope="row"><%=8+3*j%></th>
+                    <% for(let i=1;i<= 7 ;i++){ %>
+                        <td>
+                            <input type="radio" name ="radioChecker" value=<%=j*10+i %> id=<%=i+j*7%>>
+                            <label id="table-radio" for=<%=i+j*7%>><%=i+j*7%></label>
+                        </td>
+                    <% } %>
                 <% } %>
+              </tr>
             </tbody>
         </table>
-    </div>
-
     <br>
 
     </section>
 
     <div class="form-outline mb-3 row justify-content-center float">                
         <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
-        <button class="btn-success col-sm-5" type="submit">Submit</button>
     </div>
   </form>
-  <script>
-    function myFunction(i){
-        let selected =document.getElementsByClassName('slot selected');
-        if(selected!=null || selected!=undefined){
-            if(selected.length!=0){
-                document.getElementById(selected[0].id).className="slot";
-            }
-        }
-        document.getElementById(i).className = "slot selected";
-    }
-  </script>
+  <script src="./../../script/script-add-to-time-table.js"></script>
 </div>
