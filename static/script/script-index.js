@@ -17,5 +17,5 @@ async function add_movies_test(name){
 }
 
 module.exports={
-    add_movies_test:add_movies_test,
+    add_movies_test:add_movies_test(`Avatar 2`)
 }

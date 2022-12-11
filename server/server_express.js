@@ -51,6 +51,7 @@ module.exports={
 
 //imports
 const login = require("./login");
+const index=require("../static/script/script-index");
 // const movie = require("./movie");
 
 app.post('/test', upload.single("myFile"), function(req, res, next){
@@ -60,7 +61,7 @@ app.post('/test', upload.single("myFile"), function(req, res, next){
 });
 
 app.get('/', async function(req,res,next){
-    res.render('home_page.ejs', require1.add_movies_test("Avatar 2"));
+    res.render('home_page.ejs', index.add_movies_test);
 });
 
 //login
