@@ -10,10 +10,13 @@ Movie.init({
         primaryKey: true,
         autoIncrement: true
     },
+    poster: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
     movieName: {
         type: DataTypes.TEXT,
-        allowNull: false,
-        primaryKey: false
+        allowNull: false
     },
     description: {
         type: DataTypes.TEXT,
