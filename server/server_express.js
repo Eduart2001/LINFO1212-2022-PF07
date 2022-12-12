@@ -57,7 +57,13 @@ const hall = require("./hall");
 const timeTable = require("./timeTable");
 
 //multer options
-const upload = multer({dest:'uploads/'});
+const storage = multer.diskStorage({
+    destination: './static/Posters/',
+    filename: function (req, file, cb){
+        cb(null, req.body.movieName + "." + file.originalname.split(".")[1]);
+    }
+});
+const upload = multer({storage:storage});
 
 app.get('/test_add', function(req,res,next){
   res.render('test.ejs');
@@ -141,7 +147,8 @@ app.get('/movie', async function(req, res, next){
     if (!result.length > 0){
         res.send(`Movie with such id does not exist`);
     } else {
-        res.render('movie_page.ejs', {movieName: result[0].movieName, actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+        console.log(result[0]);
+        res.render('movie_page.ejs', {movieName: result[0].movieName, actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
     }
 });
 
@@ -159,6 +166,7 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
     let body =await req.body
     Movie.create({
         movieName:body.movieName,
+        poster: body.movieName + "." + req.file.originalname.split(".")[1],
         description:body.description,
         actors:body.actors,
         directors:body.directors,
