@@ -5,12 +5,9 @@ var bodyParser = require("body-parser");
 var crypto = require("crypto");
 var https = require("https");
 var fs = require("fs");
-<<<<<<< Updated upstream
 const multer = require("multer");
 var app = express ()
-=======
-var app = express();
->>>>>>> Stashed changes
+
 
 app.set("view engine", "ejs");
 
@@ -22,17 +19,15 @@ app.use("/css", express.static(path.join(__dirname, "'../static/css")));
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.json());
 
-app.use(
-  session({
-    secret: "climax123",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      path: "/",
-      httpOnly: true,
-    },
-  })
-);
+app.use(session({
+  secret: "climax123",
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+      path:"/",
+      httpOnly:true
+  }
+}));
 
 //database
 const sequelize = require("../Database/database");
@@ -41,10 +36,8 @@ const Hall = require("../Database/Hall");
 const TimeTable = require("../Database/TimeTable");
 const Movie = require("../Database/Movie");
 const Seat = require("../Database/Seat");
-sequelize.sync().then(() => {
-  login.emptyDB(), console.log("db is ready");
-});
-//sequelize.sync()
+sequelize.sync().then(() => {login.emptyDB(), console.log("db is ready")});
+
 // exports variables
 module.exports = {
   app: app,
@@ -59,10 +52,16 @@ module.exports = {
 //imports
 const login = require("./login");
 const index=require("../static/script/script-index");
-// const movie = require("./movie");
 const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
+
+//multer options
+const upload = multer({dest:'uploads/'});
+
+app.get('/test_add', function(req,res,next){
+  res.render('test.ejs');
+});
 app.post('/test', upload.single("myFile"), function(req, res, next){
     console.log(req.body);
     console.log(req.file);
@@ -70,8 +69,18 @@ app.post('/test', upload.single("myFile"), function(req, res, next){
 });
 
 app.get('/', async function(req,res,next){
-    res.render('home_page.ejs', index.add_movies_test);
+    res.render('home_page.ejs',await index.add_movies_test);
 })
+app.get('/movie', async function(req, res, next){
+  let result = await movie.getMovieById(req.query.id);
+  if (!result.length > 0){
+      res.send(`Movie with such id does not exist`);
+  } else {
+      res.render('movie_page.ejs', {movieName: result[0].movieName, actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+  }
+});
+
+
 //login
 app.get("/login", function (req, res, next) {
   // req.query.username = "";
@@ -162,10 +171,6 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
         duration:body.duration
     })
     res.redirect("/");
-});
-
-app.get('/admin/modify_movie', function(req,res,next){
-    res.render('modify_movie.ejs');
 });
 
 app.get('/user',function(req,res,next){
