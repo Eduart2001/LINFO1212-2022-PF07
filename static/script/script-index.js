@@ -3,17 +3,20 @@ async function add_movies_test(name){
 
     array.push({
         movieName: name,
-        description: "Pas mauvais film",
-        releaseDate: "2022-01-17",
+        description: "Jake Sully and Ney'tiri have formed a family and are doing everything to stay together. However, they must leave their home and explore the regions of Pandora. When an ancient threat resurfaces, Jake must fight a difficult war against the humans.",
+        actors: "Sam Worthington & Zoe Saldaña",
+        directors: "James Cameron",
+        releaseDate: "2022-12-14",
         trailerURL:"jspkekeke",
         country: "USA",
         ageRestriction:"ALL",
         IMDBscore:"6.0",
         genre: "Action",
-        duration: "300",
+        duration: "190",
+        poster: "../Posters/Avatar.jpg"
     });
     console.log(array[0]);
-    return {data:array};
+    return {data:array.slice};
 }
 
 module.exports={

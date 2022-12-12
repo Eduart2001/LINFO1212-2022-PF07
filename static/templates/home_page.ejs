@@ -17,14 +17,14 @@
     <div class="movie-box">
         <div class="movie">
             <a href="\reservation">
-            <img src="../Posters/blackpanther2.jpg" class="poster" alt="Movie poster">
+            <img src="../Posters/Avatar.jpg" class="poster" alt="Movie poster">
             </a>
             <div class="description">
                 <h2><%=data[0].movieName%></h2>
-                <p>Descirption: <%data[0].description%>
-                    Release date: <%data[0].releaseDate%>
-                    Age restriction:
-                    Genre:
+                <p>Descirption: <%=data[0].description%> <br>
+                    Release date: <%=data[0].releaseDate%> <br>
+                    Age restriction: <%=data[0].ageRestriction %> <br>
+                    Genre: <%=data[0].genre%>
                 </p>
             
             </div>
