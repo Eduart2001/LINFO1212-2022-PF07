@@ -1,3 +1,23 @@
+const e = require("express");
+const sequelize=require("../../server/server_express").sequelize;
+const Movie= require("../../server/server_express").Movie;
+
+async function show_movies(){
+    try{
+        const[movies,meta]= await sequelize.query("SELECT * from Movies");
+        return movies;
+    }
+    catch{
+        return [];
+    }
+}
+
+async function main_page(){
+    let movies=show_movie();
+    return {movies:movies};
+}
+
+
 async function add_movies_test(name){
     const array=[];
 
@@ -18,6 +38,8 @@ async function add_movies_test(name){
     console.log(array[0]);
     return {data:array.slice};
 }
+
+
 
 module.exports={
     add_movies_test:add_movies_test(`Avatar 2`)
