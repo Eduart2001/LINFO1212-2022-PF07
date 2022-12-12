@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="../css/user_page.css">
 <script src="../script/script-user-page.js"></script>
 <script>
-  function openCity(evt, cityName) {
+  function openForm(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -31,25 +31,26 @@
     <div class="box">
         <h1>Profile Changes</h1>
         <div class="tab">
-          <button class="tablinks" onmouseover="openCity(event, 'London')">London</button>
-          <button class="tablinks" onmouseover="openCity(event, 'Paris')">Paris</button>
-          <button class="tablinks" onmouseover="openCity(event, 'Tokyo')">Tokyo</button>
+          <button class="tablinks" onmouseover="openForm(event, 'name')">Personal information</button>
+          <button class="tablinks" onmouseover="openForm(event, 'email')">Email</button>
+          <button class="tablinks" onmouseover="openForm(event, 'password')">Password</button>
         </div>
 
-      
-        <!-- Different form sections -->
-        <div id="name" name="name">
+        <div id="name" class="tabcontent">
           <form id="formname" onsubmit="return change_name()">
             <label for="fname">First Name: </label>
             <input type="text" id="fname" name="fname" required><br><br>
       
             <label for="lname">Last Name: </label>
             <input type="text" id="lname" name="lname" required><br><br>
+
+            <label for="bday">Birthday: </label>
+            <input type="date" id="bday" name="bday"><br><br> 
       
             <input type="submit" value="Change" id="name_change">
           </form>
         </div>
-        <div id="email" style="text-align: right;">
+        <div id="email" class="tabcontent">
             <form id="formemail" onsubmit="return change_email()">
               <label for="old_email">Old email: </label>
               <input type="email" id="old_email" name="old_email" required><br><br>
@@ -59,7 +60,7 @@
               <input type="submit" value="Change" id="email_change">
             </form>
           </div>
-        <div id="password" style="text-align: right;">
+        <div id="password" class="tabcontent">
           <form id="formpass" onsubmit="return change_password()">
             <label for="password">Old password: </label>
             <input type="password" id="oldpassword" name="oldpassword" required><br><br>
@@ -69,9 +70,11 @@
             <input type="password" id="passwordrep" name="passwordrep" required><br><br>
             <input type="submit" value="Change" id="password_change">
           </form>
-        </div>
+        </div>   
+
       </div>
-      
+        <!-- Different form sections -->
+   
 
 <div class="box" style="width: 1000px; margin-left: 200px;height: auto" >
     <h1> Movies reserved</h1>
