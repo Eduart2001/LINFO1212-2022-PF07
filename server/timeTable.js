@@ -8,7 +8,13 @@ async function getTimeTableById(hallId){
     } catch {
         return [];
     }
+
 }
+async function add(object){
+    TimeTable.create(object)
+}
+
 module.exports={
     getTimeTableById : getTimeTableById,
+    add:add,
 }

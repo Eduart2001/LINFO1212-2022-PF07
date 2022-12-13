@@ -187,7 +187,6 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
     time:Math.floor(Number(req.body.radioChecker)/10),
     day:Number(req.body.radioChecker)%10
 }
-//ca ne marche pas jsp pq
     TimeTable.create(object)
 
     res.redirect("/admin/time_table");

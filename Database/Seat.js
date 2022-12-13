@@ -16,7 +16,7 @@ Seat.init({
         allowNull: false,
         references: {
             model: TimeTable,
-            key: "timeTableId"
+            key: "id"
         },
     },
     timestamps: true,
