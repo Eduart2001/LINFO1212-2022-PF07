@@ -34,10 +34,27 @@ app.use(session({
 const sequelize = require("../Database/database");
 const User = require("../Database/User");
 const Hall = require("../Database/Hall");
-const TimeTable = require("../Database/TimeTable");
 const Movie = require("../Database/Movie");
+const TimeTable = require("../Database/TimeTable");
 const Seat = require("../Database/Seat");
-sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
+
+User.sync().then(() => {login.emptyUsersDB()})
+Movie.sync().then(() => {movie.emptyMoviesDB()})
+Hall.sync().then(() => {hall.create3Halls()})
+TimeTable.sync().then(() => {console.log("TimeTable")})
+Seat.sync().then(() => {console.log("seat")})
+//sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
+
+
+//multer options
+const storage = multer.diskStorage({
+    destination: './static/Posters/',
+    filename: function (req, file, cb){
+        cb(null, movie.replaceInvalid(req.body.movieName) + "." + file.originalname.split(".")[1]);
+    }
+});
+
+const upload = multer({storage:storage});
 
 // exports variables
 module.exports = {
@@ -49,7 +66,8 @@ module.exports = {
     Movie: Movie,
     Seat: Seat,
     fs: fs,
-    request: request
+    request: request,
+    upload : upload
 };
 
 //imports
@@ -58,18 +76,10 @@ const index = require("../static/script/script-index");
 const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
-
-//multer options
-const storage = multer.diskStorage({
-    destination: './static/Posters/',
-    filename: function (req, file, cb){
-        cb(null, movie.replaceInvalid(req.body.movieName) + "." + file.originalname.split(".")[1]);
-    }
-});
-const upload = multer({storage:storage});
-exports.upload = upload;
+const { time } = require("console");
 
 app.get('/test_add', function(req,res,next){
+
     res.render('test.ejs');
 });
 app.post('/test', upload.single("myFile"), function(req, res, next){
@@ -181,14 +191,13 @@ app.get('/user',function(req,res,next){
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId =req.body.movieSelector
     var object ={
-    TimeTableId:1,
-    hall:Number(req.body.hallSelector),
+    hallId:Number(req.body.hallSelector),
     movieId:Number(movieId.split("id-").at(-1)),
     time:Math.floor(Number(req.body.radioChecker)/10),
     day:Number(req.body.radioChecker)%10
-}
-    TimeTable.create(object)
-
+    }
+    console.log(object)
+    timeTable.add(object)
     res.redirect("/admin/time_table");
 });
 app.get("/admin/modify_movie", async function (req, res, next) {
