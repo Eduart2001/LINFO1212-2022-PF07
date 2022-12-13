@@ -1,3 +1,8 @@
+const { request } = require("../../server/server_express");
+
+const sequelize=require("../../server/server_express").sequelize;
+const User=require("../../server/server_express").User;
+
 function change_password() {
     var oldpassword = document.getElementById('oldpassword');
     var newpassword = document.getElementById('newpassword');
@@ -52,6 +57,10 @@ function name_change(){
     alert("hello");
     return true;
 }
+
+
+
+
 
 var formname= document.getElementById("formname");
 formname.addEventListener('name_change',function(event){

@@ -109,6 +109,7 @@ app.post('/ident', async function(req, res, next){
     let result = await login.login(req.body.email, hash);
     if (result == req.body.email){
         req.session.username = result.split("@")[0];
+        //req.session.admin= req.query("SELECT admin from User") je ne suis pas sûr si ça fonctionne!
         res.redirect('/');
     } else res.redirect('/login?incorrect=true');
 });
@@ -165,8 +166,17 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
 });
 
 app.get('/user',function(req,res,next){
-    res.render('User_page.ejs')
-});
+    //
+    //if (req.session.username){
+      //  if(req.session.admin){
+        //    res.render('User_page.ejs', true);
+        //}
+        //else{ res.render('User_page.ejs',false)}
+    //}
+    //else{ 
+      //  res.redirect("/login")
+    //}
+    res.render('User_page.ejs')});
 
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId =req.body.movieSelector
