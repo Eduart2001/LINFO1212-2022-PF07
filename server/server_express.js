@@ -5,7 +5,8 @@ var bodyParser = require("body-parser");
 var crypto = require("crypto");
 var https = require("https");
 var fs = require("fs");
-const multer = require("multer");
+var multer = require("multer");
+var request = require('request');
 var app = express ()
 
 
@@ -36,7 +37,7 @@ const Hall = require("../Database/Hall");
 const TimeTable = require("../Database/TimeTable");
 const Movie = require("../Database/Movie");
 const Seat = require("../Database/Seat");
-sequelize.sync().then(() => {login.emptyDB(), console.log("db is ready")});
+sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
 
 // exports variables
 module.exports = {
@@ -47,11 +48,13 @@ module.exports = {
     TimeTable: TimeTable,
     Movie: Movie,
     Seat: Seat,
+    fs: fs,
+    request: request
 };
 
 //imports
 const login = require("./login");
-const index=require("../static/script/script-index");
+const index = require("../static/script/script-index");
 const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
@@ -60,10 +63,11 @@ const timeTable = require("./timeTable");
 const storage = multer.diskStorage({
     destination: './static/Posters/',
     filename: function (req, file, cb){
-        cb(null, req.body.movieName + "." + file.originalname.split(".")[1]);
+        cb(null, movie.replaceInvalid(req.body.movieName) + "." + file.originalname.split(".")[1]);
     }
 });
 const upload = multer({storage:storage});
+exports.upload = upload;
 
 app.get('/test_add', function(req,res,next){
     res.render('test.ejs');
@@ -76,7 +80,7 @@ app.post('/test', upload.single("myFile"), function(req, res, next){
 
 app.get('/', async function(req,res,next){
     res.render('home_page.ejs',await index.add_movies_test);
-})
+});
 
 app.get('/movie', async function(req, res, next){
     let result = await movie.getMovieById(req.query.id);
@@ -84,7 +88,6 @@ app.get('/movie', async function(req, res, next){
         res.send(`Movie with such id does not exist`);
     } else {
         res.render('movie_page.ejs', {movieName: result[0].movieName, actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
-        // res.render('movie_page.ejs', {movieName: result[0].movieName, actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
     }
 });
 
@@ -144,7 +147,7 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
     let body =await req.body
     Movie.create({
         movieName:body.movieName,
-        poster: body.movieName + "." + req.file.originalname.split(".")[1],
+        poster: movie.replaceInvalid(body.movieName) + "." + file.originalname.split(".")[1],
         description:body.description,
         actors:body.actors,
         directors:body.directors,

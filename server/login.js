@@ -26,7 +26,7 @@ async function getAllUsers(){
     }
 }
 
-async function emptyDB(){
+async function emptyUsersDB(){
     if ((await getAllUsers()).length == 0){
         console.log("empty Users table");
         addUsersTest();
@@ -93,4 +93,4 @@ function addUsersTest(){
 
 exports.login = login;
 exports.emailTaken = emailTaken;
-exports.emptyDB = emptyDB;
+exports.emptyUsersDB = emptyUsersDB;

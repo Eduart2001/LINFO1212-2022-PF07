@@ -39,7 +39,7 @@ Movie.init({
         allowNull: false
     },
     ageRestriction:{
-        type: DataTypes.TEXT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     IMDBscore:{
