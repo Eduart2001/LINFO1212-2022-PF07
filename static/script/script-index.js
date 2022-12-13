@@ -13,7 +13,7 @@ async function show_movies(){
 }
 
 async function main_page(){
-    let movies=show_movie();
+    let movies=show_movies();
     return {movies:movies};
 }
 
@@ -42,5 +42,6 @@ async function add_movies_test(name){
 
 
 module.exports={
-    add_movies_test:add_movies_test(`Avatar 2`)
+    add_movies_test:add_movies_test(`Avatar 2`),
+    main_page:main_page()
 }

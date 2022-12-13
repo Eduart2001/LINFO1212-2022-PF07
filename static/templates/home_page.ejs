@@ -15,27 +15,20 @@
     
     <h1 style="margin-left: 45px">In a cinema near you</h1>
     <div class="movie-box">
+        <% for(var x=0; x<movies.length; x++) {%> 
         <div class="movie">
-            <a href="\reservation">
             <img src="../Posters/Avatar.jpg" class="poster" alt="Movie poster">
             </a>
             <div class="description">
-                <h2><%=data[0].movieName%></h2>
-                <p>Descirption: <%=data[0].description%> <br>
-                    Release date: <%=data[0].releaseDate%> <br>
-                    Age restriction: <%=data[0].ageRestriction %> <br>
-                    Genre: <%=data[0].genre%>
+                <h2><%=movies[x].movieName%></h2>
+                <p>Descirption: <%=data[x].description%> <br>
+                    Release date: <%=data[x].releaseDate%> <br>
+                    Age restriction: <%=data[x].ageRestriction %> <br>
+                    Genre: <%=data[x].genre%>
                 </p>
-            
             </div>
         </div>
-        <div class="movie">
-            <img src="../Posters/blackadam.jpg" class="poster" alt="Movie poster">
-            <div class="description">
-                <h2>Black Adam</h2>
-                <p>jsp je l'ai pas regardé</p>
-            </div>
-        </div>
+        <% } %> 
     </div>
 </body>
 

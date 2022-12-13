@@ -79,7 +79,7 @@ app.post('/test', upload.single("myFile"), function(req, res, next){
 });
 
 app.get('/', async function(req,res,next){
-    res.render('home_page.ejs',await index.add_movies_test);
+    res.render('home_page.ejs',await index.main_page);
 });
 
 app.get('/movie', async function(req, res, next){
