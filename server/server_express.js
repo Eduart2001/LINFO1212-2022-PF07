@@ -89,7 +89,8 @@ app.post('/test', upload.single("myFile"), function(req, res, next){
 });
 
 app.get('/', async function(req,res,next){
-    res.render('home_page.ejs',await index.main_page);
+    console.log(await index.show_movies)
+    res.render('home_page.ejs',{movies:await index.show_movies});
 });
 
 app.get('/movie', async function(req, res, next){

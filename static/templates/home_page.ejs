@@ -15,24 +15,16 @@
     
     <h1 style="margin-left: 45px">In a cinema near you</h1>
     <div class="movie-box">
-        <% for(var x=0; x<movies.length; x++) {%> 
+        <% for(var x=0; x< movies.length; x++) {%> 
         <div class="movie">
-            <img src="../Posters/Avatar.jpg" class="poster" alt="Movie poster">
+            <img src="../Posters/<%=movies[x].poster%>" class="poster" alt="Movie poster">
             </a>
             <div class="description">
-<<<<<<< Updated upstream
                 <h2><%=movies[x].movieName%></h2>
-                <p>Descirption: <%=data[x].description%> <br>
-                    Release date: <%=data[x].releaseDate%> <br>
-                    Age restriction: <%=data[x].ageRestriction %> <br>
-                    Genre: <%=data[x].genre%>
-=======
-                <h2><%=data.movieName%></h2>
-                <p>Descirption: <%=data.description%> <br>
-                    Release date: <%=data.releaseDate%> <br>
-                    Age restriction: <%=data.ageRestriction %> <br>
-                    Genre: <%=data.genre%>
->>>>>>> Stashed changes
+                <p>Descirption: <%=movies[x].description%> <br>
+                    Release date: <%=movies[x].releaseDate%> <br>
+                    Age restriction: <%=movies[x].ageRestriction %> <br>
+                    Genre: <%=movies[x].genre%>
                 </p>
             </div>
         </div>
