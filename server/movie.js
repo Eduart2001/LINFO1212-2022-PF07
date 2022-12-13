@@ -42,6 +42,7 @@ function replaceInvalid(movieName){
     for (let i = 0; i < inv.length; i++){
         newString = newString.replaceAll(inv[i], "");
     }
+    newString = newString.replaceAll(" ", "_");
     return newString;
 }
 
@@ -58,16 +59,16 @@ function addMoviesTest(){
     //static data for testing purposes
     const movies = [];
 
-    download('https://m.media-amazon.com/images/M/MV5BZGRmM2U1MzctZWU3Yi00NTYwLTg4OTMtNDk0YzZmYjBjNWU4XkEyXkFqcGdeQXVyMTUzOTcyODA5._V1_.jpg', 'static/Posters/Black Panther Wakanda Forever.jpg', function(){console.log('Black Panther Wakanda Forever.jpg downloaded');});
+    download('https://m.media-amazon.com/images/M/MV5BZGRmM2U1MzctZWU3Yi00NTYwLTg4OTMtNDk0YzZmYjBjNWU4XkEyXkFqcGdeQXVyMTUzOTcyODA5._V1_.jpg', 'static/Posters/Black_Panther_Wakanda_Forever.jpg', function(){console.log('Black_Panther_Wakanda_Forever.jpg downloaded');});
 
     movies.push({
         movieName: "Black Panther: Wakanda Forever",
-        poster: "Black Panther Wakanda Forever.jpg",
+        poster: "Black_Panther_Wakanda_Forever.jpg",
         description: "Queen Ramonda (Angela Bassett), Shuri (Letitia Wright), M’Baku (Winston Duke), Okoye (Danai Gurira) and the Dora Milaje (including Florence Kasumba), fight to protect their nation from intervening world powers in the wake of King T’Challa’s death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia (Lupita Nyong’o) and Everett Ross (Martin Freeman) and forge a new path for the kingdom of Wakanda.",
         actors: "Letitia Wright, Lupita Nyong'o, Danai Gurira, Winston Duke, Angela Bassett, Florence Kasumba, Tenoch Huerta",
         directors:"Ryan Coogler",
         releaseDate: new Date("2022-11-11"),
-        trailerURL: "https://www.youtube.com/watch?v=_Z3QKkl1WyM&t=2s",
+        trailerURL: "https://www.youtube.com/watch?v=_Z3QKkl1WyM",
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "7.3",
@@ -75,11 +76,11 @@ function addMoviesTest(){
         duration: 161
     });
 
-    download('https://m.media-amazon.com/images/M/MV5BYzZkOGUwMzMtMTgyNS00YjFlLTg5NzYtZTE3Y2E5YTA5NWIyXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg', 'static/Posters/Black Adam.jpg', function(){console.log('Black Adam.jpg downloaded');});
+    download('https://m.media-amazon.com/images/M/MV5BYzZkOGUwMzMtMTgyNS00YjFlLTg5NzYtZTE3Y2E5YTA5NWIyXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg', 'static/Posters/Black_Adam.jpg', function(){console.log('Black_Adam.jpg downloaded');});
 
     movies.push({
         movieName: "Black Adam",
-        poster: "Black Adam.jpg",
+        poster: "Black_Adam.jpg",
         description: "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods--and imprisoned just as quickly--Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.",
         actors: "Dwayne Johnson, Aldis Hodge, Pierce Brosnan, Noah Centineo, Sarah Shahi, Quintessa Swindell, Marwan Kenzari",
         directors:"Jaume Collet-Serra",
@@ -92,14 +93,14 @@ function addMoviesTest(){
         duration: 125
     });
 
-    download('https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'static/Posters/Avatar The Way of Water.jpg', function(){console.log('Avatar The Way of Water.jpg downloaded');});
+    download('https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'static/Posters/Avatar_The_Way_of_Water.jpg', function(){console.log('Avatar_The_Way_of_Water.jpg downloaded');});
 
     movies.push({
         movieName: "Avatar: The Way of Water",
-        poster: "Avatar The Way of Water.jpg",
+        poster: "Avatar_The_Way_of_Water.jpg",
         description: "Jake Sully lives with his newfound family formed on the extrasolar moon Pandora. Once a familiar threat returns to finish what was previously started, Jake must work with Neytiri and the army of the Na'vi race to protect their home.",
         actors: "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, Cliff Curtis",
-        directors:"Jaume Collet-Serra",
+        directors:"James Cameron",
         releaseDate: new Date("2022-12-16"),
         trailerURL: "https://www.youtube.com/watch?v=d9MyW72ELq0",
         country: "United States of America",
@@ -110,11 +111,11 @@ function addMoviesTest(){
     });
 
     //spiderman
-    download('https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg', 'static/Posters/Spider-Man No Way Home.jpg', function(){console.log('Spider-Man No Way Home.jpg downloaded');});
+    download('https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg', 'static/Posters/Spider-Man_No_Way_Home.jpg', function(){console.log('Spider-Man_No_Way_Home.jpg downloaded');});
 
     movies.push({
         movieName: "Spider-Man: No Way Home",
-        poster: "Spider-Man No Way Home.jpg",
+        poster: "Spider-Man_No_Way_Home.jpg",
         description: "With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.",
         actors: "Tom Holland, Zendaya, Benedict Cumberbatch, Jacob Batalon, Jon Favreau, Jamie Foxx, Willem Dafoe, Alfred Molina, Benedict Wong, Marisa Tomei, Andrew Garfield, Tobey Maguire",
         directors:"Jon Watts",
