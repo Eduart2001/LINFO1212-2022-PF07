@@ -14,6 +14,7 @@ TimeTable.init({
             model: 'Halls',
             key: "id"
         },
+        primaryKey:true,
     },
     movieId:{        
         type: DataTypes.INTEGER,
@@ -21,7 +22,7 @@ TimeTable.init({
         references: {
             model: 'Movies', // 'Movies' would also work
             key: 'id'
-          }
+          },
     },
     day:{        
         type: DataTypes.INTEGER,

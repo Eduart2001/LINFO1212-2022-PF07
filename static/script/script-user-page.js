@@ -3,69 +3,49 @@ const { request } = require("../../server/server_express");
 const sequelize=require("../../server/server_express").sequelize;
 const User=require("../../server/server_express").User;
 
-function change_password() {
-    var oldpassword = document.getElementById('oldpassword');
-    var newpassword = document.getElementById('newpassword');
-    var passwordrep = document.getElementById('passwordrep');
-        if (oldpassword.value === newpassword.value) {
-            alert('The old password and new password cannot be the same!');
-              return false;
-        }
-         else if(newpassword.value !== passwordrep.value){
-            alert('Please retype your password correctly');
-            return false;
-        }
-        else 
-            {alert('Password has been changed successfully!');
-            return true;}
-        }
-        
-
-
-
-var formpass=document.getElementById('formpass');
-
-formpass.addEventListener('password_change', function(event) {
-    if (!change_password()) {
-      event.preventDefault();
-    }
-  });
+function change_name() {
+    // Get the values of the first and last name fields
+    var fname = document.getElementById("fname").value;
+    var lname = document.getElementById("lname").value;
+  
+    // Get the value of the birthday field
+    var bday = document.getElementById("bday").value;
 
   
-
-function change_email(){
-    var oldemail = document.getElementById("old_email");
-    var newmail = document.getElementById("new_email");
-    console.log("old email: ", oldemail.value, "new email: ", newmail.value);
-    if (oldemail.value === newmail.value) {
-        alert("Cannot change email");
-    } else {
-        alert("Email has been successfully changed!");
-        console.log("email changed successfully");
+    // TODO: Add code here to handle the form submission and update the user's name and birthday
+    if(bday===""){
+        alert('Only name has been changed!');
+        
     }
+    else{
+        alert('All 3 have been changed!')
     }
-
-var formemail = document.getElementById('formemail');
-formemail.addEventListener('email_change', function(event){
-    if (!change_email()){
-        event.preventDefault();
-    }
-});
-
-
-function name_change(){
-    alert("hello");
     return true;
-}
-
-
-
-
-
-var formname= document.getElementById("formname");
-formname.addEventListener('name_change',function(event){
-    if (!name_change){
-        event.preventDefault();
-    }
-})
+    
+  
+    // Prevent the form from submitting (optional)
+  }
+  
+  function change_email() {
+    // Get the values of the old and new email fields
+    var oldEmail = document.getElementById("old_email").value;
+    var newEmail = document.getElementById("new_email").value;
+  
+    // TODO: Add code here to handle the form submission and update the user's email address
+  
+    // Prevent the form from submitting (optional)
+    return false;
+  }
+  
+  function change_password() {
+    // Get the values of the old and new password fields
+    var oldPassword = document.getElementById("oldpassword").value;
+    var newPassword = document.getElementById("newpassword").value;
+    var passwordRep = document.getElementById("passwordrep").value;
+  
+    // TODO: Add code here to handle the form submission and update the user's password
+  
+    // Prevent the form from submitting (optional)
+    return false;
+  }
 

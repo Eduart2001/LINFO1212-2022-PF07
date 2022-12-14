@@ -16,7 +16,7 @@ app.set("public", path.join(__dirname, "../static/css"));
 app.set("views", path.join(__dirname, "../static/templates"));
 app.use(express.static(path.join(__dirname, "../static")));
 app.use("/css", express.static(path.join(__dirname, "'../static/css")));
-
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.json());
 
@@ -190,14 +190,16 @@ app.get('/user',function(req,res,next){
     res.render('User_page.ejs')});
 
 app.post("/add/movie/to/timetable", async function (req, res, next) {
-    let movieId =req.body.movieSelector
+    let movieId = req.body.movieSelector;
+    let datePicker = Number(req.body.radioChecker);
+
     var object ={
     hallId:Number(req.body.hallSelector),
     movieId:Number(movieId.split("id-").at(-1)),
-    time:Math.floor(Number(req.body.radioChecker)/10),
-    day:Number(req.body.radioChecker)%10
+    time:Math.floor((datePicker/7)),
+    day:(datePicker%7==0)?7:datePicker%7 
     }
-    console.log(object)
+
     timeTable.add(object)
     res.redirect("/admin/time_table");
 });
@@ -229,6 +231,7 @@ app.get("/movie/get", async function (req, res, next) {
 });
 
 app.get("/admin/get_all_movies", async function (req, res, next) {
+    
     let queryResult = movie.getAllMovies();
 
     res.setHeader("Content-Type", "application/json");
@@ -236,15 +239,14 @@ app.get("/admin/get_all_movies", async function (req, res, next) {
     res.end(result);
 });
 
-app.get("/hall/timeTable/get", async function (req, res, next) {
+app.post('/hall/timetable/get', async function (req, res, next) {
     let id = req.query.id;
-    let queryResult = await timeTable.getTimeTableById(id)
-    //console.log(queryResult)
+    let queryResult = await timeTable.getTimeTable(id)
     res.setHeader("Content-Type", "application/json");
-    let result = JSON.stringify(queryResult[0]);
+    let result = JSON.stringify(queryResult);
+    console.log(result)
     res.end(result);
 });
-
 
 // end admin part 
 app.get("/reservation", function (req, res, next) {

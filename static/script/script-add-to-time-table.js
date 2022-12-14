@@ -1,40 +1,44 @@
-function hallSelectChanged() {
-    var select = document.getElementById("hallSelector");
-    var selectedOptionValue = select.options[select.selectedIndex].id;
-    if (selectedOptionValue !== 'none'){
-      var result = JSON.parse(getMovieById(Number(selectedOptionValue)));
-      document.getElementById("movieName").value=result.movieName;
-      document.getElementById("description").value=result.description;
-      document.getElementById("date").value=new Date(result.releaseDate).toLocaleDateString('fr-CA')
-      document.getElementById("duration").value=result.duration;
-      document.getElementById("genre").value=result.genre;
-      document.getElementById("trailerURL").value=result.trailerURL;
-      document.getElementById("country").value=result.country;
-      document.getElementById("age").value=result.ageRestriction;
-      document.getElementById("imdb").value=result.IMDBscore;
+
+function getHallTimeTable(id){
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", `https://localhost:8080/hall/timetable/get?id=${id}`,false);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+          return xhr.responseText;
+      } else {
+        // There was an error with the request.
+      }
     }
-   
-  }
-function getMovieById(id) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", `https://localhost:8080/hall/timeTable/get?id=${id}`,false);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-              return xhr.responseText;
-          } else {
-            // There was an error with the request.
-          }
-        }
-      };
-  
-      xhr.send();
-      return xhr.responseText;
+  };
+  xhr.send();
+  return xhr.responseText;
 }
 
+function loadHallTimeTable(){
+  var select = document.getElementById("hall-selector");
+  var selectedOptionValue = select.options[select.selectedIndex].id;
+  const hallTimeTable=JSON.parse(getHallTimeTable(selectedOptionValue));
+  console.log(hallTimeTable)
 
+  var radioButton = document.querySelectorAll('input[type="radio"]'); 
+  var labels = document.querySelectorAll('label[id="table-radio"]');
+  for(var i=1; i<= radioButton.length; i++){
+    radioButton.item(i-1).value=i;
+    radioButton.item(i-1).id=i;
+    labels[i-1].value=i;
+    labels[i-1].innerHTML=i;
+    radioButton.item(i-1).disabled=false;
+  }
 
+  for(var j=0; j< hallTimeTable.length; j++){
+    var occupiedSpace =radioButton.item(hallTimeTable[j].day+hallTimeTable[j].time*7-1)
+    occupiedSpace.disabled=true;
+    labels[hallTimeTable[j].day+hallTimeTable[j].time*7-1].innerHTML=hallTimeTable[j].movieName
+    occupiedSpace.value=hallTimeTable[j].movieId;
+  }
 
+}
 function myFunction(i){
     let a=document.querySelectorAll('input[name="radio-overview"]');
     let selected =document.getElementsByClassName('slot selected');

@@ -53,6 +53,6 @@ function getMovieById(id) {
       }
     };
 
-    xhr.send();
+    xhr.send(JSON.stringify({id:id}));
     return xhr.responseText;
 }
