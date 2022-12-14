@@ -2,7 +2,7 @@
 <form id="timeTableForm" action="/add/movie/to/timetable" method="POST">
     <div class="form-outline mb-3 row justify-content-center">
         <label for="staticName" class="col-form-label col-sm-5 ">Hall id</label>
-        <select class="col-form-control col-sm-5 " id="hall-selector"  name="hallSelector" onchange="hallSelectChanged()" >
+        <select class="col-form-control col-sm-5 " id="hall-selector"  name="hallSelector" onchange="loadHallTimeTable()" >
             <option>None</option>
             <% for(var i=1; i<= halls.length; i++) { %> 
             <option name=<%= i %> id=<%= i %> > <%=halls[i-1].id%></option>

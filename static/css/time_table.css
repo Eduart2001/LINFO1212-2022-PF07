@@ -8,6 +8,9 @@ body{
 	margin-left: 1%;
 	margin-right: 1%;
 }
+label {
+	white-space: pre-wrap;
+}
 .card{
 	background-color: transparent;
 	background-color: rgb(255, 255, 255,0.7);
@@ -210,11 +213,6 @@ body{
 	font-weight: bold;
 	color: #2f373a;
 }
-
-.slot.disable {
-	background-color: #171010;
-	color: #bbb;
-}
 .desktop {
 	border-radius:25px;
 	background-color: rgb(255, 255, 255,0.5);
@@ -260,6 +258,9 @@ input[type="radio"]:checked + label::before{
 	width: 100%;
 	background-color: #01cc65;
 	color: white;
+}
+input[type="radio"]:disabled {
+	background-color: #d4200c7d;
 }
 /*responsive*/
 @media(max-width: 1300px){
