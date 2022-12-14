@@ -187,11 +187,12 @@ app.get('/user',function(req,res,next){
     //else{ 
       //  res.redirect("/login")
     //}
-    res.render('User_page.ejs')});
+    res.redirect('/user')
+    });
 
 app.post('/user',function(req,res,next){
-    res.redirect('/user')
-})
+    res.render('User_page.ejs')
+});
 
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId = req.body.movieSelector;
