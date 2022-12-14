@@ -189,6 +189,10 @@ app.get('/user',function(req,res,next){
     //}
     res.render('User_page.ejs')});
 
+app.post('/user',function(req,res,next){
+    res.redirect('/user')
+})
+
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId = req.body.movieSelector;
     let datePicker = Number(req.body.radioChecker);
