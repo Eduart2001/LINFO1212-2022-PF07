@@ -1,4 +1,5 @@
 const { request } = require("../../server/server_express");
+const admincheck=require("../../server/server_express").admintest;
 
 const sequelize=require("../../server/server_express").sequelize;
 const User=require("../../server/server_express").User;
@@ -52,3 +53,14 @@ async function change_email() {
     }
   }
 
+async function hide_button(){
+    let element=document.getElementById("button_to_add");
+    if(admincheck==true){
+        element.removeAttribute("hidden");
+    }
+    else{ element.setAttribute("hidden","hidden")}
+}
+
+module.exports={
+    hide_button:hide_button
+}

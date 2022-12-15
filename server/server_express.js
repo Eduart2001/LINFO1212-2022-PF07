@@ -67,7 +67,8 @@ module.exports = {
     Seat: Seat,
     fs: fs,
     request: request,
-    upload : upload
+    upload : upload,
+    admintest :this.admintest
 };
 
 //imports
@@ -76,6 +77,7 @@ const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
 const { time } = require("console");
+const { hide_button } = require("../static/script/script-user-page");
 
 app.get('/', async function(req,res,next){
     res.render('home_page.ejs',{movies:await movie.getAllMovies()});
@@ -138,7 +140,13 @@ app.get("/register", function (req, res, next) {
 
 app.get('/user',function(req,res,next){
     if (res.session.email){
-        res.render("User_page.ejs");
+        if(login.isAdmin(res.session.email)){
+            res.render("User_page.ejs",{admintest:true},hide_button);
+        }
+        else{     
+            res.render("User_page.ejs",{admintest:false},hide_button);
+        }
+ 
     } else{
         res.redirect("/login");
     }
