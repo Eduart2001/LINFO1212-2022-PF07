@@ -6,8 +6,8 @@ var crypto = require("crypto");
 var https = require("https");
 var fs = require("fs");
 var multer = require("multer");
-var request = require('request');
-var app = express ()
+var request = require("request");
+var app = express ();
 
 
 app.set("view engine", "ejs");
@@ -72,25 +72,13 @@ module.exports = {
 
 //imports
 const login = require("./login");
-const index = require("../static/script/script-index");
 const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
 const { time } = require("console");
 
-app.get('/test_add', function(req,res,next){
-
-    res.render('test.ejs');
-});
-app.post('/test', upload.single("myFile"), function(req, res, next){
-    console.log(req.body);
-    console.log(req.file);
-    res.send(`ok`);
-});
-
 app.get('/', async function(req,res,next){
-    console.log(await index.show_movies)
-    res.render('home_page.ejs',{movies:await index.show_movies});
+    res.render('home_page.ejs',{movies:await movie.getAllMovies()});
 });
 
 app.get('/movie', async function(req, res, next){
@@ -98,8 +86,6 @@ app.get('/movie', async function(req, res, next){
     if (!result.length > 0){
         res.send(`Movie with such id does not exist`);
     } else {
-        
-        
         res.render('movie_page.ejs', {movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
     }
 });
@@ -208,6 +194,7 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
     timeTable.add(object)
     res.redirect("/admin/time_table");
 });
+
 app.get("/admin/modify_movie", async function (req, res, next) {
     let result = await sequelize.query(`SELECT * FROM Movies`);
     console.log(result[0] )

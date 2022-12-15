@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="../css/Home_page.css">
 <head>
     <meta charset="UTF-8">
-    <title>Films page</title>
+    <title>clIMAX</title>
     <link rel="shortcut icon" href="../images/IMAX-logo.png">
+    <link rel="stylesheet" href="../css/Home_page.css">
 </head>
 <body>
 
@@ -14,23 +14,16 @@
     </div>
     
     <h1 style="margin-left: 45px">In a cinema near you</h1>
-    <div class="movie-box">
+
+    <div id="main">
         <% for(var x=0; x< movies.length; x++) {%> 
-        <div class="movie">
-            <img src="../Posters/<%=movies[x].poster%>" class="poster" alt="Movie poster">
-            </a>
-            <div class="description">
-                <h2><%=movies[x].movieName%></h2>
-                <p>Descirption: <%=movies[x].description%> <br>
-                    Release date: <%=movies[x].releaseDate%> <br>
-                    Age restriction: <%=movies[x].ageRestriction %> <br>
-                    Genre: <%=movies[x].genre%>
-                </p>
+        <div>
+            <div><a href="/movie?id=<%=movies[x].id%>"><img src="../Posters/<%=movies[x].poster%>" width="272" height="408"></a></div>
+            <div class="title">
+                <a href="/movie?id=<%=movies[x].id%>"><h3><%=movies[x].movieName%></h3></a>
             </div>
         </div>
         <% } %> 
     </div>
 </body>
-
-
 </html>

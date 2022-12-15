@@ -23,6 +23,7 @@ async function getAllMovies(){
         return [];
     }
 }
+
 async function emptyMoviesDB(){
     if ((await getAllMovies()).length == 0){
         console.log("empty Movies table");
