@@ -1,14 +1,20 @@
+body{
+    margin: 0;
+}
+
 #main{
     border: 5px solid black;
     display: flex;
     flex-wrap: wrap;
     margin-left: auto;
     margin-right: auto;
+    width: 75%;
 }
 
 a{
     text-decoration: none;
     color: black;
+    font-family: "montserrat";
 }
 
 #main div{

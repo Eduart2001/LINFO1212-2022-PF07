@@ -12,6 +12,15 @@ async function login(email, password){
     }
 }
 
+async function isAdmin(email){
+    const result = await sequelize.query(`Select * From Users where email = '${email}'`);
+    if (result[0].length > 0){
+        return result[0][0].admin;
+    } else {
+        return false;
+    }
+}
+
 async function emailTaken(email) {
     const result = await sequelize.query("Select email From Users where email = '" + email + "'");
     return result[0].length > 0;
@@ -94,3 +103,4 @@ function addUsersTest(){
 exports.login = login;
 exports.emailTaken = emailTaken;
 exports.emptyUsersDB = emptyUsersDB;
+exports.isAdmin = isAdmin;

@@ -103,10 +103,9 @@ app.get("/login", function (req, res, next) {
 
 app.post('/ident', async function(req, res, next){
     var hash = crypto.createHash("md5").update(req.body.password).digest('hex');
-    let result = await login.login(req.body.email, hash);
-    if (result == req.body.email){
-        req.session.username = result.split("@")[0];
-        //req.session.admin= req.query("SELECT admin from User") je ne suis pas sûr si ça fonctionne!
+    let result = await login.login(req.body.email.toLowerCase(), hash);
+    if (result == req.body.email.toLowerCase()){
+        req.session.email = result;
         res.redirect('/');
     } else res.redirect('/login?incorrect=true');
 });
@@ -137,10 +136,34 @@ app.get("/register", function (req, res, next) {
     res.render("register_page.ejs", { incorrect: "" });
 });
 
+app.get('/user',function(req,res,next){
+    if (res.session.email){
+        res.render("User_page.ejs");
+    } else{
+        res.redirect("/login");
+    }
+});
+
+app.post('/user',function(req,res,next){
+    res.render('User_page.ejs')
+});
+
+app.get("/reservation", function (req, res, next) {
+    res.render("reservation.ejs");
+});
+
 
 //admin part
-app.get("/admin/add_movie", function (req, res, next) {
-    res.render("add_movie.ejs");
+app.get("/admin/add_movie", async function (req, res, next) {
+    if (req.session.email){
+        if (await login.isAdmin(req.session.email)){
+            res.render("add_movie.ejs");
+        } else{
+            res.send("You are not an admin, you are not allowed to enter this page");
+        }
+    } else{
+        res.redirect("/login");
+    }
 });
 
 app.post('/add', upload.single('upload'), async function(req, res, next){
@@ -162,24 +185,6 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
     res.redirect("/");
 });
 
-app.get('/user',function(req,res,next){
-    //
-    //if (req.session.username){
-      //  if(req.session.admin){
-        //    res.render('User_page.ejs', true);
-        //}
-        //else{ res.render('User_page.ejs',false)}
-    //}
-    //else{ 
-      //  res.redirect("/login")
-    //}
-    res.redirect('/user')
-    });
-
-app.post('/user',function(req,res,next){
-    res.render('User_page.ejs')
-});
-
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId = req.body.movieSelector;
     let datePicker = Number(req.body.radioChecker);
@@ -196,17 +201,32 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
 });
 
 app.get("/admin/modify_movie", async function (req, res, next) {
-    let result = await sequelize.query(`SELECT * FROM Movies`);
-    console.log(result[0] )
-    res.render("modify_movie.ejs", { data: { movies: result[0] } });
+    if (req.session.email){
+        if (await login.isAdmin(req.session.email)){
+            let result = await sequelize.query(`SELECT * FROM Movies`);
+            console.log(result[0]);
+            res.render("modify_movie.ejs", { data: { movies: result[0] } });
+        } else{
+            res.send("You are not an admin, you are not allowed to enter this page");
+        }
+    } else{
+        res.redirect("/login");
+    }
 });
 
 app.get("/admin/time_table",async function (req, res, next) {
-    const queryResultMovies = await movie.getAllMovies();
-    const queryResultHalls =await hall.getAllHalls();
-                    
-    res.render("time_table.ejs",{movies:queryResultMovies,halls:queryResultHalls});
-
+    if (req.session.email){
+        if (await login.isAdmin(req.session.email)){
+            const queryResultMovies = await movie.getAllMovies();
+            const queryResultHalls =await hall.getAllHalls();
+                            
+            res.render("time_table.ejs",{movies:queryResultMovies,halls:queryResultHalls});
+        } else{
+            res.send("You are not an admin, you are not allowed to enter this page");
+        }
+    } else{
+        res.redirect("/login");
+    }
 });
 
 
@@ -241,13 +261,6 @@ app.post('/hall/timetable/get', async function (req, res, next) {
 });
 
 // end admin part 
-app.get("/reservation", function (req, res, next) {
-    res.render("reservation.ejs");
-});
-
-app.get("/user", function (req, res, next) {
-    res.render("User_page.ejs");
-});
 
 https.createServer({
     key:fs.readFileSync('./key.pem'),
