@@ -80,7 +80,11 @@ const { time } = require("console");
 const { hide_button } = require("../static/script/script-user-page");
 
 app.get('/', async function(req,res,next){
-    res.render('home_page.ejs',{movies:await movie.getAllMovies()});
+    if (req.session.email){
+        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies()});
+    } else {
+        res.render('home_page.ejs',{linkName:"Login", link:"/login", movies:await movie.getAllMovies()});
+    }
 });
 
 app.get('/movie', async function(req, res, next){
@@ -95,7 +99,6 @@ app.get('/movie', async function(req, res, next){
 
 //login
 app.get("/login", function (req, res, next) {
-  // req.query.username = "";
     if (req.query.incorrect) {
         res.render('login_page.ejs', {incorrect: "The username or the password you entered was incorrect"});
     } else {
@@ -111,6 +114,12 @@ app.post('/ident', async function(req, res, next){
         req.session.admin = await login.isAdmin(req.session.email);
         res.redirect('/');
     } else res.redirect('/login?incorrect=true');
+});
+
+app.post('/logOut', function (req, res, next){
+    req.session.email = "";
+    req.session.admin = false;
+    res.redirect("/");
 });
 
 app.post('/signUp', async function(req, res, next){
