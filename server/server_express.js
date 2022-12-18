@@ -7,6 +7,7 @@ var https = require("https");
 var fs = require("fs");
 var multer = require("multer");
 var request = require("request");
+var nodemailer = require("nodemailer");
 var app = express ();
 
 
@@ -54,6 +55,17 @@ const storage = multer.diskStorage({
     }
 });
 
+//nodemailer options
+var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth:{
+        user: 'climax.louvainlaneuve@gmail.com',
+        pass: 'mfnbeautsooqukcy'
+    }
+});
+
 const upload = multer({storage:storage});
 
 // exports variables
@@ -85,6 +97,25 @@ app.get('/', async function(req,res,next){
     } else {
         res.render('home_page.ejs',{linkName:"Login", link:"/login", movies:await movie.getAllMovies()});
     }
+});
+
+app.get('/testMail', function (req, res, next){
+    // il faut se connecter d'abord sinon ça va crasher
+    var mailOptions = {
+        from: 'climax.louvainlaneuve@gmail.com',
+        to: req.session.email,
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error){
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+    res.send('email sent');
 });
 
 app.get('/movie', async function(req, res, next){
