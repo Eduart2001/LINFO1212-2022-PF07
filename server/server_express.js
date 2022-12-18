@@ -108,6 +108,7 @@ app.post('/ident', async function(req, res, next){
     let result = await login.login(req.body.email.toLowerCase(), hash);
     if (result == req.body.email.toLowerCase()){
         req.session.email = result;
+        req.session.admin = await login.isAdmin(req.session.email);
         res.redirect('/');
     } else res.redirect('/login?incorrect=true');
 });
@@ -139,8 +140,8 @@ app.get("/register", function (req, res, next) {
 });
 
 app.get('/user',function(req,res,next){
-    if (res.session.email){
-        if(login.isAdmin(res.session.email)){
+    if (req.session.email){
+        if(req.session.admin){
             res.render("User_page.ejs",{admintest:true},hide_button);
         }
         else{     
@@ -162,9 +163,9 @@ app.get("/reservation", function (req, res, next) {
 
 
 //admin part
-app.get("/admin/add_movie", async function (req, res, next) {
+app.get("/admin/add_movie", function (req, res, next) {
     if (req.session.email){
-        if (await login.isAdmin(req.session.email)){
+        if (req.session.admin){
             res.render("add_movie.ejs");
         } else{
             res.send("You are not an admin, you are not allowed to enter this page");
@@ -210,7 +211,7 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
 
 app.get("/admin/modify_movie", async function (req, res, next) {
     if (req.session.email){
-        if (await login.isAdmin(req.session.email)){
+        if (req.session.admin){
             let result = await sequelize.query(`SELECT * FROM Movies`);
             console.log(result[0]);
             res.render("modify_movie.ejs", { data: { movies: result[0] } });
@@ -224,9 +225,9 @@ app.get("/admin/modify_movie", async function (req, res, next) {
 
 app.get("/admin/time_table",async function (req, res, next) {
     if (req.session.email){
-        if (await login.isAdmin(req.session.email)){
+        if (req.session.admin){
             const queryResultMovies = await movie.getAllMovies();
-            const queryResultHalls =await hall.getAllHalls();
+            const queryResultHalls = await hall.getAllHalls();
                             
             res.render("time_table.ejs",{movies:queryResultMovies,halls:queryResultHalls});
         } else{

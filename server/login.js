@@ -15,7 +15,7 @@ async function login(email, password){
 async function isAdmin(email){
     const result = await sequelize.query(`Select * From Users where email = '${email}'`);
     if (result[0].length > 0){
-        return result[0][0].admin;
+        return Boolean(result[0][0].admin);
     } else {
         return false;
     }
