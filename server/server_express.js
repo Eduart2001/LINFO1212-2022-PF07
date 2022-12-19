@@ -79,8 +79,7 @@ module.exports = {
     Seat: Seat,
     fs: fs,
     request: request,
-    upload : upload,
-    admintest :this.admintest
+    upload : upload
 };
 
 //imports
@@ -89,7 +88,6 @@ const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
 const { time } = require("console");
-const { hide_button } = require("../static/script/script-user-page");
 
 app.get('/', async function(req,res,next){
     if (req.session.email){
@@ -181,21 +179,79 @@ app.get("/register", function (req, res, next) {
 
 app.get('/user',function(req,res,next){
     if (req.session.email){
-        if(req.session.admin){
-            res.render("User_page.ejs",{admintest:true},hide_button);
+        if (req.session.admin){
+            res.render('User_page.ejs', {admincheck: true});
         }
-        else{     
-            res.render("User_page.ejs",{admintest:false},hide_button);
+        else {
+            res.render('User_page.ejs', {admincheck:false});
         }
  
-    } else{
+    } else{ 
         res.redirect("/login");
     }
 });
 
-app.post('/user',function(req,res,next){
-    res.render('User_page.ejs')
-});
+app.post('/personalChange', function(req, res, next) {
+    const NewName = req.body.name;
+    const NewBday = req.body.bday;
+    const NewNumber = req.body.number;
+  
+    if (NewName) {
+      User.update(
+        { name: NewName },
+        { where: { email: req.session.email } }
+      )
+        .then(() => console.log("Name has been changed!"))
+        .catch((error) => console.error(error));
+    }
+    if (NewBday) {
+      User.update(
+        { birthdate: NewBday },
+        { where: { email: req.session.email } }
+      )
+        .then(() => console.log("Birthday has been changed!"))
+        .catch((error) => console.error(error));
+    }
+    if (NewNumber) {
+      User.update(
+        { phoneNumber: NewNumber },
+        { where: { email: req.session.email } }
+      )
+        .then(() => console.log("Number has been changed!"))
+        .catch((error) => console.error(error));
+    }
+  
+    res.redirect("/user");
+  });
+  
+
+app.post('/email_change',function(req,res,next){
+    const NewEmail=new String(req.body.new_email).toLowerCase();
+    const OldEmailGiven=new String(req.body.old_email).toLowerCase();
+
+    if(OldEmailGiven!=req.session.email){
+        console.log("This is not the correct email used before!");
+        res.redirect('/user');
+    }
+
+    else if (OldEmailGiven===NewEmail){
+        console.log("Your new email can't be the same as the old email!");
+        res.redirect('/user');
+    }
+    
+    else{
+        User.update(
+            {email:NewEmail},
+            {where:{email:OldEmailGiven}}
+        )
+        .then(() =>{
+            req.session.email=NewEmail;
+            res.redirect('/user')
+            console.log("Email has been changed!")
+        })
+    }
+
+})
 
 app.get("/reservation", function (req, res, next) {
     res.render("reservation.ejs");

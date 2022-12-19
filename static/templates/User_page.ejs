@@ -7,27 +7,14 @@
 </head>
 <link rel="stylesheet" href="../css/user_page.css">
 <script src="../script/script-user-page.js"></script>
-<script>
-  function openForm(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-  }
-  </script>
 
 <body>
 
     <div class="navbar">
         <a href="/">CLimax</a>
-        <a href="/admin/add_movie" style="float: right;" id="button_to_add" >Add Movie</a>
+        <% if (admincheck) {%> 
+        <a href="/admin/add_movie" style="float: right;" id="buttontoadd" >Add Movie</a>
+        <% } %> 
     </div>
     <div class="box">
         <h1>Profile Changes</h1>
@@ -40,21 +27,21 @@
         <!-- Different form sections -->
 
         <div id="name" class="tabcontent">
-          <form id="formname" method="post" onsubmit="return change_name()">
-            <label for="fname">First Name: </label>
-            <input type="text" id="fname" name="fname" required><br><br>
-      
-            <label for="lname">Last Name: </label>
-            <input type="text" id="lname" name="lname" required><br><br>
+          <form id="formname" action="personalChange" method="post">
+            <label for="fname">Name: </label>
+            <input type="text" id="name" name="name"><br><br>
 
             <label for="bday">Birthday: </label>
             <input type="date" id="bday" name="bday"><br><br> 
+
+            <label for="number">Number: </label>
+            <input type="text" id="number" name="number"><br><br>
       
             <input type="submit" value="Change" id="name_change">
           </form>
         </div>
-        <div id="email" method="post" class="tabcontent">
-            <form id="formemail" onsubmit="return change_email()">
+        <div id="email"  class="tabcontent">
+            <form id="formemail" action="email_change" method="post">
               <label for="old_email">Old email: </label>
               <input type="email" id="old_email" name="old_email" required><br><br>
               <label for="new_email">New email: </label>
@@ -77,6 +64,12 @@
 
       </div>
    
+
+
+      <form method="post" action="logOut">
+        <input type="submit" name="Logout" value="Logout">
+      </form>
+      
 
 <div class="box" style="width: 1000px; margin-left: 200px;height: auto" >
     <h1> Movies reserved</h1>
