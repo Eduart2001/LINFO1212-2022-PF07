@@ -8,6 +8,7 @@ var fs = require("fs");
 var multer = require("multer");
 var request = require("request");
 var nodemailer = require("nodemailer");
+var QRCode = require("qrcode");
 var app = express ();
 
 
@@ -79,7 +80,9 @@ module.exports = {
     Seat: Seat,
     fs: fs,
     request: request,
-    upload : upload
+    upload : upload,
+    QRCode: QRCode,
+    transporter: transporter
 };
 
 //imports
@@ -87,6 +90,7 @@ const login = require("./login");
 const movie = require("./movie");
 const hall = require("./hall");
 const timeTable = require("./timeTable");
+const emailSender = require("./emailSender");
 const { time } = require("console");
 
 app.get('/', async function(req,res,next){
@@ -97,23 +101,13 @@ app.get('/', async function(req,res,next){
     }
 });
 
-app.get('/testMail', function (req, res, next){
-    // il faut se connecter d'abord sinon ça va crasher
-    var mailOptions = {
-        from: 'climax.louvainlaneuve@gmail.com',
-        to: req.session.email,
-        subject: 'Sending Email using Node.js',
-        text: 'That was easy!'
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-        if (error){
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-    res.send('email sent');
+app.post('/ticket', function (req, res, next){
+    if (req.session.email){
+        emailSender.sendTicket(req.session.email, 5, "D15", "Avatar", "2022-12-23", "15:00");
+        res.send('email sent');
+    } else{
+        res.redirect("/login");
+    }
 });
 
 app.get('/movie', async function(req, res, next){
@@ -121,7 +115,11 @@ app.get('/movie', async function(req, res, next){
     if (!result.length > 0){
         res.send(`Movie with such id does not exist`);
     } else {
-        res.render('movie_page.ejs', {movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+        if (req.session.email){
+            res.render('movie_page.ejs', {linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+        } else {
+            res.render('movie_page.ejs', {linkName:"Login", link:"/login", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+        }
     }
 });
 
