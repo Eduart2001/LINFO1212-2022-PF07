@@ -51,10 +51,10 @@
             </form>
           </div>
         <div id="password" class="tabcontent">
-          <form id="formpass" method="post" onsubmit="return change_password()">
-            <label for="password">Old password: </label>
+          <form id="formpass" method="post" action="password_change">
+            <label for="oldpassword">Old password: </label>
             <input type="password" id="oldpassword" name="oldpassword" required><br><br>
-            <label for="password">New password: </label>
+            <label for="newpassword">New password: </label>
             <input type="password" id="newpassword" name="newpassword" required><br><br>
             <label for="passwordrep">Retype password: </label>
             <input type="password" id="passwordrep" name="passwordrep" required><br><br>

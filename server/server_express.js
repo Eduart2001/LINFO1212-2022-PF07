@@ -251,6 +251,35 @@ app.post('/email_change',function(req,res,next){
 
 })
 
+app.post('/password_change', function(req,res,next){
+    const OldPassword= crypto.createHash("md5").update(req.body.oldpassword).digest('hex');
+    const NewPassword=crypto.createHash("md5").update(req.body.newpassword).digest('hex');
+    const PassRep= crypto.createHash("md5").update(req.body.passwordrep).digest('hex');
+    const RealPass=sequelize.query(`Select password From Users where email = '${req.session.email}'`);
+    if (OldPassword===RealPass){
+        console.log("Not the correct old password");
+
+    }
+    else if (OldPassword!=NewPassword){
+        console.log("Can't have the same password as the old password");
+    }
+    else if (NewPassword!=PassRep){
+        console.log("Retype password");
+    }
+    else {
+        User.update(
+            {password:NewPassword},
+            {where:{email:req.session.email}}
+        )
+        .then(()=>{
+            req.session.password=NewPassword;
+            res.redirect('user');
+            console.log("Password has been changed!");
+        })
+    }
+
+})
+
 app.get("/reservation", function (req, res, next) {
     res.render("reservation.ejs");
 });
