@@ -60,7 +60,7 @@ describe("emailTaken function tests", () => {
 describe("getAllUsers function tests", () => {
     test("Getting the array of users", async () => {
         let result = await login.getAllUsers();
-        expect(result).toBeDefined();
+        expect(result.length).toBeGreaterThan(0);
     });
 });
 

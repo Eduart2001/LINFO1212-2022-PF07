@@ -21,6 +21,11 @@ async function getMovieById(movieId){
     }
 }
 
+/**
+ * Gets all movies in the database.
+ *
+ * @return {Array} The array given by sequelize when all movies are requested.
+ */
 async function getAllMovies(){
     try {
         const [result, meta] = await sequelize.query("SELECT * from Movies");
@@ -30,17 +35,29 @@ async function getAllMovies(){
     }
 }
 
+/**
+ * Checks if the Movies table in the database is empty or not.
+ * If it is, some movies are added (by calling addmoviesTest function) for testing purposes.
+ * 
+ * @return {String} "empty Movies table" if the table is empty, "Movie table is not empty" otherwise.
+ */
 async function emptyMoviesDB(){
     if ((await getAllMovies()).length == 0){
         console.log("empty Movies table");
         addMoviesTest();
-        return "ok";
+        return "empty Movies table";
     } else{
         console.log("Movies table is not empty");
-        return "not ok";
+        return "Movies table is not empty";
     }
 }
 
+/**
+ * Replaces invalid characters in a String to name a file.
+ *
+ * @param {String} movieName The name of a movie.
+ * @return {String} newString is the movieName String without invalid characters.
+ */
 function replaceInvalid(movieName){
     var inv = ["/", ":", "*", "?", `"`, "<", ">", "|"];
     var newString = movieName;
@@ -52,6 +69,13 @@ function replaceInvalid(movieName){
     return newString;
 }
 
+/**
+ * This function allows to download a picture from the internet and save it into our server.
+ *
+ * @param {String} uri is the "Uniform Resource Identifier", basically the link to the picture to download.
+ * @param {String} filename the file will be named after this String.
+ * @param {function} callback A function to be executed after this function's execution has finished.
+ */
 function download(uri, filename, callback){
     request.head(uri, function(err, res, body){
         console.log('content-type:', res.headers['content-type']);
@@ -61,12 +85,17 @@ function download(uri, filename, callback){
     });
 }
 
+/**
+ * Adds some movies to the database for testing purposes.
+ *
+ * @return {String} "example movies added".
+ */
 function addMoviesTest(){
     //static data for testing purposes
     const movies = [];
 
+    //black panther
     download('https://m.media-amazon.com/images/M/MV5BZGRmM2U1MzctZWU3Yi00NTYwLTg4OTMtNDk0YzZmYjBjNWU4XkEyXkFqcGdeQXVyMTUzOTcyODA5._V1_.jpg', 'static/Posters/Black_Panther_Wakanda_Forever.jpg', function(){console.log('Black_Panther_Wakanda_Forever.jpg downloaded');});
-
     movies.push({
         movieName: "Black Panther: Wakanda Forever",
         poster: "Black_Panther_Wakanda_Forever.jpg",
@@ -82,8 +111,8 @@ function addMoviesTest(){
         duration: 161
     });
 
+    //black adam
     download('https://m.media-amazon.com/images/M/MV5BYzZkOGUwMzMtMTgyNS00YjFlLTg5NzYtZTE3Y2E5YTA5NWIyXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_.jpg', 'static/Posters/Black_Adam.jpg', function(){console.log('Black_Adam.jpg downloaded');});
-
     movies.push({
         movieName: "Black Adam",
         poster: "Black_Adam.jpg",
@@ -99,8 +128,8 @@ function addMoviesTest(){
         duration: 125
     });
 
+    //avatar
     download('https://m.media-amazon.com/images/M/MV5BYjhiNjBlODctY2ZiOC00YjVlLWFlNzAtNTVhNzM1YjI1NzMxXkEyXkFqcGdeQXVyMjQxNTE1MDA@._V1_.jpg', 'static/Posters/Avatar_The_Way_of_Water.jpg', function(){console.log('Avatar_The_Way_of_Water.jpg downloaded');});
-
     movies.push({
         movieName: "Avatar: The Way of Water",
         poster: "Avatar_The_Way_of_Water.jpg",
@@ -118,7 +147,6 @@ function addMoviesTest(){
 
     //spiderman
     download('https://m.media-amazon.com/images/M/MV5BZWMyYzFjYTYtNTRjYi00OGExLWE2YzgtOGRmYjAxZTU3NzBiXkEyXkFqcGdeQXVyMzQ0MzA0NTM@._V1_.jpg', 'static/Posters/Spider-Man_No_Way_Home.jpg', function(){console.log('Spider-Man_No_Way_Home.jpg downloaded');});
-
     movies.push({
         movieName: "Spider-Man: No Way Home",
         poster: "Spider-Man_No_Way_Home.jpg",
@@ -142,9 +170,10 @@ function addMoviesTest(){
 }
 
 module.exports={
-    getMovieById : getMovieById,
+    getMovieById: getMovieById,
     getAllMovies: getAllMovies,
     addMoviesTest: addMoviesTest,
     emptyMoviesDB: emptyMoviesDB,
     replaceInvalid: replaceInvalid,
+    downlaod: download
 }
