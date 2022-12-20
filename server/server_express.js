@@ -171,10 +171,22 @@ app.post('/signUp', async function(req, res, next){
     }
 });
 
+app.get("/forgotten", function (req, res, next) {
+    res.render("forgotten.ejs");
+});
+
+app.post("/passRecover", async function (req, res, next) {
+    await emailSender.recover(req.body.email.toLowerCase());
+    res.redirect("/");
+    // alert("An email with a new password has been sent");
+});
+
 app.get("/register", function (req, res, next) {
     res.render("register_page.ejs", { incorrect: "" });
 });
 
+
+//user
 app.get('/user',function(req,res,next){
     if (req.session.email){
         if (req.query.alert){

@@ -10,23 +10,15 @@
     </head>
     <body>
         <div class="main">
-            <h1>Login</h1>
-            <p class="incorrect-passsword"><%= incorrect %></p>
-            <form action="/ident" method="post">
+            <h1>Forgotten password</h1>
+            <form action="/passRecover" method="post">
+                <p>A new password will be sent to your email, please check your inbox</p>
                 <div>
                     <label for="email">Email</label>
                     <input type="email" name="email" placeholder="Type your email" required>
                 </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" placeholder="Type your password" required>
-                </div>
-                <a class="forgotten" href="/forgotten">Forgot password?</a>
-                <button type="submit">login</button>
+                <button type="submit">Continue</button>
             </form>
-            <div class="new">
-                <a href="/register">Create an account</a>
-            </div>
         </div>
     </body>
 </html>
