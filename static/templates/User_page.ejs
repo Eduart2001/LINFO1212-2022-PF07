@@ -10,6 +10,7 @@
 
 <body>
 
+
     <div class="navbar">
         <a href="/">CLimax</a>
         <% if (admincheck) {%> 
@@ -94,4 +95,13 @@
 
 
 </body>
+  <script>
+      var alertMessage = "<%= alerting %>";
+      window.addEventListener("load", function() {
+      if (alertMessage) {
+        alert(alertMessage);
+      }
+    });
+  </script>
+
 </html>

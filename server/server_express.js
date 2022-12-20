@@ -177,18 +177,29 @@ app.get("/register", function (req, res, next) {
 
 app.get('/user',function(req,res,next){
     if (req.session.email){
-        if (req.session.admin){
-            res.render('User_page.ejs', {admincheck: true});
+        if (req.query.alert){
+            if (req.session.admin){
+                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert});
+            }
+            else {
+                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert});
+        }
         }
         else {
-            res.render('User_page.ejs', {admincheck:false});
+            if (req.session.admin){
+                res.render('User_page.ejs', {admincheck: true,alerting:""});
+            }
+            else {
+                res.render('User_page.ejs', {admincheck: true,alerting:""});
         }
- 
+        }
+
     } else{ 
         res.redirect("/login");
     }
 });
 
+ //Post for the different forms
 app.post('/personalChange', function(req, res, next) {
     const NewName = req.body.name;
     const NewBday = req.body.bday;
@@ -199,7 +210,10 @@ app.post('/personalChange', function(req, res, next) {
         { name: NewName },
         { where: { email: req.session.email } }
       )
-        .then(() => console.log("Name has been changed!"))
+        .then(() => {
+            console.log("Name has been changed!");
+            res.redirect("/user?alert=Information has been updated!");
+        })
         .catch((error) => console.error(error));
     }
     if (NewBday) {
@@ -207,7 +221,11 @@ app.post('/personalChange', function(req, res, next) {
         { birthdate: NewBday },
         { where: { email: req.session.email } }
       )
-        .then(() => console.log("Birthday has been changed!"))
+        .then(() => {
+            console.log("Birthday has been changed!");
+            res.redirect("/user?alert=Information has been updated!");
+
+        })
         .catch((error) => console.error(error));
     }
     if (NewNumber) {
@@ -215,12 +233,16 @@ app.post('/personalChange', function(req, res, next) {
         { phoneNumber: NewNumber },
         { where: { email: req.session.email } }
       )
-        .then(() => console.log("Number has been changed!"))
+        .then(() => {
+            console.log("Number has been changed!");
+            res.redirect("/user?alert=Information has been updated!");
+        })
         .catch((error) => console.error(error));
     }
-  
-    res.redirect("/user");
-  });
+    if(!NewNumber&&!NewBday&&!NewName) {
+        res.redirect("/user")
+    }
+    });
   
 
 app.post('/email_change',function(req,res,next){
@@ -229,12 +251,12 @@ app.post('/email_change',function(req,res,next){
 
     if(OldEmailGiven!=req.session.email){
         console.log("This is not the correct email used before!");
-        res.redirect('/user');
+        res.redirect("/user?alert=This is not the correct email used before!")
     }
 
     else if (OldEmailGiven===NewEmail){
         console.log("Your new email can't be the same as the old email!");
-        res.redirect('/user');
+        res.redirect("/user?alert=Your new email can't be the same as the old email");
     }
     
     else{
@@ -244,41 +266,50 @@ app.post('/email_change',function(req,res,next){
         )
         .then(() =>{
             req.session.email=NewEmail;
-            res.redirect('/user')
+            res.redirect('/user?alert=Email has been changed!')
             console.log("Email has been changed!")
         })
-    }
-
-})
-
-app.post('/password_change', function(req,res,next){
-    const OldPassword= crypto.createHash("md5").update(req.body.oldpassword).digest('hex');
-    const NewPassword=crypto.createHash("md5").update(req.body.newpassword).digest('hex');
-    const PassRep= crypto.createHash("md5").update(req.body.passwordrep).digest('hex');
-    const RealPass=sequelize.query(`Select password From Users where email = '${req.session.email}'`);
-    if (OldPassword===RealPass){
-        console.log("Not the correct old password");
-
-    }
-    else if (OldPassword!=NewPassword){
-        console.log("Can't have the same password as the old password");
-    }
-    else if (NewPassword!=PassRep){
-        console.log("Retype password");
-    }
-    else {
-        User.update(
-            {password:NewPassword},
-            {where:{email:req.session.email}}
-        )
-        .then(()=>{
-            req.session.password=NewPassword;
-            res.redirect('user');
-            console.log("Password has been changed!");
+        .catch(()=>{
+            console.error("Error")
         })
     }
 
 })
+
+app.post('/password_change', async function(req, res, next) {
+    // Hash the passwords
+    const oldPassword = crypto.createHash("md5").update(req.body.oldpassword).digest('hex');
+    const newPassword = crypto.createHash("md5").update(req.body.newpassword).digest('hex');
+    const passRep = crypto.createHash("md5").update(req.body.passwordrep).digest('hex');
+  
+    const [result] = await sequelize.query(`Select password From Users where email = '${req.session.email}'`);
+    const realPass = result[0].password;
+  
+    if (oldPassword !== realPass) {
+      console.log("Not the correct old password");
+      res.redirect("/user?alert=Not the correct old password");
+    } else if (req.body.oldpassword === req.body.newpassword) {
+      console.log("Can't have the same password as the old password");
+      const message = encodeURIComponent("Can't have the same password as the old password");
+      res.redirect(`/user?alert=${message}`);
+    } else if (newPassword !== passRep) {
+      console.log("Retype password");
+      res.redirect("/user?alert=Retype password");
+    } else {
+      // Update the password in the database
+      await User.update(
+        { password: newPassword },
+        { where: { email: req.session.email } }
+      );
+  
+      // Update the session password
+      req.session.password = newPassword;
+      res.redirect("/user?alert=Password has been changed!");
+      console.log("Password has been changed!");
+    }
+  });
+  
+//End of the forms
 
 app.get("/movie/reservation", async function (req, res, next) {
     let result = await movie.getMovieById(req.query.id);
