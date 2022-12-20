@@ -280,8 +280,32 @@ app.post('/password_change', function(req,res,next){
 
 })
 
-app.get("/reservation", function (req, res, next) {
-    res.render("reservation.ejs");
+app.get("/movie/reservation", async function (req, res, next) {
+    let result = await movie.getMovieById(req.query.id);
+    if (!result.length > 0){
+        res.send(`Movie with such id does not exist`);
+    } else {
+        var object={
+            name: result[0].movieName,
+            poster: "../Posters/" + result[0].poster,
+            ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png",
+            genre: result[0].genre,
+            duration: result[0].duration,
+            country: result[0].country,
+            releaseDate: result[0].releaseDate.split(" ")[0],
+            imdbscore: result[0].IMDBscore,
+            description: result[0].description,
+            actors:result[0].actors,
+            directors:result[0].directors
+        }
+
+
+
+
+        res.render('reservation.ejs', {data:object});
+    }
+
+
 });
 
 
@@ -319,8 +343,8 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
 
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId = req.body.movieSelector;
-    let datePicker = Number(req.body.radioChecker);
-
+    let datePicker =req.body.radioChecker;
+    datePicker=Number(datePicker.split(" ").at(-1))
     var object ={
     hallId:Number(req.body.hallSelector),
     movieId:Number(movieId.split("id-").at(-1)),
@@ -389,6 +413,21 @@ app.post('/hall/timetable/get', async function (req, res, next) {
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify(queryResult);
     console.log(result)
+    res.end(result);
+});
+
+app.post('/movie/reservation/getData', async function (req, res, next) {
+    var queryResult=req.query.id
+    console.log(queryResult)
+    req.session.email="admin@admin.com"
+    var user =req.session.email;
+    var userResult=[];
+    if(req.session.email){
+        timeTableResult= await timeTable.getTimeTableByMovie(queryResult);
+        userResult = await login.getPublicData(req.session.email);
+    }
+    res.setHeader("Content-Type", "application/json");
+    let result = JSON.stringify([userResult[0],timeTableResult]);
     res.end(result);
 });
 

@@ -1,6 +1,8 @@
 const sequelize = require("./server_express").sequelize;
 const TimeTable = require("./server_express").TimeTable;
 const movie = require("./movie");
+const hall=require("./hall");
+const seat=require("./seat")
 async function getTimeTableById(id){
     try {
         const [result, meta] = await sequelize.query(`Select * From TimeTables where hallId = ${id}`);
@@ -24,6 +26,25 @@ async function getTimeTable(id){
     return result
 
 }
+async function getTimeTableByMovie(movieId){
+    try{
+        const [movieTimeTable, meta] = await sequelize.query(`Select * From TimeTables where movieId = ${movieId}`);
+        var result=[]
+        for(var i =0;i< movieTimeTable.length;i++){
+            result.push({
+                hallId:movieTimeTable[i].hallId,
+                movieName:(await movie.getMovieById(movieTimeTable[i].movieId))[0].movieName,
+                day:movieTimeTable[i].day,
+                time:movieTimeTable[i].time,
+                availableCapacity:(await hall.getHallCapacity(movieTimeTable[i].hallId))-(await hall.getHallCapacity(movieTimeTable[i].hallId))
+
+            })
+        }
+        return result
+    }catch (error){
+        return error;
+    }
+}
 async function add(object){
     TimeTable.create(object)
 }
@@ -31,4 +52,5 @@ async function add(object){
 module.exports={
     getTimeTable : getTimeTable,
     add:add,
+    getTimeTableByMovie:getTimeTableByMovie,
 }

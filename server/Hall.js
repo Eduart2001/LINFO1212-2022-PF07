@@ -33,7 +33,16 @@ async function getAllHalls(){
         return [];
     }
 }
+async function getHallCapacity(id){
+    try {
+        const [result, meta] = await sequelize.query(`SELECT capacity from Halls where id='${id}'`);
+        return result;
+    } catch {
+        return [];
+    }
+}
 module.exports={
     getAllHalls:getAllHalls,
-    create3Halls:create3Halls
+    create3Halls:create3Halls,
+    getHallCapacity:getHallCapacity,
 }

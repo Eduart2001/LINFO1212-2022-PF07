@@ -2,7 +2,7 @@
 <form id="timeTableForm" action="/add/movie/to/timetable" method="POST">
     <div class="form-outline mb-3 row justify-content-center">
         <label for="staticName" class="col-form-label col-sm-5 ">Hall id</label>
-        <select class="col-form-control col-sm-5 " id="hall-selector"  name="hallSelector" onchange="loadHallTimeTable()" >
+        <select class="col-form-control col-sm-5 " id="hall-selector"  name="hallSelector" onchange="loadHallTimeTable()" required >
             <option>None</option>
             <% for(var i=1; i<= halls.length; i++) { %> 
             <option name=<%= i %> id=<%= i %> > <%=halls[i-1].id%></option>
@@ -11,7 +11,7 @@
     </div>
     <div class="form-outline mb-3 row justify-content-center">
         <label for="staticName" class="col-form-label col-sm-5 ">Movie Name</label>
-        <select class="col-form-control col-sm-5 " id="movie-selector" name="movieSelector">
+        <select class="col-form-control col-sm-5 " id="movie-selector" name="movieSelector" required>
             <option>None</option>
             <% for(var i=1; i<= movies.length; i++) { %> 
                 <option name=<%= movies[i-1].movieName %> > <%= movies[i-1].movieName%>  id-<%= i%></option>
@@ -40,8 +40,10 @@
                         <th scope="row"><%=8+3*j%></th>
                     <% for(let i=1;i<= 7 ;i++){ %>
                         <td>
-                            <input type="radio" name ="radioChecker" value=<%=j*10+i %> id=<%=i+j*7%>>
-                            <label id="table-radio" for=<%=i+j*7%>><%=i+j*7%></label>
+                            <div>   
+                                <input type="radio" name ="radioChecker" value="<%=j*7+i %>" id="Seance <%=i+j*7 %>" required>
+                                <label id="table-radio" for="Seance <%=i+j*7%>">Test <%=i+j*7%></label>            
+                            </div>
                         </td>
                     <% } %>
                 <% } %>
@@ -53,7 +55,7 @@
     </section>
 
     <div class="form-outline mb-3 row justify-content-center float">                
-        <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
+        <button id="add-to-timeTable-btn" class="btn-success col-sm-5 danger" type="submit">ADD</button>
     </div>
   </form>
   <script src="./../../script/script-add-to-time-table.js"></script>

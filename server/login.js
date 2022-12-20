@@ -73,6 +73,14 @@ async function getAllUsers(){
         return [];
     }
 }
+async function getPublicData(email){
+    try{
+        const result = await sequelize.query(`Select email,name,phoneNumber,birthdate From Users where email = '${email}'`);
+        return result[0];
+    } catch {
+        return [];
+    }
+}
 
 /**
  * Checks if the Users table in the database is empty or not.
@@ -149,10 +157,11 @@ function addUsersTest(){
     return "example users added";
 }
 
-
-exports.login = login;
-exports.emailTaken = emailTaken;
-exports.emptyUsersDB = emptyUsersDB;
-exports.isAdmin = isAdmin;
-exports.getName = getName;
-exports.getAllUsers = getAllUsers;
+module.exports={
+    login : login,
+    emailTaken : emailTaken,
+    emptyUsersDB : emptyUsersDB,
+    isAdmin : isAdmin,
+    getName : getName,
+    getPublicData:getPublicData,
+}

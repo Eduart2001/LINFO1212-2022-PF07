@@ -24,9 +24,9 @@ function loadHallTimeTable(){
   var radioButton = document.querySelectorAll('input[type="radio"]'); 
   var labels = document.querySelectorAll('label[id="table-radio"]');
   for(var i=1; i<= radioButton.length; i++){
-    radioButton.item(i-1).value=i;
-    radioButton.item(i-1).id=i;
-    labels[i-1].value=i;
+    radioButton.item(i-1).value="Seance " +i;
+    radioButton.item(i-1).id="Seance " +i;
+    labels[i-1].for="Seance " +i;
     labels[i-1].innerHTML=i;
     radioButton.item(i-1).disabled=false;
   }

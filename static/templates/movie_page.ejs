@@ -12,35 +12,35 @@
             <li><a href="<%= link %>"><%= linkName %></a></li>
             <li class="home"><a href="/"><img src="../images/logo.png" width="123" height="73"></a></li>
         </ul>
-        <h1 class="title"><%= movieName %></h1>
+        <h1 id="title" class="title"><%= movieName %></h1>
         <div class="movie-synopsys">
             <div class="movie-info">
-                <img width="272" height="408" src= <%= poster %>>
-                <div><img width="50" height="50" src= <%= ageRestriction %>></div>
+                <img id="poster" width="272" height="408" src= <%= poster %>>
+                <div id="age-restriction" ><img width="50" height="50" src= <%= ageRestriction %>></div>
                 <div>
                     <div>Genre</div>
-                    <div><%= genre %></div>
+                    <div id="genre"><%= genre %></div>
                 </div>
                 <div>
                     <div>Duration</div>
-                    <div><%= duration %></div>
+                    <div id="duration"><%= duration %></div>
                 </div>
                 <div>
                     <div>Country</div>
-                    <div><%= country %></div>
+                    <div id="country"><%= country %></div>
                 </div>
                 <div>
                     <div>Release Date</div>
-                    <div><%= releaseDate %></div>
+                    <div id="releaseDate"><%= releaseDate %></div>
                 </div>
                 <div>
                     <div>IMDB score</div>
-                    <div><%= IMDBscore %></div>
+                    <div id="imdbscore"><%= IMDBscore %></div>
                 </div>
             </div>
-            <div class="movie-description">
+            <div id="description" class="movie-description">
                 <h3>Synopsis</h3>
-                <p><%= description %></p>
+                <p ><%= description %></p>
                 <h3>Actors:</h3>
                 <p><%= actors %></p>
                 <h3>Directors:</h3>
@@ -50,7 +50,8 @@
             </div>
         </div>
         <div class="reservation">
-            <a href="/reservation">Reserve NOW!</a>
+            <a href="javascript:toReserveMoviePage()">Reserve NOW!</a>
         </div>
     </body>
+    <script src="../script/script-reservation.js"></script>
 </html>

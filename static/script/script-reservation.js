@@ -1,5 +1,138 @@
-var currentTab = 0; // Current tab is set to be the first tab (0)
+function toReserveMoviePage() {
+  window.location.assign(window.location.pathname+"/reservation"+window.location.search);
+}
+
+
+
+
+
+
+function getData(){
+  var xhr = new XMLHttpRequest();
+
+  xhr.open("POST", `https://localhost:8080/movie/reservation/getData`+window.location.search,false);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+          return xhr.responseText;
+      } else {
+        // There was an error with the request.
+      }
+    }
+  };
+  xhr.send();
+  return xhr.responseText;
+}
+function timeTable(data){
+
+  var options=document.getElementById("timeTable")
+
+  data.sort((a, b) => a.day - b.day);
+  days=[...new Set(data.map(object => object.day))];
+  var innerHtml=""
+  const daysList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  for(day of days){
+
+    innerHtml+='<div class="span2 date-desc">'+
+            `<span class="date-desc-label" id=${day}>${daysList[day-1]}</span>`+
+            '</div>'+
+            '<div class="span10">'
+    for(var i=0; i< data.length;i++){
+      if(data[i].day===day){
+          innerHtml+='<div class="row-fluid start-times">'+
+                      '<div class="span3 enable">'+
+                          '<a data-filter="filtered" href="" data-link="select">'+
+                          `<p class="time-desc"> ${data[i].time*3+8}:00<span class="icon_20px_Ticket red-font"></span></p>`+
+                          `<p class="room-desc">${data[i].hallId}</p>`+
+                          '</a>'+
+                      '</div>'+
+                     '</div>'
+      }
+    }
+    innerHtml+='</div></div>'
+  }
+  options.innerHTML=innerHtml;
+
+  // <% for(var i=1; i<= 7; i++) { %> 
+  //   <div class="row-fluid separator time-row">
+  //       <div class="span2 date-desc">
+  //         <span class="date-desc-label">Sot, E MARTë</span>
+  //         <time>20.12.2022</time>
+  //       </div>
+  //       <div class="span10">
+  //         <% for(var j=0; i< data.length; i++) { %> 
+  //           <% if(data[i].date==i) { %> 
+  //           <div class="row-fluid start-times">
+  //               <div class="span3 enable">
+  //                   <a data-filter="filtered" href="" data-link="select">
+  //                   <p class="time-desc"> "<%= data[i].time %>:00"<span class="icon_20px_Ticket red-font"></span></p>
+  //                   <p class="room-desc"><%= data[i].hallId %></p>
+  //                   </a>
+  //               </div>
+  //           </div>
+  //           <% } %>
+  //           <% } %>  
+  //       </div>        
+  //     </div>
+  // <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  console.log(data)
+}
+
+function loadData(){
+  const data=JSON.parse(getData());
+  const userData=data[0]
+  timeTable(data[1])
+  console.log(data)
+  if(userData){
+    var fullName=userData.name.split(" ");
+    var email=userData.email;
+    var birthdate=userData.birthdate.split(" ").at(0);
+    var phoneNumber=userData.phoneNumber;
+    var firstName=fullName.at(0)    
+    
+    if(fullName.length>1){
+      fullName.shift();
+    }
+
+    var lastName= fullName.join(" ");
+
+
+    document.getElementById("first").value=firstName;
+    document.getElementById("first").disabled=true;
+    document.getElementById("last").value=lastName;
+    document.getElementById("last").disabled=true;
+    document.getElementById("email").value=email;
+    document.getElementById("email").disabled=true;
+    document.getElementById("phoneNumber").value=phoneNumber;
+    document.getElementById("phoneNumber").disabled=true;
+    document.getElementById("birthdate").value=birthdate;
+    document.getElementById("birthdate").disabled=true;
+  }
+}
+
+
+
+
+
+loadData()
+currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
+
+
+
 
 function showTab(n) {
   // This function will display the specified tab of the form ...
