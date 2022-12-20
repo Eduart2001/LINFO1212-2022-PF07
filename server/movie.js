@@ -4,6 +4,12 @@ const upload = require("./server_express").upload;
 const fs = require("./server_express").fs;
 const request = require("./server_express").request;
 
+/**
+ * Finds the movie according to given id.
+ *
+ * @param {number} movieId The id of the movie to find.
+ * @return {Array} An array containing the information of the movie, empty array if movie is not found.
+ */
 async function getMovieById(movieId){
     try {
         if (movieId==undefined || movieId==="") return [];

@@ -2,6 +2,13 @@ const sequelize = require("./server_express").sequelize;
 const User = require("./server_express").User;
 var crypto = require("crypto");
 
+/**
+ * Checks if the email and password given are correct, returns email.
+ *
+ * @param {String} email The email of the user to find.
+ * @param {String} password The password hashed.
+ * @return {String} email itself if the password and email matches the database.
+ */
 async function login(email, password){
     const result = await sequelize.query(`Select email,password From Users where email = '${email}'`);
     if (result[0].length > 0){
@@ -12,6 +19,12 @@ async function login(email, password){
     }
 }
 
+/**
+ * Gets the name of the user searched by email.
+ *
+ * @param {String} email The email of the user to find.
+ * @return {String} name, the name registered by the user.
+ */
 async function getName(email){
     const result = await sequelize.query(`Select name From Users where email = '${email}'`);
     if (result[0].length > 0){
@@ -21,6 +34,12 @@ async function getName(email){
     }
 }
 
+/**
+ * Checks if the email given corresponds to an admin account, returns true or false.
+ *
+ * @param {String} email The email of the user to find.
+ * @return {Boolean} true if the user is an admin, false otherwise.
+ */
 async function isAdmin(email){
     const result = await sequelize.query(`Select * From Users where email = '${email}'`);
     if (result[0].length > 0){
@@ -30,11 +49,22 @@ async function isAdmin(email){
     }
 }
 
+/**
+ * Verifies if the email given is already being used by someone else.
+ *
+ * @param {String} email The email that has to be checked.
+ * @return {Boolean} true if it is already taken, false otherwise.
+ */
 async function emailTaken(email) {
     const result = await sequelize.query("Select email From Users where email = '" + email + "'");
     return result[0].length > 0;
 }
 
+/**
+ * Gets all users in the database.
+ *
+ * @return {Array} The array given by sequelize when all users are requested.
+ */
 async function getAllUsers(){
     try{
         const result = await sequelize.query("Select * from Users");
@@ -44,17 +74,28 @@ async function getAllUsers(){
     }
 }
 
+/**
+ * Checks if the Users table in the database is empty or not.
+ * If it is, some users are added (by calling addUsersTest function) for testing purposes.
+ * 
+ * @return {String} "empty Users table" if the table is empty, "Users table is not empty" otherwise.
+ */
 async function emptyUsersDB(){
     if ((await getAllUsers()).length == 0){
         console.log("empty Users table");
         addUsersTest();
-        return "ok";
+        return "empty Users table";
     } else{
         console.log("Users table is not empty");
-        return "not ok";
+        return "Users table is not empty";
     }
 }
 
+/**
+ * Adds some users to the database for testing purposes.
+ *
+ * @return {String} "example users added".
+ */
 function addUsersTest(){
     //static data for testing purposes
     const users = [];
@@ -114,3 +155,4 @@ exports.emailTaken = emailTaken;
 exports.emptyUsersDB = emptyUsersDB;
 exports.isAdmin = isAdmin;
 exports.getName = getName;
+exports.getAllUsers = getAllUsers;
