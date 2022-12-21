@@ -55,3 +55,30 @@ function getMovieById(id) {
     xhr.send(JSON.stringify({id:id}));
     return xhr.responseText;
 }
+
+
+function removeMovie(){
+  let id =document.getElementById("movie-selector").value;
+  if(id){
+    removeMoveFromId(id)
+  }
+}
+
+function removeMoveFromId(id) {
+  var xhr = new XMLHttpRequest();
+
+  xhr.open(
+    "POST",
+    `https://localhost:8080/admin/modify_movie/remove?id='${id}'`  ,
+    false
+  );
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        return xhr.responseText;
+      }
+    }
+  };
+  xhr.send();
+  return xhr.responseText;
+}

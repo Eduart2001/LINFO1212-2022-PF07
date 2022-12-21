@@ -85,6 +85,12 @@ function download(uri, filename, callback){
     });
 }
 
+/**
+ * Updates the data for a movie in the database.
+ *
+ * @param {object} movie - An object containing the updated movie data.
+ * @returns {Promise} - A promise that is resolved if the movie data is successfully updated, or rejected if there is an error.
+ */
 async function updateMovieData(movie){
     var [movieInDB,meta]=await sequelize.query(`SELECT * FROM Movies WHERE id =${movie.id}`);
     movieInDB=JSON.parse(JSON.stringify(movieInDB[0]))
@@ -118,6 +124,38 @@ async function updateMovieData(movie){
         
     }
 }
+
+/**
+ * Removes the movie poster of a given movie from the file system.
+ *
+ * @param {number} id - The ID of the movie whose poster should be deleted.
+ * @returns {Promise} - A promise that is resolved if the poster is successfully deleted, or rejected if there is an error.
+ */
+async function removeDeletedMoviePoster(id){
+    const [result,meta]=await sequelize.query(`SELECT poster FROM Movies WHERE id=${id}`)
+    console.log(result)
+    const fileName = `static/Posters/`+result[0].poster;
+    console.log(fileName)
+    fs.unlink(fileName, (err) => {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log(`Successfully deleted file: ${fileName}`);
+        }
+    });
+}
+
+/**
+ * Deletes a movie from the database.
+ *
+ * @param {number} id - The ID of the movie to be deleted.
+ * @returns {Promise} - A promise that is resolved if the movie is successfully deleted, or rejected if there is an error.
+ */
+async function deleteMovie(id){
+    return await Movie.destroy({where:{id:id}});
+}
+
+
 /**
  * Adds some movies to the database for testing purposes.
  *
@@ -210,4 +248,6 @@ module.exports={
     replaceInvalid: replaceInvalid,
     downlaod: download,
     updateMovieData: updateMovieData,
+    removeDeletedMoviePoster:removeDeletedMoviePoster,
+    deleteMovie:deleteMovie,
 }

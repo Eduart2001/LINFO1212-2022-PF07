@@ -342,10 +342,6 @@ app.get("/movie/reservation", async function (req, res, next) {
             actors:result[0].actors,
             directors:result[0].directors
         }
-
-
-
-
         res.render('reservation.ejs', {data:object});
     }
 
@@ -510,6 +506,12 @@ app.post('/movie/reservation/getSeats', async function (req, res, next) {
     let result = JSON.stringify([hallCapacity[0],bookedSeats]);
     console.log(result)
     res.end(result);
+});
+app.post('/admin/modify_movie/remove', async function (req, res, next) {
+    var queryResult=req.query.id
+    await movie.removeDeletedMoviePoster(queryResult);
+    await movie.deleteMovie(queryResult);
+    res.redirect("/admin/modify_movie")
 });
 // end admin part 
 

@@ -23,7 +23,7 @@ function addSeats(){
     for(var x =11; x<20;x++){
         Seat.create({
             id:x,
-            timeTableId:2243,
+            timeTableId:2221,
         })
     }
 }

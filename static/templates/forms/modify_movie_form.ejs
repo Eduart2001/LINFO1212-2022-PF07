@@ -1,4 +1,4 @@
-<form action="/modified/movie" method="post" enctype="multipart/form-data">
+<form id="movieForm" action="/modified/movie" method="post" enctype="multipart/form-data">
     <div class="form-outline mb-3 row justify-content-center">
         <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
         <select name="id" class="col-form-control col-sm-5 " id="movie-selector" onchange="movieSelectChanged()">
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="form-outline mb-3 row justify-content-center float">                
-        <button id="remove-btn" class="btn-success col-sm-5 danger" type="">Remove</button>
+        <button id="remove-btn" class="btn-success col-sm-5 danger" onclick="removeMovie()">Remove</button>
         <button class="btn-success col-sm-5" type="submit">Modify</button>
     </div>
 
