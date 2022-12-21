@@ -1,4 +1,11 @@
-
+/**
+ * Retrieves the timetable for a hall with a given ID from a server.
+ * The function sends an HTTP POST request to a specified URL, with the ID of the hall as a query parameter.
+ * It returns the response from the server as a string.
+ * 
+ * @param {number} id - The ID of the hall to retrieve the timetable for.
+ * @returns {string} The response from the server.
+ */
 function getHallTimeTable(id){
   var xhr = new XMLHttpRequest();
   xhr.open("POST", `https://localhost:8080/hall/timetable/get?id=${id}`,false);
@@ -6,15 +13,18 @@ function getHallTimeTable(id){
     if (xhr.readyState === XMLHttpRequest.DONE) {
       if (xhr.status === 200) {
           return xhr.responseText;
-      } else {
-        // There was an error with the request.
       }
     }
   };
   xhr.send();
   return xhr.responseText;
 }
-
+/**
+ * Populates a table of radio buttons with the timetable for a selected hall.
+ * The function gets the ID of the selected hall from a dropdown menu, calls the `getHallTimeTable(id)` function to retrieve the timetable data, and parses the resulting JSON string.
+ * It then sets the values and labels of the radio buttons to the corresponding timetable data, and disables the buttons for occupied slots.
+ * 
+ */
 function loadHallTimeTable(){
   var select = document.getElementById("hall-selector");
   var selectedOptionValue = select.options[select.selectedIndex].id;
@@ -38,16 +48,4 @@ function loadHallTimeTable(){
     occupiedSpace.value=hallTimeTable[j].movieId;
   }
 
-}
-function myFunction(i){
-    let a=document.querySelectorAll('input[name="radio-overview"]');
-    let selected =document.getElementsByClassName('slot selected');
-    if(selected!=null || selected!=undefined){
-        if(selected.length!=0){
-            document.getElementById(selected[0].id).className="slot";
-        }
-    }
-    document.getElementById(i).className = "slot selected";
-
-    console.log(document.getElementById(i).className)
 }

@@ -1,29 +1,12 @@
-// var xhr = new XMLHttpRequest();
-
-// xhr.onreadystatechange = function() {
-//   if (xhr.readyState === XMLHttpRequest.DONE) {
-//     if (xhr.status === 200) {
-//         var result = JSON.parse(xhr.response);
-//         var movies = result[0];
-//         var movie = movies[0];
-//     } else {
-//       // There was an error with the request.
-//     }
-//   }
-// };
-
-// xhr.open('GET', 'https://localhost:8080/admin/get_all_movies');
-// xhr.send();
-
-// function httpGet(id)
-// {
-//     var xmlHttp = new XMLHttpRequest();
-//     xmlHttp.open( "GET", `https://localhost:8080/movie/get?id=${id}`, false ); // false for synchronous request
-//     xmlHttp.send( null );
-//     return xmlHttp.responseText;
-// }
-
- function movieSelectChanged() {
+/**
+ * Populates form fields with the details of a selected movie.
+ * The function gets the ID of the selected movie from a dropdown menu, calls the `getMovieById(id)` function to retrieve the movie data, and parses the resulting JSON string.
+ * It then sets the value of various form fields to the corresponding movie data.
+ * If the "none" option is selected, the form fields are not updated.
+ * 
+ * @returns {void}
+ */
+function movieSelectChanged() {
   var select = document.getElementById("movie-selector");
   var selectedOptionValue = select.options[select.selectedIndex].id;
   if (selectedOptionValue !== 'none'){
@@ -40,6 +23,14 @@
   }
  
 }
+/**
+ * Retrieves the data for a movie with a given ID from a server.
+ * The function sends an HTTP GET request to a specified URL, with the ID of the movie as a query parameter.
+ * It returns the response from the server as a string.
+ * 
+ * @param {number} id - The ID of the movie to retrieve.
+ * @returns {string} The response from the server.
+ */
 function getMovieById(id) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", `https://localhost:8080/movie/get?id=${id}`,false);
