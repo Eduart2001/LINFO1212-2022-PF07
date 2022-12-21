@@ -14,10 +14,7 @@ Seat.init({
     timeTableId:{
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-            model: TimeTable,
-            key: "hallId"+"movieId"+"day"+"time"
-        },
+        primaryKey:true
     },
     timestamps: true,
     createdAt: false,

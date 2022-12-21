@@ -92,6 +92,7 @@ const hall = require("./hall");
 const timeTable = require("./timeTable");
 const emailSender = require("./emailSender");
 const { time } = require("console");
+const seat = require("./seat");
 
 app.get('/', async function(req,res,next){
     if (req.session.email){
@@ -398,6 +399,23 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
     timeTable.add(object)
     res.redirect("/admin/time_table");
 });
+app.post("/reservation/done", async function (req, res, next) {
+    if (req.session.email){
+        var userData= await login.getPublicData(req.session.email);
+        var seats=req.body.selectedSeat;
+        //  Ca depends si on va faire une table de reservation aussi ou envoyer juste les mails
+        // for(x of seats){
+        //     Seat.create({
+        //         id:x,
+        //         timeTableId:req.body.session,
+        //     })
+        // }
+        console.log(req.body)
+    } else{
+        res.redirect("/login");
+    }
+    res.redirect("/")
+});
 
 app.get("/admin/modify_movie", async function (req, res, next) {
     if (req.session.email){
@@ -471,9 +489,21 @@ app.post('/movie/reservation/getData', async function (req, res, next) {
     }
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify([userResult[0],timeTableResult]);
+    console.log(result)
     res.end(result);
 });
-
+app.post('/movie/reservation/getSeats', async function (req, res, next) {
+    var queryResult=req.query.id
+    console.log(Math.floor(queryResult/1000))
+    if(req.session.email){
+        bookedSeats= await seat.getReservedSeatsForTimeTable(queryResult);
+        hallCapacity= await hall.getHallCapacity(Math.floor(queryResult/1000))
+    }
+    res.setHeader("Content-Type", "application/json");
+    let result = JSON.stringify([hallCapacity[0],bookedSeats]);
+    console.log(result)
+    res.end(result);
+});
 // end admin part 
 
 https.createServer({

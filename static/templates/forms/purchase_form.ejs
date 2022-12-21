@@ -2,26 +2,26 @@
 
 
 
-<form id="regForm" action="">
+<form id="regForm" method="POST" action="/reservation/done">
     <!-- One "tab" for each step in the form: -->
     <div class="tab">
       <h1>Continue:</h1>
       Name:
       <p>
-        <input id ="first" placeholder="First name..." oninput="this.className = ''" />
+        <input name="first" id ="first" placeholder="First name..." oninput="this.className = ''" />
       </p>
       <p>
-        <input id ="last" placeholder="Last name..." oninput="this.className = ''" />
+        <input name="last" id ="last" placeholder="Last name..." oninput="this.className = ''" />
       </p>
       <p>
-        <input id ="birthdate" placeholder="birthdate..." oninput="this.className = ''" />
+        <input name="birthdate" id ="birthdate" placeholder="birthdate..." oninput="this.className = ''" />
       </p>
     </div>
 
     <div class="tab">
       Contact Info:
-      <p><input id ="email" placeholder="E-mail..." oninput="this.className = ''" /></p>
-      <p><input id ="phoneNumber" placeholder="Phone..." oninput="this.className = ''" /></p>
+      <p><input name ="email" id ="email" placeholder="E-mail..." oninput="this.className = ''" /></p>
+      <p><input name ="phoneNumber" id ="phoneNumber" placeholder="Phone..." oninput="this.className = ''" /></p>
     </div>
     <div class="tab">
         <div class="span9" id="timeTable">
@@ -51,17 +51,34 @@
       </div>
     </div>
 
-
-
     <div class="tab">
       Seats:
-      <%- include("../hall/seats.ejs") %>
+          <ul class="showcase">
+              <li>
+                  <div class="seat"></div>
+                  <small>Available</small>
+              </li>
+              <li>
+                  <div class="seat selected"></div>
+                  <small>Selected</small>
+              </li>
+              <li>
+                  <div class="seat sold"></div>
+                  <small>Sold</small>
+              </li>
+              </ul>
+          <div class="container" id="theater">
+              <div class="screen"></div>
+          
+          
+          <div class="seats-screen" data-seats-screen="" style="width: 729px;">Screen</div>
+          </div>
     </div>
     <div class="tab">
       Payment:
-      <p><input placeholder="Card holder name" oninput="this.className = ''" /></p>
-      <p><input placeholder="Card number" oninput="this.className = ''" /></p>
-      <p><input placeholder="Exp date" oninput="this.className = ''" /><input placeholder="CSV" oninput="this.className = ''" /></p>
+      <p><input name="cardName" placeholder="Card holder name" oninput="this.className = ''" /></p>
+      <p><input name="cardNumero" placeholder="Card number" oninput="this.className = ''" /></p>
+      <p><input name="cardExpDate" placeholder="Exp date" oninput="this.className = ''" /><input name="cardCSV" placeholder="CSV" oninput="this.className = ''" /></p>
     </div>
 
     <div style="overflow: auto">
@@ -75,6 +92,7 @@
 
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align: center; margin-top: 40px">
+      <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>
       <span class="step"></span>

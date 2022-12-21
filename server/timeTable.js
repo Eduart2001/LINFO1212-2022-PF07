@@ -31,12 +31,15 @@ async function getTimeTableByMovie(movieId){
         const [movieTimeTable, meta] = await sequelize.query(`Select * From TimeTables where movieId = ${movieId}`);
         var result=[]
         for(var i =0;i< movieTimeTable.length;i++){
+            const id=movieTimeTable[i].hallId*1000+movieTimeTable[i].movieId*100+movieTimeTable[i].day*10+movieTimeTable[i].time;
+            
             result.push({
                 hallId:movieTimeTable[i].hallId,
+                movieId:movieTimeTable[i].movieId,
                 movieName:(await movie.getMovieById(movieTimeTable[i].movieId))[0].movieName,
                 day:movieTimeTable[i].day,
                 time:movieTimeTable[i].time,
-                availableCapacity:(await hall.getHallCapacity(movieTimeTable[i].hallId))-(await hall.getHallCapacity(movieTimeTable[i].hallId))
+                availableCapacity:((await hall.getHallCapacity(movieTimeTable[i].hallId))[0].capacity-(await seat.getReservedSeatsForTimeTable(id)).length)
 
             })
         }
