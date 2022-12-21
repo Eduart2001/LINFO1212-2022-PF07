@@ -384,6 +384,12 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
     })
     res.redirect("/");
 });
+app.post('/modified/movie', upload.single('upload'), async function(req, res, next){
+    let body =await req.body
+    console.log(await movie.updateMovieData(body))
+    res.redirect("/admin/modify_movie");
+});
+
 
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId = req.body.movieSelector;
@@ -418,10 +424,11 @@ app.post("/reservation/done", async function (req, res, next) {
 });
 
 app.get("/admin/modify_movie", async function (req, res, next) {
+    req.session.email="admin@admin.com"
+    req.session.admin = true;
     if (req.session.email){
         if (req.session.admin){
             let result = await sequelize.query(`SELECT * FROM Movies`);
-            console.log(result[0]);
             res.render("modify_movie.ejs", { data: { movies: result[0] } });
         } else{
             res.send("You are not an admin, you are not allowed to enter this page");

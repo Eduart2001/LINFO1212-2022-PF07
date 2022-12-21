@@ -14,14 +14,22 @@ function movieSelectChanged() {
     document.getElementById("movieName").value=result.movieName;
     document.getElementById("description").value=result.description;
     document.getElementById("date").value=new Date(result.releaseDate).toLocaleDateString('fr-CA')
+    document.getElementById("directors").value=result.directors;
+    document.getElementById("actors").value=result.actors;
     document.getElementById("duration").value=result.duration;
     document.getElementById("genre").value=result.genre;
     document.getElementById("trailerURL").value=result.trailerURL;
     document.getElementById("country").value=result.country;
     document.getElementById("age").value=result.ageRestriction;
     document.getElementById("imdb").value=result.IMDBscore;
+    let file =document.getElementById("inputGroupFile")
+    let path=`../Posters/${result.poster}`
+    const newFile = new File([path], result.poster, { type: 'image/jpg' });
+    file=newFile
+    document.getElementById("frame").src="../Posters/"+result.poster;
+    
   }
- 
+ return selectedOptionValue;
 }
 /**
  * Retrieves the data for a movie with a given ID from a server.

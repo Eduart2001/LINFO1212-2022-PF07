@@ -47,11 +47,11 @@
         <label for="image" class="col-form-label col-sm-5">IMAGE</label>
         <div id="image-label" class="col-form-label col-sm-5 " id="image">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile" name="upload" value="" required>
+                <input type="file" class="custom-file-input" id="inputGroupFile" onchange="preview()" name="upload "required>
                 <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon"><label>
             </div>
             <div class="border rounded-lg text-center p-3">
-                <img src="../images/programming pepe.jpg" alt ="wrong path" class="img-fluid" id="preview" />
+                <img src="../images/programming pepe.jpg" alt ="wrong path" class="img-fluid" id="frame" />
             </div>
         </div>
     </div>
@@ -60,3 +60,8 @@
     </div>
 
   </form>
+<script>  
+    function preview() {
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>

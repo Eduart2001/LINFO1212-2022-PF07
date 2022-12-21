@@ -85,6 +85,39 @@ function download(uri, filename, callback){
     });
 }
 
+async function updateMovieData(movie){
+    var [movieInDB,meta]=await sequelize.query(`SELECT * FROM Movies WHERE id =${movie.id}`);
+    movieInDB=JSON.parse(JSON.stringify(movieInDB[0]))
+    for (data of Object.keys(movie)) {
+            s1= new String(movieInDB[data]);
+            s2= new String(movie[data]);
+            if(['id','ageRestriction','duration','IMDBscore'].includes(data)){
+                try{
+                    s1=Number(s1);
+                    s2=Number(s2);
+                    if(s1!==s2&&s2){
+                        sequelize.query(
+                            `UPDATE Movies 
+                            SET ${data}='${s2}' 
+                            WHERE id=${movie["id"]};`
+                        )
+                    }
+                }catch{
+                    continue;
+                }
+            }else{
+
+             if(s1.localeCompare(s2)!==0){
+                sequelize.query(
+                    `UPDATE Movies 
+                    SET ${data}='${s2}' 
+                    WHERE id=${movie["id"]};`
+                )
+            }
+        }
+        
+    }
+}
 /**
  * Adds some movies to the database for testing purposes.
  *
@@ -175,5 +208,6 @@ module.exports={
     addMoviesTest: addMoviesTest,
     emptyMoviesDB: emptyMoviesDB,
     replaceInvalid: replaceInvalid,
-    downlaod: download
+    downlaod: download,
+    updateMovieData: updateMovieData,
 }

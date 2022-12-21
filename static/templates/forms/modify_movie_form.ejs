@@ -1,10 +1,10 @@
-<form>
+<form action="/modified/movie" method="post" enctype="multipart/form-data">
     <div class="form-outline mb-3 row justify-content-center">
         <label for="staticName" class="col-form-label col-sm-5 ">Movie id</label>
-        <select class="col-form-control col-sm-5 " id="movie-selector" onchange="movieSelectChanged()">
+        <select name="id" class="col-form-control col-sm-5 " id="movie-selector" onchange="movieSelectChanged()">
             <option>none</option>
             <% for(var i=1; i<= data.movies.length; i++) { %> 
-                <option id=<%= i %>> <%= data.movies[i-1].movieName%> </option>
+                <option id=<%= i %> value=<%= i %>> <%= data.movies[i-1].movieName%> </option>
         <% } %>
         </select>
     </div>
@@ -18,7 +18,15 @@
     </div>
     <div class="form-outline mb-3 row justify-content-center">
         <label for="date" class="col-form-label col-sm-5 ">RELEASE DATE</label>
-        <input type="date"class="col-form-control col-sm-5 -plaintext" id="date" name="date" required>
+        <input type="date"class="col-form-control col-sm-5 -plaintext" id="date" name="releaseDate" required>
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="actors" class="col-form-label col-sm-5 ">ACTORS</label>
+        <input type="text"class="col-form-control col-sm-5 -plaintext"id="actors" name="actors" required>
+    </div>
+    <div class="form-outline mb-3 row justify-content-center">
+        <label for="directors" class="col-form-label col-sm-5 ">DIRECTORS</label>
+        <input type="text"class="col-form-control col-sm-5 -plaintext"id="directors" name="directors" required>
     </div>
     <div class="form-outline mb-3 row justify-content-center">
         <label for="duration" class="col-form-label col-sm-5 ">DURATION</label>
@@ -38,27 +46,32 @@
     </div>
     <div class="form-outline mb-3 row justify-content-center">
         <label for="restrictionAge" class="col-form-label col-sm-5 ">RESTRICTION AGE</label>
-        <input type="text" class="col-form-control col-sm-5 -plaintext" id="age" name="age" required>
+        <input type="text" class="col-form-control col-sm-5 -plaintext" id="age" name="ageRestriction" required>
     </div>
     <div class="form-outline mb-3 row justify-content-center">
         <label for="imdb" class="col-form-label col-sm-5 ">IMDB SCORE</label>
-        <input type="text" class="col-form-control col-sm-5 -plaintext" id="imdb" name="imdb" required>
+        <input type="text" class="col-form-control col-sm-5 -plaintext" id="imdb" name="IMDBscore" required>
     </div>
     <div class="form-outline mb-3 row justify-content-center">
         <label for="image" class="col-form-label col-sm-5">IMAGE</label>
         <div id="image-label" class="col-form-label col-sm-5 " id="image">
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile" value="">
+                <input type="file" class="custom-file-input" id="inputGroupFile" onchange="preview()" name="upload ">
                 <label class="custom-file-label" for="inputGroupFile" aria-describedby="inputGroupFileAddon"><label>
             </div>
             <div class="border rounded-lg text-center p-3">
-                <img src="../images/programming pepe.jpg" alt="wrong path"class="img-fluid" id="preview" />
+                <img src="../images/programming pepe.jpg" alt ="wrong path" class="img-fluid" id="frame" />
             </div>
         </div>
     </div>
     <div class="form-outline mb-3 row justify-content-center float">                
-        <button id="remove-btn" class="btn-success col-sm-5 danger" type="submit">Remove</button>
-        <button class="btn-success col-sm-5" type="submit">Submit</button>
+        <button id="remove-btn" class="btn-success col-sm-5 danger" type="">Remove</button>
+        <button class="btn-success col-sm-5" type="submit">Modify</button>
     </div>
 
   </form>
+  <script>  
+    function preview() {
+        frame.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
