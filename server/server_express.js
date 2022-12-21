@@ -39,12 +39,14 @@ const Hall = require("../Database/Hall");
 const Movie = require("../Database/Movie");
 const TimeTable = require("../Database/TimeTable");
 const Seat = require("../Database/Seat");
+const MovieReserved =require("../Database/MovieReserved");
 
 User.sync().then(() => {login.emptyUsersDB()})
 Movie.sync().then(() => {movie.emptyMoviesDB()})
 Hall.sync().then(() => {hall.create3Halls()})
 TimeTable.sync().then(() => {console.log("TimeTable")})
 Seat.sync().then(() => {console.log("seat")})
+MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
 //sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
 
 
@@ -78,6 +80,7 @@ module.exports = {
     TimeTable: TimeTable,
     Movie: Movie,
     Seat: Seat,
+    MovieReserved:MovieReserved,
     fs: fs,
     request: request,
     upload : upload,
@@ -93,6 +96,7 @@ const timeTable = require("./timeTable");
 const emailSender = require("./emailSender");
 const { time } = require("console");
 const seat = require("./seat");
+const moviereserved=require("./moviereserved");
 
 app.get('/', async function(req,res,next){
     if (req.session.email){
@@ -188,22 +192,22 @@ app.get("/register", function (req, res, next) {
 
 
 //user
-app.get('/user',function(req,res,next){
+app.get('/user',async function(req,res,next){
     if (req.session.email){
         if (req.query.alert){
             if (req.session.admin){
-                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert});
+                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
             }
             else {
-                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert});
+                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
         }
         }
         else {
             if (req.session.admin){
-                res.render('User_page.ejs', {admincheck: true,alerting:""});
+                res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
             }
             else {
-                res.render('User_page.ejs', {admincheck: true,alerting:""});
+                res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
         }
         }
 
