@@ -9,14 +9,14 @@
 <script src="../script/script-user-page.js"></script>
 
 <body>
-
-
     <div class="navbar">
         <a href="/">CLimax</a>
         <% if (admincheck) {%> 
         <a href="/admin/add_movie" style="float: right;" id="buttontoadd" >Add Movie</a>
         <% } %> 
     </div>
+
+
     <div class="box">
         <h1>Profile Changes</h1>
         <div class="tab">
@@ -67,10 +67,11 @@
    
 
 
-      <form method="post" action="logOut">
+      <form method="post" action="logOut" class="logoutButton">
         <input type="submit" name="Logout" value="Logout">
       </form>
       
+        <!--Movies Reserved -->
 
 <div class="box" style="width: 1000px; margin-left: 200px;height: auto" >
     <h1> Movies reserved</h1>

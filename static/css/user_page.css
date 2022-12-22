@@ -106,3 +106,24 @@ body {
     clear: both;
     display: table;
   }
+
+.logoutButton{
+  text-align: center;
+}
+
+.logoutButton input {
+  background-color: rgba(139, 183, 132, 0.7);
+  border: #f1f1f1;
+  width: 120px;
+  height: 60px;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.logoutButton input:hover {
+  background-color: red;
+  width: 130px;
+  transition: background-color 0.3s, color 0.3s;
+}
