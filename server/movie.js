@@ -1,8 +1,23 @@
 const sequelize = require("../Database/database");
 const Movie = require("../Database/Movie");
-const upload = require("./server_express").upload;
+//const upload = require("./server_express").upload;
+var multer = require("multer");
 const fs = require("fs")
 var request = require("request");
+
+
+
+//multer options
+const storage = multer.diskStorage({
+    destination: './static/Posters/',
+    filename: function (req, file, cb){
+        cb(null, movie.replaceInvalid(req.body.movieName) + "." + file.originalname.split(".")[1]);
+    }
+});
+const upload = multer({storage:storage});
+
+
+
 
 /**
  * Finds the movie according to given id.

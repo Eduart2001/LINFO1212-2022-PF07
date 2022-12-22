@@ -1,16 +1,15 @@
 const sequelize = require("../Database/database");
 const Seat = require("../Database/Seat");
-const timeTable = require("./timeTable");
 
-async function getReservedSeatsForTimeTable(timeTable) {
-  try {
-    const [result, meta] = await sequelize.query(
-      `Select id from Seats where timeTableId='${timeTable}'`
-    );
-    return result;
-  } catch (e) {
-    return [];
-  }
+
+async function getReservedSeatsForTimeTable(timeTable){
+    try{
+        const [result,meta]=await sequelize.query(`Select id from Seats where timeTableId='${timeTable}'`);
+        return result;
+
+    }catch (e){
+        return []
+    }
 }
 
 async function addSeats() {

@@ -42,11 +42,15 @@ const Seat = require("../Database/Seat");
 const MovieReserved =require("../Database/MovieReserved");
 const Reservations =require("../Database/Reservations");
 
+// User.sync().then(() => {login.emptyUsersDB()})
+// Movie.sync().then(() => {movie.emptyMoviesDB()})
+// Hall.sync().then(() => {hall.create3Halls()})
+// TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
+// Seat.sync().then(() => {seat.emptyTimeTableDB()})
+// MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
+//// sequelize.sync().then(() => {console.log("db is ready")});
 
-
-
-
-//multer options
+// //multer options
 const storage = multer.diskStorage({
     destination: './static/Posters/',
     filename: function (req, file, cb){
@@ -67,18 +71,6 @@ var transporter = nodemailer.createTransport({
 
 const upload = multer({storage:storage});
 
-
-const server =https.createServer({
-    key:fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-    passphrase: 'ingi'
-}, app).listen(8080);
-
-process.on('exit', () => {
-    server.close();
-});
-
-
 // exports variables
 module.exports = {
     app: app,
@@ -91,24 +83,11 @@ module.exports = {
     MovieReserved:MovieReserved,
     fs: fs,
     request: request,
-    upload : upload,
+    //upload : upload,
     QRCode: QRCode,
     transporter: transporter,
-    server:server
+    // server:server
 };
-
-
-
-sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
-User.sync().then(() => {login.emptyUsersDB()})
-Movie.sync().then(() => {movie.emptyMoviesDB()})
-Hall.sync().then(() => {hall.create3Halls()})
-TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
-Seat.sync().then(() => {seat.emptyTimeTableDB()})
-MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
-sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
-
-
 
 
 //imports
@@ -558,10 +537,19 @@ app.post('/movie/reservation/getSeats', async function (req, res, next) {
     console.log(result)
     res.end(result);
 });
-app.post('/admin/modify_movie/remove', async function (req, res, next) {
-    var queryResult=req.query.id
-    await movie.removeDeletedMoviePoster(queryResult);
-    await movie.deleteMovie(queryResult);
-    res.redirect("/admin/modify_movie")
+// end admin part
+
+
+const server =https.createServer({
+    key:fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: 'ingi'
+}, app).listen(8080);
+
+process.on('exit', () => {
+    server.close();
 });
-// end admin part 
+
+module.exports={
+    server:server
+}
