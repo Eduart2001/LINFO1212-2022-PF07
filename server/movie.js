@@ -162,11 +162,11 @@ async function removeDeletedMoviePoster(id){
 /**
  * Deletes a movie from the database.
  *
- * @param {number} id - The ID of the movie to be deleted.
+ * @param {number} movieId - The ID of the movie to be deleted.
  * @returns {Promise} - A promise that is resolved if the movie is successfully deleted, or rejected if there is an error.
  */
-async function deleteMovie(id){
-    return await Movie.destroy({where:{id:id}});
+async function deleteMovie(movieId){
+    return await Movie.destroy({where:{id:Number(movieId)}});
 }
 
 

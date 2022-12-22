@@ -23,6 +23,7 @@ TimeTable.init({
             model: 'Movies', // 'Movies' would also work
             key: 'id'
           },
+        onDelete:'CASCADE'
     },
     day:{        
         type: DataTypes.INTEGER,

@@ -8,7 +8,7 @@
  */
 function movieSelectChanged() {
   var select = document.getElementById("movie-selector");
-  var selectedOptionValue = select.options[select.selectedIndex].id;
+  var selectedOptionValue = select.options[select.selectedIndex].value;
   if (selectedOptionValue !== 'none'){
     var result = JSON.parse(getMovieById(Number(selectedOptionValue)));
     document.getElementById("movieName").value=result.movieName;
@@ -51,7 +51,6 @@ function getMovieById(id) {
         }
       }
     };
-
     xhr.send(JSON.stringify({id:id}));
     return xhr.responseText;
 }
@@ -69,7 +68,7 @@ function removeMoveFromId(id) {
 
   xhr.open(
     "POST",
-    `https://localhost:8080/admin/modify_movie/remove?id='${id}'`  ,
+    `https://localhost:8080/admin/modify_movie/remove?id=${id}`  ,
     false
   );
   xhr.onreadystatechange = function () {

@@ -20,7 +20,7 @@ Reservations.init({
             model: 'Seats', 
             key: 'id',
           },
-        onDelete:'cascade',
+        onDelete:'CASCADE',
     },
     session:{
         type: DataTypes.INTEGER,
@@ -29,7 +29,7 @@ Reservations.init({
             model: 'Seats',
             key: 'timeTableId'
           },
-        onDelete:'cascade',
+        onDelete:'CASCADE',
     },
     
 },{sequelize})

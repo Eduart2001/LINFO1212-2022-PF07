@@ -4,7 +4,7 @@
         <select name="id" class="col-form-control col-sm-5 " id="movie-selector" onchange="movieSelectChanged()">
             <option>none</option>
             <% for(var i=1; i<= data.movies.length; i++) { %> 
-                <option id=<%= i %> value=<%= i %>> <%= data.movies[i-1].movieName%> </option>
+                <option id=<%= i %> value=<%= data.movies[i-1].id %>> <%= data.movies[i-1].movieName%> </option>
         <% } %>
         </select>
     </div>

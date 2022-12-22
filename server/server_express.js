@@ -387,9 +387,13 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
     res.redirect("/");
 });
 app.post('/modified/movie', upload.single('upload'), async function(req, res, next){
-    let body =await req.body
-    console.log(await movie.updateMovieData(body))
-    res.redirect("/admin/modify_movie");
+    try{
+        let body =await req.body
+        await movie.updateMovieData(body)
+        res.redirect("/admin/modify_movie");
+    }catch{
+        res.redirect("/admin/modify_movie");
+    }
 });
 
 
@@ -451,7 +455,7 @@ app.post("/reservation/done", async function (req, res, next) {
             }
     
     
-            await emailSender.sendTicket(req.session.email, dirs[3], seats, await movie.getMovieName(dirs[2]), getNearestDateWithDayNumber(dirs[1]), dirs[0])
+            await emailSender.sendTicket(req.session.email, 10, 20, "spider Man", "23-12-2022")
 
         console.log(req.body)
     } else{
@@ -545,6 +549,13 @@ app.post('/movie/reservation/getSeats', async function (req, res, next) {
     let result = JSON.stringify([hallCapacity[0],bookedSeats]);
     console.log(result)
     res.end(result);
+});
+
+app.post('/admin/modify_movie/remove', async function (req, res, next) {
+    var queryResult=req.query.id
+    await movie.removeDeletedMoviePoster(queryResult).then(()=>{console.log("Done")});
+    await movie.deleteMovie(queryResult).then(()=>{console.log("Done")});
+    res.redirect("/admin/add_movie")
 });
 // end admin part
 
