@@ -42,14 +42,18 @@ async function recover(email){
  * Checks if the email given corresponds to an admin account, returns true or false.
  *
  * @param {String} receiver The email of the user who will receive the ticket.
+ * @param {String} fullUserName User Name.
+ * @param {String} price the Price of tickets.
  * @param {String} hall where the movie will be played.
  * @param {String} seat reserved for the client.
  * @param {String} movie which the client is going to watch.
  * @param {String} date of the show.
  * @param {String} time when the movie will be played.
  */
-function sendTicket(receiver, hall, seat, movie, date, time){
+function sendTicket(receiver,fullUserName, price, hall, seat, movie, date, time){
     let data = {
+        fullUserName:fullUserName,
+        price:price,
         hall: hall,
         seat: seat,
         movie: movie,

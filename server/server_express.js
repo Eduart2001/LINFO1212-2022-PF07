@@ -40,7 +40,6 @@ const Movie = require("../Database/Movie");
 const TimeTable = require("../Database/TimeTable");
 const Seat = require("../Database/Seat");
 const MovieReserved =require("../Database/MovieReserved");
-const Reservations =require("../Database/Reservations");
 
 User.sync().then(() => {login.emptyUsersDB()})
 Movie.sync().then(() => {movie.emptyMoviesDB()})
@@ -428,60 +427,56 @@ app.post("/reservation/done", async function (req, res, next) {
         return nearestDate.toLocaleDateString('fr-CA');
     }
 
-    if (req.session.email){
-        var email = req.session.email;
-    } else {
-        var email = req.body.email;
+    let table = (req.body.session).split("-");
+    let seats = req.body.selectedSeat;
+    let email;
+    let connected=false;
+    let price=12.50;
+    if(req.session.email){
+        email=req.session.email;
+        connected=true;
+    }else{
+        email=req.body.email;
     }
 
-    
-    var userData= await login.getPublicData(email);
-    var seats=req.body.selectedSeat;
-    try{
-        seats=Number(seats);
+    if(typeof(seats)==="string"){
         Seat.create({
             id:seats,
-            timeTableId:Number(req.body.session),
-        }).then(()=>{
-            Reservations.create({
-                email:email,
-                timeTableId:Number(req.body.session),
-                seat:seats,
-                id:0,
-            }).then(()=>{console.log("OK")});
-            
-        });
-    }catch{
-        for(x of seats){
+            timeTableId:req.body.session,
+        })
+        MovieReserved.create({
+            email:email,
+            movieName: (await movie.getMovieName(table[1])).movieName,
+            HallNumber:table[0],
+            SeatNumber:seats,
+            Day:table[2],
+            Hour:table[3]
+        })
+        
+    }else{
+        for(let x =0; x <seats.length;x++){
             Seat.create({
-                id:Number(x),
-                timeTableId:Number(req.body.session),
-            }).then(async ()=>{
-            Reservations.create({
-                    email:email,
-                    timeTableId:Number(req.body.session),
-                    seat:Number(x)
-                }).then(()=>{console.log("OK")});
-                
-            });
+                id:seats[x],
+                timeTableId:req.body.session,
+            })
+            MovieReserved.create({
+                email:email,
+                movieName: (await movie.getMovieName(table[1])).movieName,
+                HallNumber:table[0],
+                SeatNumber:seats[x],
+                Day:table[2],
+                Hour:table[3]
+            })
         }
+        price*=seats.length
     }
-
-    let session=req.body.session;
-    let dirs = [];
-
-    while (session > 0) {
-        dirs.push(Math.floor(session % 10));
-        session = Math.floor(session / 10);
+    if(connected){
+        await emailSender.sendTicket(email,(await login.getPublicData()).name, price, table[0], seats, (await movie.getMovieName(table[1])).movieName, getNearestDateWithDayNumber(table[2]), table[3])
+    }else{
+        await emailSender.sendTicket(email,req.body.first + " "+ req.body.last, price, table[0], seats, (await movie.getMovieName(table[1])).movieName, getNearestDateWithDayNumber(table[2]), table[3])
     }
+    res.redirect("/");
 
-    console.log("OK")
-
-    if (req.session.email){
-        res.redirect("/user");
-    } else {
-        res.redirect("/");
-    }
 });
 
 app.get("/admin/modify_movie", async function (req, res, next) {
