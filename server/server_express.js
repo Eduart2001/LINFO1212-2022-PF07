@@ -50,13 +50,14 @@ Seat.sync().then(() => {seat.emptyTimeTableDB()})
 MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
 sequelize.sync().then(() => {console.log("db is ready")});
 
-// //multer options
+//multer options
 const storage = multer.diskStorage({
     destination: './static/Posters/',
     filename: function (req, file, cb){
         cb(null, movie.replaceInvalid(req.body.movieName) + "." + file.originalname.split(".")[1]);
     }
 });
+const upload = multer({storage:storage});
 
 //nodemailer options
 var transporter = nodemailer.createTransport({
@@ -68,8 +69,6 @@ var transporter = nodemailer.createTransport({
         pass: 'mfnbeautsooqukcy'
     }
 });
-
-const upload = multer({storage:storage});
 
 // exports variables
 module.exports = {
@@ -373,7 +372,7 @@ app.post('/add', upload.single('upload'), async function(req, res, next){
     let body =await req.body
     Movie.create({
         movieName:body.movieName,
-        poster: movie.replaceInvalid(body.movieName) + "." + file.originalname.split(".")[1],
+        poster: movie.replaceInvalid(body.movieName) + "." + req.file.originalname.split(".")[1],
         description:body.description,
         actors:body.actors,
         directors:body.directors,
