@@ -30,10 +30,3 @@ Feature: IndexFlow
         When the user clicks on "Personal Area" where the "login" button should be
         Then the user would be redirected to the Personal Area, where they can see all the purchases they have done
         (The personal area features can be found in the personalAreaFlow.feature)
-
-    Scenario: Adding a movie
-        Given the user is connected as an admin
-        Then a button "Add movie" will be displayed on the home page
-        When the admin clicks on "Add movie"
-        Then the admin will be redirected to the adding movie page, where they will be able to add a new movie to the Database
-        (The adding movie features can be found in the addingMovieFlow.feature)

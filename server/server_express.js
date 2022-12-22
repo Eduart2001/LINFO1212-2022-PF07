@@ -99,15 +99,7 @@ const { time } = require("console");
 const seat = require("./seat");
 const moviereserved=require("./moviereserved");
 
-app.get('/', async function(req,res,next){
-
-    if (req.session.email){
-        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies()});
-    } else {
-        res.render('home_page.ejs',{linkName:"Login", link:"/login", movies:await movie.getAllMovies()});
-    }
-});
-
+//test
 app.post('/ticket', function (req, res, next){
     if (req.session.email){
         emailSender.sendTicket(req.session.email, 5, "D15", "Avatar", "2022-12-23", "15:00");
@@ -117,15 +109,23 @@ app.post('/ticket', function (req, res, next){
     }
 });
 
+app.get('/', async function(req,res,next){
+    if (req.session.email){
+        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies()});
+    } else {
+        res.render('home_page.ejs',{linkName:"Login", link:"/login", movies:await movie.getAllMovies()});
+    }
+});
+
 app.get('/movie', async function(req, res, next){
     let result = await movie.getMovieById(req.query.id);
     if (!result.length > 0){
         res.send(`Movie with such id does not exist`);
     } else {
         if (req.session.email){
-            res.render('movie_page.ejs', {linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+            res.render('movie_page.ejs', {id: req.query.id, linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
         } else {
-            res.render('movie_page.ejs', {linkName:"Login", link:"/login", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+            res.render('movie_page.ejs', {id: req.query.id, linkName:"Login", link:"/login", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
         }
     }
 });
@@ -201,16 +201,16 @@ app.get('/user',async function(req,res,next){
                 res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
             }
             else {
-                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
-        }
+                res.render('User_page.ejs', {admincheck: false,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
+            }
         }
         else {
             if (req.session.admin){
                 res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
             }
             else {
-                res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
-        }
+                res.render('User_page.ejs', {admincheck: false,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
+            }
         }
 
     } else{ 
@@ -218,7 +218,7 @@ app.get('/user',async function(req,res,next){
     }
 });
 
- //Post for the different forms
+//Post for the different forms of user
 app.post('/personalChange', function(req, res, next) {
     const NewName = req.body.name;
     const NewBday = req.body.bday;
@@ -350,8 +350,6 @@ app.get("/movie/reservation", async function (req, res, next) {
         }
         res.render('reservation.ejs', {data:object});
     }
-
-
 });
 
 
@@ -411,6 +409,7 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
     timeTable.add(object)
     res.redirect("/admin/time_table");
 });
+
 app.post("/reservation/done", async function (req, res, next) {
     function getNearestDateWithDayNumber(dayNumber) {
         const today = new Date();
@@ -419,54 +418,60 @@ app.post("/reservation/done", async function (req, res, next) {
         const nearestDate = new Date(today.getTime() + daysUntilDay * 24 * 60 * 60 * 1000);
         return nearestDate.toLocaleDateString('fr-CA');
     }
-    
+
     if (req.session.email){
-        console.log(req.session.email)
-        var userData= await login.getPublicData(req.session.email);
-        var seats=req.body.selectedSeat;
-        try{
-            seats=Number(seats);
-            Seat.create({
-                id:seats,
+        var email = req.session.email;
+    } else {
+        var email = req.body.email;
+    }
+
+    
+    var userData= await login.getPublicData(email);
+    var seats=req.body.selectedSeat;
+    try{
+        seats=Number(seats);
+        Seat.create({
+            id:seats,
+            timeTableId:Number(req.body.session),
+        }).then(()=>{
+            Reservations.create({
+                email:email,
                 timeTableId:Number(req.body.session),
-            }).then(()=>{
-                Reservations.create({
-                    email:req.session.email,
+                seat:seats,
+                id:0,
+            }).then(()=>{console.log("OK")});
+            
+        });
+    }catch{
+        for(x of seats){
+            Seat.create({
+                id:Number(x),
+                timeTableId:Number(req.body.session),
+            }).then(async ()=>{
+            Reservations.create({
+                    email:email,
                     timeTableId:Number(req.body.session),
-                    seat:seats,
-                    id:0,
+                    seat:Number(x)
                 }).then(()=>{console.log("OK")});
                 
             });
-        }catch{
-            for(x of seats){
-                Seat.create({
-                    id:Number(x),
-                    timeTableId:Number(req.body.session),
-                }).then(async ()=>{
-                Reservations.create({
-                        email:req.session.email,
-                        timeTableId:Number(req.body.session),
-                        seat:Number(x)
-                    }).then(()=>{console.log("OK")});
-                    
-                });
-            }
         }
+    }
 
-            let session=req.body.session;
-            let dirs = [];
-    
-            while (session > 0) {
-              dirs.push(Math.floor(session % 10));
-              session = Math.floor(session / 10);
-            }
-    
-    
+    let session=req.body.session;
+    let dirs = [];
 
-        console.log("OK")
-    } else{
-        res.redirect("/login");
+    while (session > 0) {
+        dirs.push(Math.floor(session % 10));
+        session = Math.floor(session / 10);
+    }
+
+    console.log("OK")
+
+    if (req.session.email){
+        res.redirect("/user");
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -505,16 +510,13 @@ app.get("/admin/time_table",async function (req, res, next) {
 app.get("/movie/get", async function (req, res, next) {
     let id = req.query.id;
     let queryResult = await movie.getMovieById(id)
-
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify(queryResult[0]);
     res.end(result);
 });
 
 app.get("/admin/get_all_movies", async function (req, res, next) {
-    
     let queryResult = movie.getAllMovies();
-
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify(queryResult);
     res.end(result);
@@ -530,27 +532,21 @@ app.post('/hall/timetable/get', async function (req, res, next) {
 });
 
 app.post('/movie/reservation/getData', async function (req, res, next) {
-    var queryResult=req.query.id
-    console.log(queryResult)
-    req.session.email="abdullahu.eduart@gmail.com"
-    var user =req.session.email;
-    var userResult=[];
-    if(req.session.email){
-        timeTableResult= await timeTable.getTimeTableByMovie(queryResult);
+    if (req.session.email){
         userResult = await login.getPublicData(req.session.email);
+    } else {
+        var userResult=[];
     }
+    timeTableResult= await timeTable.getTimeTableByMovie(req.query.id);
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify([userResult[0],timeTableResult]);
-    console.log(result)
     res.end(result);
 });
+
 app.post('/movie/reservation/getSeats', async function (req, res, next) {
     var queryResult=req.query.id
-
-    if(req.session.email){
-        bookedSeats= await seat.getReservedSeatsForTimeTable(queryResult);
-        hallCapacity= await hall.getHallCapacity(queryResult.split("-").at(0));
-    }
+    bookedSeats= await seat.getReservedSeatsForTimeTable(queryResult);
+    hallCapacity= await hall.getHallCapacity(queryResult.split("-").at(0));
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify([hallCapacity[0],bookedSeats]);
     res.end(result);
