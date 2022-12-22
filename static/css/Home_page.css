@@ -57,3 +57,9 @@ a{
     text-decoration: none;
     font-size: 17px;
 }
+
+.SearchBox{
+    float: right;
+    margin-top: 8px;
+    margin-right: 8px;
+}

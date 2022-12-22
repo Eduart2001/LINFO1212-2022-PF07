@@ -40,14 +40,19 @@ async function getMovieName(movieId){
  *
  * @return {Array} The array given by sequelize when all movies are requested.
  */
-async function getAllMovies(){
+async function getAllMovies(letter) {
     try {
-        const [result, meta] = await sequelize.query("SELECT * from Movies");
-        return result;
+      let query = 'SELECT DISTINCT * FROM Movies';
+      if (letter) {
+        query += ` WHERE movieName LIKE '%${letter}%'`;
+      }
+      const [result, meta] = await sequelize.query(query);
+      console.log(result);
+      return result;
     } catch {
-        return [];
+      return [];
     }
-}
+  }
 
 /**
  * Checks if the Movies table in the database is empty or not.

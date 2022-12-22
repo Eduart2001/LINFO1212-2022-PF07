@@ -5,12 +5,16 @@
     <title>clIMAX</title>
     <link rel="shortcut icon" href="../images/IMAX-logo.png">
     <link rel="stylesheet" href="../css/Home_page.css">
+
 </head>
 <body>
 
     <div class="navbar">
         <a href="/">clIMAX</a>
         <a href="<%= link %>" style="float: right" class="profile"><i class="fa fa-user-circle-o"></i><%= linkName %></a>
+        <form action="search" method="post">
+            <input class="SearchBox" type="text" placeholder="Search Movie" name="searchbox" id="searchbox">
+        </form>
     </div>
     
     <h1 style="margin-left: 45px">In a cinema near you</h1>

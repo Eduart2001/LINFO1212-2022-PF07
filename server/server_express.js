@@ -99,7 +99,26 @@ const { time } = require("console");
 const seat = require("./seat");
 const moviereserved=require("./moviereserved");
 
+<<<<<<< Updated upstream
 //test
+=======
+app.get('/', async function(req,res,next){
+    if (!req.session.search) {
+        req.session.search = {};
+      }
+    if (req.session.email){
+        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies(req.session.search.search)});
+    } else {
+        res.render('home_page.ejs',{linkName:"Login", link:"/login",  movies:await movie.getAllMovies(req.session.search.search)});
+    }
+});
+
+app.post('/search', async function(req,res,next){
+    req.session.search.search = req.body.searchbox;
+    res.redirect('/');
+  });
+
+>>>>>>> Stashed changes
 app.post('/ticket', function (req, res, next){
     if (req.session.email){
         emailSender.sendTicket(req.session.email, 5, "D15", "Avatar", "2022-12-23", "15:00");
