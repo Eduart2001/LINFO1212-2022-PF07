@@ -35,6 +35,38 @@ async function getMovieName(movieId){
     }
 }
 
+async function getAllGenres(letter) {
+    let genre = [];
+    if (letter){
+        try{
+            let query = `SELECT DISTINCT genre FROM Movies WHERE movieName LIKE '%${letter}%'`;
+            const [Allgenres, meta] = await sequelize.query(query);
+            Allgenres.forEach(movie => {
+                if (!genre.includes(movie.genre)) {
+                    genre.push(movie.genre);
+                }
+        })
+        }catch{
+            console.log("Couldn't get the genres")
+        }
+        return genre;
+        
+    }
+
+    try {
+        let [Allgenres, meta] = await sequelize.query('SELECT genre from Movies');
+        Allgenres.forEach(movie => {
+        if (!genre.includes(movie.genre)) {
+            genre.push(movie.genre);
+        }
+      });
+    } catch {
+        console.log("Couldn't get the genres");
+    }
+    return genre;
+  }
+   
+
 /**
  * Gets all movies in the database.
  *
@@ -197,7 +229,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "7.3",
-        genre: "Action, Adventure",
+        genre: "Action",
         duration: 161
     });
 
@@ -214,7 +246,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "6.6",
-        genre: "Action, Science Fiction",
+        genre: "Action",
         duration: 125
     });
 
@@ -231,7 +263,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "N/A",
-        genre: "Action, Adventure",
+        genre: "Action",
         duration: 192
     });
 
@@ -248,7 +280,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "8.3",
-        genre: "Action, Adventure",
+        genre: "Action",
         duration: 148
     });
 
@@ -265,7 +297,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 6,
         IMDBscore: "7.6",
-        genre: "Animation, Family/Kids",
+        genre: "Animation",
         duration: 101
     });
 
@@ -282,7 +314,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 16,
         IMDBscore: "7.5",
-        genre: "Comedy, Horror/Thriller",
+        genre: "Comedy",
         duration: 107
     });
 
@@ -299,7 +331,7 @@ function addMoviesTest(){
         country: "Germany",
         ageRestriction: 3,
         IMDBscore: "5.8",
-        genre: "Animation, Family/Kids",
+        genre: "Animation",
         duration: 86
     });
 
@@ -316,7 +348,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "7.0",
-        genre: "Drama, Action",
+        genre: "Drama",
         duration: 139
     });
 
@@ -333,7 +365,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 16,
         IMDBscore: "7.0",
-        genre: "Action, Crime, Comedy, Thriller, ",
+        genre: "Action",
         duration: 111
     });
 
@@ -369,7 +401,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 3,
         IMDBscore: "N/A",
-        genre: "Animation, Family/Kids",
+        genre: "Animation",
         duration: 1
     });
 
@@ -386,7 +418,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "N/A",
-        genre: "Action, Adventure",
+        genre: "Action",
         duration: 1
     });
 
@@ -420,7 +452,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "N/A",
-        genre: "Action, Adventure, Science fiction",
+        genre: "Action",
         duration: 1
     });
 
@@ -437,7 +469,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 6,
         IMDBscore: "N/A",
-        genre: "Animation, Action, Adventure",
+        genre: "Animation",
         duration: 1
     });
 
@@ -454,7 +486,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 6,
         IMDBscore: "N/A",
-        genre: "Adventure, Fantasy",
+        genre: "Adventure",
         duration: 1
     });
 
@@ -471,7 +503,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "N/A",
-        genre: "Comedy, Drama",
+        genre: "Comedy",
         duration: 1
     });
 
@@ -488,7 +520,7 @@ function addMoviesTest(){
         country: "United States of America",
         ageRestriction: 12,
         IMDBscore: "N/A",
-        genre: "Drama, Action",
+        genre: "Drama",
         duration: 1
     });
 
@@ -510,4 +542,5 @@ module.exports={
     removeDeletedMoviePoster:removeDeletedMoviePoster,
     deleteMovie:deleteMovie,
     getMovieName:getMovieName,
+    getAllGenres:getAllGenres,
 }

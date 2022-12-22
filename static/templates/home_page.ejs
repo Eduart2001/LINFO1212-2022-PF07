@@ -17,7 +17,7 @@
         </form>
     </div>
     
-    <h1 style="margin-left: 45px">In a cinema near you</h1>
+    <h1 style="margin-left:60px">Movies available</h1>
 
     <div id="main">
         <% for(var x=0; x< movies.length; x++) {%> 
@@ -29,5 +29,23 @@
         </div>
         <% } %> 
     </div>
+
+    
+    <% for(var i=0; i< genres.length; i++) { %>
+        <h1 style="margin-left: 60px"><%= genres[i] %> </h1>
+        <div id="main">
+          <% for(var x=0; x< movies.length; x++) { %>
+            <% if (movies[x].genre == genres[i]) { %>
+              <div>
+                <div><a href="/movie?id=<%=movies[x].id%>"><img src="../Posters/<%=movies[x].poster%>" width="272" height="408"></a></div>
+                <div class="title">
+                  <a href="/movie?id=<%=movies[x].id%>"><h3><%=movies[x].movieName%></h3></a>
+                </div>
+              </div>
+            <% } %>
+          <% } %> 
+        </div>
+      <% } %>
+      
 </body>
 </html>

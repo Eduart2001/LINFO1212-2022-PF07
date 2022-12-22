@@ -104,9 +104,9 @@ app.get('/', async function(req,res,next){
         req.session.search = {};
       }
     if (req.session.email){
-        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies(req.session.search.search)});
+        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies(req.session.search.search),genres:await movie.getAllGenres(req.session.search.search)});
     } else {
-        res.render('home_page.ejs',{linkName:"Login", link:"/login",  movies:await movie.getAllMovies(req.session.search.search)});
+        res.render('home_page.ejs',{linkName:"Login", link:"/login",  movies:await movie.getAllMovies(req.session.search.search),genres:await movie.getAllGenres(req.session.search.search)});
     }
 });
 
@@ -124,13 +124,7 @@ app.post('/ticket', function (req, res, next){
     }
 });
 
-app.get('/', async function(req,res,next){
-    if (req.session.email){
-        res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies()});
-    } else {
-        res.render('home_page.ejs',{linkName:"Login", link:"/login", movies:await movie.getAllMovies()});
-    }
-});
+
 
 app.get('/movie', async function(req, res, next){
     let result = await movie.getMovieById(req.query.id);
