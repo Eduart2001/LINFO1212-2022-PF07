@@ -21,6 +21,21 @@ async function getMovieById(movieId){
 }
 
 /**
+ * Finds the movie according to given id.
+ *
+ * @param {number} movieId The id of the movie to find.
+ * @return {String} Movie name.
+ */
+async function getMovieName(movieId){
+    try {
+        const [result, meta] = await sequelize.query(`SELECT movieName from Movies WHERE id=${movieId} `);
+        return result[0];
+    } catch {
+        return [];
+    }
+}
+
+/**
  * Gets all movies in the database.
  *
  * @return {Array} The array given by sequelize when all movies are requested.
@@ -489,4 +504,5 @@ module.exports={
     updateMovieData: updateMovieData,
     removeDeletedMoviePoster:removeDeletedMoviePoster,
     deleteMovie:deleteMovie,
+    getMovieName:getMovieName,
 }

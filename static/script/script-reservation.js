@@ -220,19 +220,20 @@ function loadHallData(id) {
   for (var i = 0; i < division; i++) {
     innerHtml += '<div class="row">';
     for (var j = 0; j < 10; j++) {
-      if (i * 10 + j in bookedSeats) {
+      var result=i * 10 + j;
+      if (bookedSeats.includes(result)) {
         innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=${
-          i * 10 + j
-        } name="selectedSeat" value=${i * 10 + j} disabled>
-        <label for=${i * 10 + j}><div class="col-3 w-30 seat sold" id=${
-          i * 10 + j
+          result
+        } name="selectedSeat" value=${result} disabled>
+        <label for=${result}><div class="col-3 w-30 seat sold" id=${
+          result
         } ></div></label></div>`;
       } else {
         innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=${
-          i * 10 + j
-        } name="selectedSeat" value=${i * 10 + j}>
-        <label for=${i * 10 + j}><div class="col-3 w-30 seat" id=${
-          i * 10 + j
+          result
+        } name="selectedSeat" value=${result}>
+        <label for=${result}><div class="col-3 w-30 seat" id=${
+          result
         } ></div></label></div>`;
       }
     }

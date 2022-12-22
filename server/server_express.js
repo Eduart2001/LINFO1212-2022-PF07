@@ -419,28 +419,40 @@ app.post("/reservation/done", async function (req, res, next) {
     if (req.session.email){
         var userData= await login.getPublicData(req.session.email);
         var seats=req.body.selectedSeat;
-        //  Ca depends si on va faire une table de reservation aussi ou envoyer juste les mails
-        // for(x of seats){
-        //     Reservations.create({
-        //         email:req.session.email,
-        //         session:req.body.session,
-        //         seat:x
-        //     });
-        //     Seat.create({
-        //         id:x,
-        //         timeTableId:req.body.session,
-        //     });
-        // }
-        // let session=req.body.session;
-        // let dirs = [];
+        if(typeof(seats)==="string"){
+            Seat.create({
+                id:seats,
+                timeTableId:req.body.session,
+            });
+            Reservations.create({
+                email:req.session.email,
+                session:req.body.session,
+                seat:seats
+            });
+        }else{
+            for(x of seats){
+                Seat.create({
+                    id:x,
+                    timeTableId:req.body.session,
+                });
+                Reservations.create({
+                    email:req.session.email,
+                    session:req.body.session,
+                    seat:x
+                });
+            }
+        }
+            let session=req.body.session;
+            let dirs = [];
+    
+            while (session > 0) {
+              dirs.push(Math.floor(session % 10));
+              session = Math.floor(session / 10);
+            }
+    
+    
+            await emailSender.sendTicket(req.session.email, dirs[3], seats, await movie.getMovieName(dirs[2]), getNearestDateWithDayNumber(dirs[1]), dirs[0])
 
-        // while (session > 0) {
-        //   dirs.push(Math.floor(session % 10));
-        //   session = Math.floor(session / 10);
-        // }
-
-
-        // await email.sendTicket(req.session.email, dirs[3], seats, await movie.getName(dirs[2]), getNearestDateWithDayNumber(dirs[1]), dirs[0])
         console.log(req.body)
     } else{
         res.redirect("/login");
@@ -449,8 +461,6 @@ app.post("/reservation/done", async function (req, res, next) {
 });
 
 app.get("/admin/modify_movie", async function (req, res, next) {
-    req.session.email="admin@admin.com"
-    req.session.admin = true;
     if (req.session.email){
         if (req.session.admin){
             let result = await sequelize.query(`SELECT * FROM Movies`);
@@ -512,7 +522,7 @@ app.post('/hall/timetable/get', async function (req, res, next) {
 app.post('/movie/reservation/getData', async function (req, res, next) {
     var queryResult=req.query.id
     console.log(queryResult)
-    req.session.email="admin@admin.com"
+    req.session.email="abdullahu.eduart@gmail.com"
     var user =req.session.email;
     var userResult=[];
     if(req.session.email){
