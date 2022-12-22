@@ -74,7 +74,7 @@ async function emptyMoviesDB(){
  * @return {String} newString is the movieName String without invalid characters.
  */
 function replaceInvalid(movieName){
-    var inv = ["/", ":", "*", "?", `"`, "<", ">", "|"];
+    var inv = ["/", ":", "*", "?", `"`, "<", ">", "|", "."];
     var newString = movieName;
 
     for (let i = 0; i < inv.length; i++){
@@ -246,6 +246,246 @@ function addMoviesTest(){
         IMDBscore: "8.3",
         genre: "Action, Adventure",
         duration: 148
+    });
+
+    //Puss in Boots
+    download('https://m.media-amazon.com/images/M/MV5BNjMyMDBjMGUtNDUzZi00N2MwLTg1MjItZTk2MDE1OTZmNTYxXkEyXkFqcGdeQXVyMTQ5NjA0NDM0._V1_.jpg', 'static/Posters/Puss_in_Boots_The_Last_Wish.jpg', function(){console.log('Puss_in_Boots_The_Last_Wish.jpg downloaded');});
+    movies.push({
+        movieName: "Puss in Boots: The Last Wish",
+        poster: "Puss_in_Boots_The_Last_Wish.jpg",
+        description: "Puss in Boots discovers that his passion for adventure has taken its toll: he has burned through eight of his nine lives. Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.",
+        actors: "Antonio Banderas, Salma Hayek, Harvey Guillén, Florence Pugh, John Mulaney, Wagner Moura",
+        directors:"Joel Crawford",
+        releaseDate: new Date("2022-12-21"),
+        trailerURL: "https://www.youtube.com/watch?v=xgZLXyqbYOc",
+        country: "United States of America",
+        ageRestriction: 6,
+        IMDBscore: "7.6",
+        genre: "Animation, Family/Kids",
+        duration: 101
+    });
+
+    //The menu
+    download('https://m.media-amazon.com/images/M/MV5BMzdjNjI5MmYtODhiNS00NTcyLWEzZmUtYzVmODM5YzExNDE3XkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_.jpg', 'static/Posters/The_Menu.jpg', function(){console.log('The_Menu.jpg downloaded');});
+    movies.push({
+        movieName: "The Menu",
+        poster: "The_Menu.jpg",
+        description: "A young couple travel to a remote island to eat at an exclusive restaurant where the chef has prepared a lavish menu, with some shocking surprises.",
+        actors: "Ralph Fiennes, Anya Taylor-Joy, Nicholas Hoult, Hong Chau, Janet McTeer, Paul Adelstein",
+        directors:"Mark Mylod",
+        releaseDate: new Date("2022-11-18"),
+        trailerURL: "https://www.youtube.com/watch?v=C_uTkUGcHv4",
+        country: "United States of America",
+        ageRestriction: 16,
+        IMDBscore: "7.5",
+        genre: "Comedy, Horror/Thriller",
+        duration: 107
+    });
+
+    //Oups! J'ai encore raté l'arche
+    download('https://m.media-amazon.com/images/M/MV5BZjM3NDE4NTYtYWJkYy00NWI5LThmNjMtYTFkMGNjMzdiMDU2XkEyXkFqcGdeQXVyNjYxNzY5MjE@._V1_.jpg', 'static/Posters/Two_by_Two_Overboard!.jpg', function(){console.log('Two_by_Two_Overboard!.jpg downloaded');});
+    movies.push({
+        movieName: "Two by Two: Overboard!",
+        poster: "Two_by_Two_Overboard!.jpg",
+        description: "Adrift on a flood, two misfit castaways struggle to reunite an unorthodox family, out-run a volcano, and negotiate a peace deal on a creaking Ark.",
+        actors: "Max Carolan, Ava Connolly, Dermot Magennis, Tara Flynn, Mary Murray",
+        directors:"Toby Genkel, Sean McCormack",
+        releaseDate: new Date("2022-12-21"),
+        trailerURL: "https://www.youtube.com/watch?v=qf1LcI6dekk",
+        country: "Germany",
+        ageRestriction: 3,
+        IMDBscore: "5.8",
+        genre: "Animation, Family/Kids",
+        duration: 86
+    });
+
+    //Devotion
+    download('https://m.media-amazon.com/images/M/MV5BMjI5NGJjMmEtODk4Yy00ZDRjLWE5ZGItMjJiNGM4NTI0NmZkXkEyXkFqcGdeQXVyNjk1Njg5NTA@._V1_.jpg', 'static/Posters/Devotion.jpg', function(){console.log('Devotion.jpg downloaded');});
+    movies.push({
+        movieName: "Devotion",
+        poster: "Devotion.jpg",
+        description: "A pair of U.S. Navy fighter pilots risk their lives during the Korean War and become some of the Navy's most celebrated wingmen.",
+        actors: "Jonathan Majors, Glen Powell, Christina Jackson, Thomas Sadoski, Daren Kagasoff, Joe Jonas",
+        directors:"J.D. Dillard",
+        releaseDate: new Date("2022-12-23"),
+        trailerURL: "https://www.youtube.com/watch?v=NCDEGP6VjYY",
+        country: "United States of America",
+        ageRestriction: 12,
+        IMDBscore: "7.0",
+        genre: "Drama, Action",
+        duration: 139
+    });
+
+    //Violent night
+    download('https://m.media-amazon.com/images/M/MV5BYzg2NWNhOWItYjA3Yi00MzhhLTg4ZmItYzM3ZTIwN2U0ZGQ5XkEyXkFqcGdeQXVyMzEyMDQzNzY@._V1_.jpg', 'static/Posters/Violent_Night.jpg', function(){console.log('Violent_Night.jpg downloaded');});
+    movies.push({
+        movieName: "Violent Night",
+        poster: "Violent_Night.jpg",
+        description: "When a group of mercenaries attack the estate of a wealthy family, Santa Claus must step in to save the day (and Christmas).",
+        actors: "David Harbour, John Leguizamo, Beverly D'Angelo, Alex Hassell, Alexis Louder, Edi Patterson, Cam Gigandet",
+        directors:"Tommy Wirkola",
+        releaseDate: new Date("2022-12-2"),
+        trailerURL: "https://www.youtube.com/watch?v=a53e4HHnx_s",
+        country: "United States of America",
+        ageRestriction: 16,
+        IMDBscore: "7.0",
+        genre: "Action, Crime, Comedy, Thriller, ",
+        duration: 111
+    });
+
+    //The Whale
+    download('https://m.media-amazon.com/images/M/MV5BZDQ4Njg4YTctNGZkYi00NWU1LWI4OTYtNmNjOWMyMjI1NWYzXkEyXkFqcGdeQXVyMTA3MDk2NDg2._V1_.jpg', 'static/Posters/The_Whale.jpg', function(){console.log('The_Whale.jpg downloaded');});
+    movies.push({
+        movieName: "The Whale",
+        poster: "The_Whale.jpg",
+        description: "A reclusive English teacher attempts to reconnect with his estranged teenage daughter.",
+        actors: "Brendan Fraser, Sadie Sink, Ty Simpkins, Hong Chau, Samantha Morton",
+        directors:"Darren Aronofsky",
+        releaseDate: new Date("2022-12-21"),
+        trailerURL: "https://www.youtube.com/watch?v=D30r0CwtIKc",
+        country: "United States of America",
+        ageRestriction: 16,
+        IMDBscore: "8.2",
+        genre: "Drama",
+        duration: 117
+    });
+
+    //Upcoming releases
+
+    //Mario Bros
+    download('https://m.media-amazon.com/images/M/MV5BYjY5MTYwMDYtNDk4OS00NmE1LWI2ZjItY2Q5ZmVmNTU4NTAyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'static/Posters/The_Super_Mario_Bros_Movie.jpg', function(){console.log('The_Super_Mario_Bros_Movie.jpg downloaded');});
+    movies.push({
+        movieName: "The Super Mario Bros. Movie",
+        poster: "The_Super_Mario_Bros_Movie.jpg",
+        description: "The story of The Super Mario Bros. on their journey through the Mushroom Kingdom.",
+        actors: "Chris Pratt, Anya Taylor-Joy, Charlie Day, Jack Black, Keegan-Michael Key, Seth Rogen",
+        directors:"Aaron Horvath, Michael Jelenic",
+        releaseDate: new Date("2023-3-22"),
+        trailerURL: "https://www.youtube.com/watch?v=KydqdKKyGEk",
+        country: "United States of America",
+        ageRestriction: 3,
+        IMDBscore: "N/A",
+        genre: "Animation, Family/Kids",
+        duration: 1
+    });
+
+    //Ant-man
+    download('https://m.media-amazon.com/images/M/MV5BNDgyNGM4NTYtN2M3MS00YTY2LTk0OWUtZmIzYjg3MmQ0OGM4XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg', 'static/Posters/Ant-Man_and_the_Wasp_Quantumania.jpg', function(){console.log('Ant-Man_and_the_Wasp_Quantumania.jpg downloaded');});
+    movies.push({
+        movieName: "Ant-Man and the Wasp: Quantumania",
+        poster: "Ant-Man_and_the_Wasp_Quantumania.jpg",
+        description: "Scott Lang and Hope Van Dyne, along with Hank Pym and Janet Van Dyne, explore the Quantum Realm, where they interact with strange creatures and embark on an adventure that goes beyond the limits of what they thought was possible.",
+        actors: "Paul Rudd, Evangeline Lilly, Jonathan Majors, Kathryn Newton, William Jackson Harper, Michelle Pfeiffer, Michael Douglas, Bill Murray",
+        directors:"Peyton Reed",
+        releaseDate: new Date("2023-2-15"),
+        trailerURL: "https://www.youtube.com/watch?v=ZlNFpri-Y40",
+        country: "United States of America",
+        ageRestriction: 12,
+        IMDBscore: "N/A",
+        genre: "Action, Adventure",
+        duration: 1
+    });
+
+    //John Wick 4
+    download('https://m.media-amazon.com/images/M/MV5BMDExZGMyOTMtMDgyYi00NGIwLWJhMTEtOTdkZGFjNmZiMTEwXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_.jpg', 'static/Posters/John_Wick_4.jpg', function(){console.log('John_Wick_4.jpg downloaded');});
+    movies.push({
+        movieName: "John Wick 4",
+        poster: "John_Wick_4.jpg",
+        description: "John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.",
+        actors: "Keanu Reeves, Donnie Yen, Bill Skarsgård, Laurence Fishburne, Hiroyuki Sanada, Shamier Anderson",
+        directors:"Chad Stahelski",
+        releaseDate: new Date("2023-3-22"),
+        trailerURL: "https://www.youtube.com/watch?v=qEVUtrk8_B4",
+        country: "United States of America",
+        ageRestriction: 16,
+        IMDBscore: "N/A",
+        genre: "Action",
+        duration: 1
+    });
+
+    //Transformers
+    download('https://m.media-amazon.com/images/M/MV5BN2FkOWQ3YzItNmNhZi00ZWNlLThjYTMtZWIyZDc2YjQzMjk3XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg', 'static/Posters/Transformers_Rise_of_the_Beasts.jpg', function(){console.log('Transformers_Rise_of_the_Beasts.jpg downloaded');});
+    movies.push({
+        movieName: "Transformers: Rise of the Beasts",
+        poster: "Transformers_Rise_of_the_Beasts.jpg",
+        description: "Returning to the action and spectacle that made the original Transformers a worldwide phenomenon 14 years ago, Transformers: Rise of The Beasts will take audiences on a globe-trotting adventure set in the 1990s. The Maximals, Predacons and Terrorcons will be introduced for the first time as they join the ongoing battle between the Autobots and Decepticons.",
+        actors: "Michelle Yeoh, Ron Perlman, Peter Dinklage, Pete Davidson, Luna Lauren Velez, Anthony Ramos",
+        directors:"Steven Caple Jr.",
+        releaseDate: new Date("2023-6-7"),
+        trailerURL: "https://www.youtube.com/watch?v=P8p_otV-lys",
+        country: "United States of America",
+        ageRestriction: 12,
+        IMDBscore: "N/A",
+        genre: "Action, Adventure, Science fiction",
+        duration: 1
+    });
+
+    //Spider-man: Across the spiderverse
+    download('https://m.media-amazon.com/images/M/MV5BNDAzY2FkNjAtZGZlOS00YTE2LWE4YjctOGMwYzIxZWU4MDRiXkEyXkFqcGdeQXVyMTUzMTg2ODkz._V1_.jpg', 'static/Posters/Spider-Man_Across_the_Spider-Verse.jpg', function(){console.log('Spider-Man_Across_the_Spider-Verse.jpg downloaded');});
+    movies.push({
+        movieName: "Spider-Man: Across the Spider-Verse",
+        poster: "Spider-Man_Across_the_Spider-Verse.jpg",
+        description: "Miles Morales returns for the next chapter of the Oscar®-winning Spider-Verse saga, an epic adventure that will transport Brooklyn's full-time, friendly neighborhood Spider-Man across the Multiverse to join forces with Gwen Stacy and a new team of Spider-People to face off with a villain more powerful than anything they have ever encountered.",
+        actors: "Shameik Moore, Hailee Steinfeld, Oscar Isaac, Jake Johnson, Issa Rae, Brian Tyree Henry, Luna Lauren Velez",
+        directors:"Joaquim Dos Santos, Kemp Powers, Justin K. Thompson",
+        releaseDate: new Date("2023-6-2"),
+        trailerURL: "https://www.youtube.com/watch?v=cqGjhVJWtEg",
+        country: "United States of America",
+        ageRestriction: 6,
+        IMDBscore: "N/A",
+        genre: "Animation, Action, Adventure",
+        duration: 1
+    });
+
+    //Barbie
+    download('https://m.media-amazon.com/images/M/MV5BNzliODE4NDQtYzEwNy00N2QyLTk2ZGQtZGZhNDU0NjVlZDMyXkEyXkFqcGdeQXVyMTU0Mjc4MTY4._V1_.jpg', 'static/Posters/Barbie.jpg', function(){console.log('Barbie.jpg downloaded');});
+    movies.push({
+        movieName: "Barbie",
+        poster: "Barbie.jpg",
+        description: "Barbie lives in Barbie Land and then a story happens.",
+        actors: "Margot Robbie, Will Ferrell, Ryan Gosling, Ariana Greenblatt, Emma Mackey, Helen Mirren",
+        directors:"Greta Gerwig",
+        releaseDate: new Date("2023-7-19"),
+        trailerURL: "https://www.youtube.com/watch?v=8zIf0XvoL9Y",
+        country: "United States of America",
+        ageRestriction: 6,
+        IMDBscore: "N/A",
+        genre: "Adventure, Fantasy",
+        duration: 1
+    });
+
+    //Babylon
+    download('https://m.media-amazon.com/images/M/MV5BNjlkYjc4NGMtZjc3MS00NjQ3LTk4MmUtMTkwZGZjODE1ZDVlXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_.jpg', 'static/Posters/Babylon.jpg', function(){console.log('Babylon.jpg downloaded');});
+    movies.push({
+        movieName: "Babylon",
+        poster: "Babylon.jpg",
+        description: "A tale of outsized ambition and outrageous excess, it traces the rise and fall of multiple characters during an era of unbridled decadence and depravity in early Hollywood.",
+        actors: "Brad Pitt, Margot Robbie, Diego Calva, Tobey Maguire, Jean Smart, Jean Smart",
+        directors:"Damien Chazelle",
+        releaseDate: new Date("2023-1-18"),
+        trailerURL: "https://www.youtube.com/watch?v=5muQK7CuFtY",
+        country: "United States of America",
+        ageRestriction: 12,
+        IMDBscore: "N/A",
+        genre: "Comedy, Drama",
+        duration: 1
+    });
+
+    //Creed III
+    download('https://m.media-amazon.com/images/M/MV5BZDNlZmRkM2UtZTBiYy00YTlhLThkZmEtM2YwY2FkMTUwZjViXkEyXkFqcGdeQXVyMTMzNDE5NDM2._V1_.jpg', 'static/Posters/Creed_III.jpg', function(){console.log('Creed_III.jpg downloaded');});
+    movies.push({
+        movieName: "Creed III",
+        poster: "Creed_III.jpg",
+        description: "Adonis has been thriving in both his career and family life, but when a childhood friend and former boxing prodigy resurfaces, the face-off is more than just a fight.",
+        actors: "Jonathan Majors, Michael B. Jordan, Tessa Thompson, Selenis Leyva, Wood Harris, Phylicia Rashad",
+        directors:"Michael B. Jordan",
+        releaseDate: new Date("2023-3-1"),
+        trailerURL: "https://www.youtube.com/watch?v=AHmCH7iB_IM",
+        country: "United States of America",
+        ageRestriction: 12,
+        IMDBscore: "N/A",
+        genre: "Drama, Action",
+        duration: 1
     });
 
     for (let i = 0; i < movies.length; i++) {

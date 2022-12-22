@@ -42,13 +42,13 @@ const Seat = require("../Database/Seat");
 const MovieReserved =require("../Database/MovieReserved");
 const Reservations =require("../Database/Reservations");
 
-// User.sync().then(() => {login.emptyUsersDB()})
-// Movie.sync().then(() => {movie.emptyMoviesDB()})
-// Hall.sync().then(() => {hall.create3Halls()})
-// TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
-// Seat.sync().then(() => {seat.emptyTimeTableDB()})
-// MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
-//// sequelize.sync().then(() => {console.log("db is ready")});
+User.sync().then(() => {login.emptyUsersDB()})
+Movie.sync().then(() => {movie.emptyMoviesDB()})
+Hall.sync().then(() => {hall.create3Halls()})
+TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
+Seat.sync().then(() => {seat.emptyTimeTableDB()})
+MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
+sequelize.sync().then(() => {console.log("db is ready")});
 
 // //multer options
 const storage = multer.diskStorage({
