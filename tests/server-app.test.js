@@ -1,6 +1,13 @@
 const request = require("supertest");
 const app = require("../server/server_express");
+const server = require("../server/server_express").server;
 
+beforeAll(() => {
+  server.close();
+});
+afterAll(() => {
+  server.close();
+});
 describe("Testing login requests", () => {
     it("GET /login", async () => {
         const httpRequest = request(app).get('/login');

@@ -1,14 +1,17 @@
 const movie = require("../server/movie");
 const fs = require("../server/server_express").fs;
+const server = require("../server/server_express").server;
 
 beforeAll( async () => {
     await movie.emptyMoviesDB();
+    server.close();
 });
 
 afterAll(() => {
     fs.unlink("./example.jpg", function (err){
         if (err) throw err;
     });
+    server.close();
 });
 
 describe("getMovieById function tests", () => {

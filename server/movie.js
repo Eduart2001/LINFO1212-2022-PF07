@@ -1,5 +1,5 @@
-const sequelize = require("./server_express").sequelize;
-const Movie = require("./server_express").Movie;
+const sequelize = require("../Database/database");
+const Movie = require("../Database/Movie");
 const upload = require("./server_express").upload;
 const fs = require("./server_express").fs;
 const request = require("./server_express").request;

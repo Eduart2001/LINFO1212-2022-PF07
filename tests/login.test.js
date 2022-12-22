@@ -1,8 +1,13 @@
 const login = require("../server/login");
 var crypto = require("crypto");
+const server = require("../server/server_express").server;
 
+afterAll(() => {
+  server.close();
+});
 beforeAll( async () => {
     await login.emptyUsersDB();
+    server.close();
 });
 
 describe("Login function tests", () => {

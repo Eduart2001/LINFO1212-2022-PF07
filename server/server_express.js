@@ -41,13 +41,15 @@ const TimeTable = require("../Database/TimeTable");
 const Seat = require("../Database/Seat");
 const MovieReserved =require("../Database/MovieReserved");
 
-User.sync().then(() => {login.emptyUsersDB()})
-Movie.sync().then(() => {movie.emptyMoviesDB()})
-Hall.sync().then(() => {hall.create3Halls()})
-TimeTable.sync().then(() => {console.log("TimeTable")})
-Seat.sync().then(() => {console.log("seat")})
-MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
 //sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
+// User.sync().then(() => {login.emptyUsersDB()})
+// Movie.sync().then(() => {movie.emptyMoviesDB()})
+// Hall.sync().then(() => {hall.create3Halls()})
+// TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
+// Seat.sync().then(() => {seat.emptyTimeTableDB()})
+// sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
+MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
+
 
 
 //multer options
@@ -71,6 +73,18 @@ var transporter = nodemailer.createTransport({
 
 const upload = multer({storage:storage});
 
+
+const server =https.createServer({
+    key:fs.readFileSync('./key.pem'),
+    cert: fs.readFileSync('./cert.pem'),
+    passphrase: 'ingi'
+}, app).listen(8080);
+
+process.on('exit', () => {
+    server.close();
+});
+
+
 // exports variables
 module.exports = {
     app: app,
@@ -85,7 +99,8 @@ module.exports = {
     request: request,
     upload : upload,
     QRCode: QRCode,
-    transporter: transporter
+    transporter: transporter,
+    server:server
 };
 
 //imports
@@ -99,6 +114,7 @@ const seat = require("./seat");
 const moviereserved=require("./moviereserved");
 
 app.get('/', async function(req,res,next){
+
     if (req.session.email){
         res.render('home_page.ejs',{linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movies:await movie.getAllMovies()});
     } else {
@@ -518,9 +534,3 @@ app.post('/admin/modify_movie/remove', async function (req, res, next) {
     res.redirect("/admin/modify_movie")
 });
 // end admin part 
-
-https.createServer({
-    key:fs.readFileSync('./key.pem'),
-    cert: fs.readFileSync('./cert.pem'),
-    passphrase: 'ingi'
-}, app).listen(8080);
