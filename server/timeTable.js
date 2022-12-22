@@ -157,7 +157,7 @@ function addTimeTableTest(){
  * @returns {string} - A string indicating whether the TimeTable table is empty or not.
  */
 async function emptyTimeTableDB(){
-    if ((await addTimeTableTest()).length == 0){
+    if ((await sequelize.query("SELECT * FROM TimeTables"))[0].length == 0){
         console.log("empty TimeTable table");
         addTimeTableTest();
         return "empty TimeTable table";

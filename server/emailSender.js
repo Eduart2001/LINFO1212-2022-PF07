@@ -1,7 +1,7 @@
-const QRCode = require("./server_express").QRCode;
+const QRCode = require("qrcode");
 const transporter = require("./server_express").transporter;
-const User = require("./server_express").User;
-const sequelize = require("./server_express").sequelize;
+const User = require("../Database/User");
+const sequelize = require("../Database/database");
 var crypto = require("crypto");
 
 /**

@@ -1,8 +1,8 @@
 const sequelize = require("../Database/database");
 const Movie = require("../Database/Movie");
 const upload = require("./server_express").upload;
-const fs = require("./server_express").fs;
-const request = require("./server_express").request;
+const fs = require("fs")
+var request = require("request");
 
 /**
  * Finds the movie according to given id.

@@ -1,7 +1,7 @@
 const { get } = require("http");
 
-const sequelize = require("./server_express").sequelize;
-const Hall=require("./server_express").Hall;
+const sequelize = require("../Database/database");
+const Hall=require("../Database/Hall");
 
 async function create3Halls(){
     if ((await getAllHalls()).length == 0){

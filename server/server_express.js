@@ -40,15 +40,9 @@ const Movie = require("../Database/Movie");
 const TimeTable = require("../Database/TimeTable");
 const Seat = require("../Database/Seat");
 const MovieReserved =require("../Database/MovieReserved");
+const Reservations =require("../Database/Reservations");
 
-//sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
-// User.sync().then(() => {login.emptyUsersDB()})
-// Movie.sync().then(() => {movie.emptyMoviesDB()})
-// Hall.sync().then(() => {hall.create3Halls()})
-// TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
-// Seat.sync().then(() => {seat.emptyTimeTableDB()})
-// sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
-MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
+
 
 
 
@@ -102,6 +96,20 @@ module.exports = {
     transporter: transporter,
     server:server
 };
+
+
+
+sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
+User.sync().then(() => {login.emptyUsersDB()})
+Movie.sync().then(() => {movie.emptyMoviesDB()})
+Hall.sync().then(() => {hall.create3Halls()})
+TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
+Seat.sync().then(() => {seat.emptyTimeTableDB()})
+MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
+sequelize.sync().then(() => {login.emptyUsersDB(), movie.emptyMoviesDB(), console.log("db is ready")});
+
+
+
 
 //imports
 const login = require("./login");
@@ -422,16 +430,39 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
     res.redirect("/admin/time_table");
 });
 app.post("/reservation/done", async function (req, res, next) {
+    function getNearestDateWithDayNumber(dayNumber) {
+        const today = new Date();
+        const todayDayNumber = today.getDay();
+        const daysUntilDay = (dayNumber - todayDayNumber) % 7;
+        const nearestDate = new Date(today.getTime() + daysUntilDay * 24 * 60 * 60 * 1000);
+        return nearestDate.toLocaleDateString('fr-CA');
+    }
+    
     if (req.session.email){
         var userData= await login.getPublicData(req.session.email);
         var seats=req.body.selectedSeat;
         //  Ca depends si on va faire une table de reservation aussi ou envoyer juste les mails
         // for(x of seats){
+        //     Reservations.create({
+        //         email:req.session.email,
+        //         session:req.body.session,
+        //         seat:x
+        //     });
         //     Seat.create({
         //         id:x,
         //         timeTableId:req.body.session,
-        //     })
+        //     });
         // }
+        // let session=req.body.session;
+        // let dirs = [];
+
+        // while (session > 0) {
+        //   dirs.push(Math.floor(session % 10));
+        //   session = Math.floor(session / 10);
+        // }
+
+
+        // await email.sendTicket(req.session.email, dirs[3], seats, await movie.getName(dirs[2]), getNearestDateWithDayNumber(dirs[1]), dirs[0])
         console.log(req.body)
     } else{
         res.redirect("/login");

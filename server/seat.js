@@ -36,7 +36,7 @@ async function addSeats() {
  * @returns {string} - A string indicating whether the Seats table is empty or not.
  */
 async function emptyTimeTableDB(){
-    if ((await addSeats()).length == 0){
+    if ((await sequelize.query("SELECT * FROM Seats"))[0].length == 0){
         console.log("empty Seats table");
         addSeats();
         return "empty Seats table";
