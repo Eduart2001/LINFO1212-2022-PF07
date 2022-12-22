@@ -12,7 +12,7 @@ Seat.init({
         primaryKey:true
     },
     timeTableId:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
         allowNull: false,
         primaryKey:true
     },

@@ -108,9 +108,9 @@ function timeTable(data) {
     for (var i = 0; i < data.length; i++) {
       if (data[i].day === day) {
         const id =
-          data[i].hallId * 1000 +
-          data[i].movieId * 100 +
-          data[i].day * 10 +
+          data[i].hallId+"-"+
+          data[i].movieId+"-"+
+          data[i].day +"-"+
           data[i].time;
         if (data[i].availableCapacity === 0) {
         }

@@ -421,31 +421,39 @@ app.post("/reservation/done", async function (req, res, next) {
     }
     
     if (req.session.email){
+        console.log(req.session.email)
         var userData= await login.getPublicData(req.session.email);
         var seats=req.body.selectedSeat;
-        if(typeof(seats)==="string"){
+        try{
+            seats=Number(seats);
             Seat.create({
                 id:seats,
-                timeTableId:req.body.session,
-            });
-            Reservations.create({
-                email:req.session.email,
-                session:req.body.session,
-                seat:seats
-            });
-        }else{
-            for(x of seats){
-                Seat.create({
-                    id:x,
-                    timeTableId:req.body.session,
-                });
+                timeTableId:Number(req.body.session),
+            }).then(()=>{
                 Reservations.create({
                     email:req.session.email,
-                    session:req.body.session,
-                    seat:x
+                    timeTableId:Number(req.body.session),
+                    seat:seats,
+                    id:0,
+                }).then(()=>{console.log("OK")});
+                
+            });
+        }catch{
+            for(x of seats){
+                Seat.create({
+                    id:Number(x),
+                    timeTableId:Number(req.body.session),
+                }).then(async ()=>{
+                Reservations.create({
+                        email:req.session.email,
+                        timeTableId:Number(req.body.session),
+                        seat:Number(x)
+                    }).then(()=>{console.log("OK")});
+                    
                 });
             }
         }
+
             let session=req.body.session;
             let dirs = [];
     
@@ -455,13 +463,11 @@ app.post("/reservation/done", async function (req, res, next) {
             }
     
     
-            await emailSender.sendTicket(req.session.email, 10, 20, "spider Man", "23-12-2022")
 
-        console.log(req.body)
+        console.log("OK")
     } else{
         res.redirect("/login");
     }
-    res.redirect("/")
 });
 
 app.get("/admin/modify_movie", async function (req, res, next) {
@@ -540,14 +546,13 @@ app.post('/movie/reservation/getData', async function (req, res, next) {
 });
 app.post('/movie/reservation/getSeats', async function (req, res, next) {
     var queryResult=req.query.id
-    console.log(Math.floor(queryResult/1000))
+
     if(req.session.email){
         bookedSeats= await seat.getReservedSeatsForTimeTable(queryResult);
-        hallCapacity= await hall.getHallCapacity(Math.floor(queryResult/1000))
+        hallCapacity= await hall.getHallCapacity(queryResult.split("-").at(0));
     }
     res.setHeader("Content-Type", "application/json");
     let result = JSON.stringify([hallCapacity[0],bookedSeats]);
-    console.log(result)
     res.end(result);
 });
 

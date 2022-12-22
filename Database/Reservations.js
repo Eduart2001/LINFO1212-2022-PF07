@@ -22,7 +22,7 @@ Reservations.init({
           },
         onDelete:'CASCADE',
     },
-    session:{
+    timeTableId:{
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -31,7 +31,12 @@ Reservations.init({
           },
         onDelete:'CASCADE',
     },
-    
+    id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey:true,
+        autoIncrement:true
+    }
 },{sequelize})
 
 module.exports = Reservations

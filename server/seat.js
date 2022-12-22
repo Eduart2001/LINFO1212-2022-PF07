@@ -16,7 +16,7 @@ async function addSeats() {
   const [result, meta] = await sequelize.query("SELECT * FROM TimeTables");
   var ids = [];
   for (obj of result) {
-    ids.push(obj.hallId * 1000 + obj.movieId * 100 + obj.day * 10 + obj.time);
+    ids.push(obj.hallId +"-"+obj.movieId+"-"+ obj.day+"-"+ obj.time);
   }
   for (obj of ids){
     for (var x = 0; x < 19; x++) {
