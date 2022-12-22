@@ -17,18 +17,28 @@
         </form>
     </div>
     
-    <h1 style="margin-left:60px">Movies available</h1>
+ 
 
+
+<% if (movies.length>0){ %> 
+    <h1 style="margin-left:60px">Movies available</h1>
     <div id="main">
-        <% for(var x=0; x< movies.length; x++) {%> 
+    <% for(var x=0; x< movies.length; x++) {%> 
         <div>
             <div><a href="/movie?id=<%=movies[x].id%>"><img src="../Posters/<%=movies[x].poster%>" width="272" height="408"></a></div>
             <div class="title">
                 <a href="/movie?id=<%=movies[x].id%>"><h3><%=movies[x].movieName%></h3></a>
             </div>
         </div>
-        <% } %> 
+    <% } %> 
     </div>
+<% } else{ %> 
+    <div style="text-align: center;">
+        <H1 style="text-align: center;">No Movies available</H1>
+        <img src="../images/programming pepe.jpg">
+    </div>          
+
+<% } %> 
 
     
     <% for(var i=0; i< genres.length; i++) { %>
