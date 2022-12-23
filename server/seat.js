@@ -74,4 +74,5 @@ module.exports = {
   addSeats: addSeats,
   getReservedSeatsForTimeTable: getReservedSeatsForTimeTable,
   emptyTimeTableDB:emptyTimeTableDB,
+  randomArray:randomArray
 };

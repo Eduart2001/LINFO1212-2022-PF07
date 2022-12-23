@@ -65,7 +65,7 @@
         <div id="preferences" class="tabcontent">
           <form id="formpref" method="post" action="preferences">
             <label for="darkMode"> Toggle Dark/Light Mode : </label>
-            <% if (userPreferences!==null) {%> 
+            <% if (userPreferences!==null&&userPreferences!==undefined) {%> 
               <% if(userPreferences.darkMode==="on"){%>
                   <input type="checkbox" id="darkMode" name="darkMode" checked><br><br>
               <% } else{%>
@@ -78,7 +78,7 @@
 
             <% if (admincheck) {%> 
               <label for="showAll">Show all movies in time table selector: </label>
-              <% if (userPreferences!==null) {%> 
+              <% if (userPreferences!==null&&userPreferences!==undefined) {%> 
                 <% if(userPreferences.showAll==="on"){%>
                     <input type="checkbox" id="showAll" name="showAll" checked><br><br>
                 <% } else{%>

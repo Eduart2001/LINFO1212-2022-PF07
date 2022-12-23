@@ -24,3 +24,25 @@ describe("getReservedSeatsForTimeTable function tests", () => {
         expect(timeTable.length).toEqual(4);
     });
 });
+
+describe("emptyTimeTableDB function tests", () => {
+    
+  test('should return a string indicating whether the Seats table is empty or not.', async () => {
+        const result = await seat.emptyTimeTableDB()
+        expect(result).toBe("Seats table is not empty")
+  });
+});
+
+describe("randomArray function tests", () => {
+    
+  test('should return a An array of random integers', async () => {
+        const arrayLength=9
+        const result = await seat.randomArray(arrayLength)
+        expect(arrayLength).toEqual(result.length);
+  });
+  test('should return empty array when an error occurs', async () => {
+      const arrayLength=-1
+      const result = await seat.randomArray(arrayLength)
+      expect([]).toEqual(result);
+  });
+});

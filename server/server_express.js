@@ -217,7 +217,7 @@ app.get('/user',async function(req,res,next){
                 res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email),userPreferences:userPreferences});
             }
             else {
-                res.render('User_page.ejs', {admincheck: false,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
+                res.render('User_page.ejs', {admincheck: false,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email),userPreferences:userPreferences});
             }
         }
         else {
@@ -225,7 +225,7 @@ app.get('/user',async function(req,res,next){
                 res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email),userPreferences:userPreferences});
             }
             else {
-                res.render('User_page.ejs', {admincheck: false,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
+                res.render('User_page.ejs', {admincheck: false,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email),userPreferences:userPreferences});
             }
         }
 
