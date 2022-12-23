@@ -1,9 +1,9 @@
 const login = require("../server/login");
 var crypto = require("crypto");
+const User = require("../Database/User");
 const server = require("../server/server_express").server;
 
 beforeAll( async () => {
-    await login.emptyUsersDB();
     server.close();
 });
 
@@ -72,6 +72,11 @@ describe("getAllUsers function tests", () => {
 });
 
 describe("emptyUsersDB function tests", () => {
+    test("Users table is empty in database", async () => {
+        await User.destroy({where:{}});
+        let result = await login.emptyUsersDB();
+        expect(result).toBe("empty Users table");
+    });
     test("Users table is not empty in database", async () => {
         let result = await login.emptyUsersDB();
         expect(result).toBe("Users table is not empty");

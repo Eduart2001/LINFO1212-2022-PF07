@@ -116,17 +116,6 @@ app.post('/search', async function(req,res,next){
     res.redirect('/');
   });
 
-app.post('/ticket', function (req, res, next){
-    if (req.session.email){
-        emailSender.sendTicket(req.session.email, 5, "D15", "Avatar", "2022-12-23", "15:00");
-        res.send('email sent');
-    } else{
-        res.redirect("/login");
-    }
-});
-
-
-
 app.get('/movie', async function(req, res, next){
     let result = await movie.getMovieById(req.query.id);
     let available=true;
@@ -160,7 +149,7 @@ app.post('/ident', async function(req, res, next){
     if (result == req.body.email.toLowerCase()){
         req.session.email = result;
         req.session.admin = await login.isAdmin(req.session.email);
-        res.redirect('/user');
+        res.redirect('/');
     } else res.redirect('/login?incorrect=true');
 });
 
