@@ -603,6 +603,16 @@ app.post('/movie/reservation/getData', async function (req, res, next) {
     res.end(result);
 });
 
+/**
+ * Handle an HTTP POST request to the '/movie/reservation/getSeats' route.
+ * Get the reserved seats for a specific movie showing.
+ * Get the capacity of the hall where the movie is being shown.
+ * Send the hall capacity and reserved seats as a JSON response.
+ * 
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {function} next - The next middleware function
+ */
 app.post('/movie/reservation/getSeats', async function (req, res, next) {
     var queryResult=req.query.id
     bookedSeats= await seat.getReservedSeatsForTimeTable(queryResult);
@@ -612,6 +622,17 @@ app.post('/movie/reservation/getSeats', async function (req, res, next) {
     res.end(result);
 });
 
+/**
+ * Handle an HTTP POST request to the '/admin/modify_movie/remove' route.
+ * Remove the movie poster associated with the movie being deleted.
+ * Delete the movie from the database.
+ * Redirect the user to the '/admin/modify_movie' route.
+ * 
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {function} next - The next middleware function
+ * 
+ */
 app.post('/admin/modify_movie/remove', async function (req, res, next) {
     var queryResult=req.query.id
     await movie.removeDeletedMoviePoster(queryResult).then(()=>{console.log("Done")});
@@ -624,6 +645,16 @@ app.post('/admin/modify_movie/remove', async function (req, res, next) {
 
 //Preferences
 
+/**
+ * Handle an HTTP POST request to the '/preferences' route.
+ * Find the user's preferences in the database.
+ * Update, create or delete the user's preferences in the database.
+ * 
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise} - The result of the database query
+ */
 app.post('/preferences', async function (req, res, next) {
     const userPreferences = await Preferences.findOne({ where: { email: req.session.email } });
     if(Object.keys(req.body).length !== 0){

@@ -1,7 +1,12 @@
 const sequelize = require("../Database/database");
 const Seat = require("../Database/Seat");
 
-
+/**
+ * Returns an array of reserved seats for a given time table.
+ * @param {string} timeTable - The ID of the time table.
+ * @returns {Promise<number[]>} - A promise that resolves to an array of seat IDs.
+ * @throws {Error} - If there is an error executing the database query.
+ */
 async function getReservedSeatsForTimeTable(timeTable){
     try{
         const [result,meta]=await sequelize.query(`Select id from Seats where timeTableId='${timeTable}'`);
@@ -12,6 +17,11 @@ async function getReservedSeatsForTimeTable(timeTable){
     }
 }
 
+/**
+ * Returns an array of random integers ranging from 0 to max (exclusive) in a random order.
+ * @param {number} max - The upper bound of the range of integers (exclusive).
+ * @returns {number[]} - An array of random integers.
+ */
 function randomArray(max){
   var array = [];
   var randomArray = [];

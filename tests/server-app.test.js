@@ -20,3 +20,20 @@ describe("Testing login requests", () => {
         expect(response.status).toBe(200);
     })
 });
+
+
+
+
+const Preferences = require("../Database/Preferences");
+
+describe('/preferences route', () => {
+  it('should update or create a preferences record in the database', async () => {
+    const res = request(app)
+      .post('/preferences')
+      .send({ showAll: true, darkMode: false });
+
+    const preferences = await Preferences.findOne({ where: { email: 'admin@admin.com' } });
+    expect(preferences.showAll).toBe("null");
+    expect(preferences.darkMode).toBe("on");
+  });
+});
