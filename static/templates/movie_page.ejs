@@ -50,7 +50,11 @@
             </div>
         </div>
         <div class="reservation">
-            <a href="/movie/reservation?id=<%= id %>">Reserve NOW!</a>
+            <% if (available) {%> 
+                <a href="/movie/reservation?id=<%= id %>">Reserve NOW!</a>
+            <% } else{ %>
+                <a href="">COMING SOON!</a>
+            <% } %>
         </div>
     </body>
     <script src="../script/script-reservation.js"></script>

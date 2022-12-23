@@ -40,6 +40,7 @@ const Movie = require("../Database/Movie");
 const TimeTable = require("../Database/TimeTable");
 const Seat = require("../Database/Seat");
 const MovieReserved =require("../Database/MovieReserved");
+const Preferences=require("../Database/Preferences")
 
 User.sync().then(() => {login.emptyUsersDB()})
 Movie.sync().then(() => {movie.emptyMoviesDB()})
@@ -47,6 +48,7 @@ Hall.sync().then(() => {hall.create3Halls()})
 TimeTable.sync().then(() => {timeTable.emptyTimeTableDB()})
 Seat.sync().then(() => {seat.emptyTimeTableDB()})
 MovieReserved.sync().then(() => {moviereserved.emptyReservationDB()})
+Preferences.sync()
 sequelize.sync().then(() => {console.log("db is ready")});
 
 //multer options
@@ -127,13 +129,17 @@ app.post('/ticket', function (req, res, next){
 
 app.get('/movie', async function(req, res, next){
     let result = await movie.getMovieById(req.query.id);
+    let available=true;
+    if(new Date(result[0].releaseDate)>new Date()){
+        available=false
+    }
     if (!result.length > 0){
         res.send(`Movie with such id does not exist`);
     } else {
         if (req.session.email){
-            res.render('movie_page.ejs', {id: req.query.id, linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+            res.render('movie_page.ejs', {id: req.query.id, linkName: (await login.getName(req.session.email)).split(" ")[0], link:"/user", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0],available:available});
         } else {
-            res.render('movie_page.ejs', {id: req.query.id, linkName:"Login", link:"/login", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0]});
+            res.render('movie_page.ejs', {id: req.query.id, linkName:"Login", link:"/login", movieName: result[0].movieName, ageRestriction: "../age_ratings/" + result[0].ageRestriction + ".png", actors: result[0].actors, directors: result[0].directors, genre: result[0].genre, duration: result[0].duration, country: result[0].country, releaseDate: result[0].releaseDate.split(" ")[0], IMDBscore: result[0].IMDBscore, description: result[0].description, poster: "../Posters/" + result[0].poster, trailerURL: 'https://www.youtube.com/embed/' + result[0].trailerURL.split("v=")[1].split("&")[0],available:available});
         }
     }
 });
@@ -390,10 +396,16 @@ app.get("/movie/reservation", async function (req, res, next) {
 
 
 //admin part
-app.get("/admin/add_movie", function (req, res, next) {
+app.get("/admin/add_movie", async function (req, res, next) {
     if (req.session.email){
         if (req.session.admin){
-            res.render("add_movie.ejs");
+            const result= await login.getPublicData(req.session.email);
+            res.render("add_movie.ejs",{
+                admin:result[0].name,
+                email:req.session.email,
+                phone:result[0].phoneNumber,
+                birthdate:(result[0].birthdate).split(" ").at(0)
+            });
         } else{
             res.send("You are not an admin, you are not allowed to enter this page");
         }
@@ -429,21 +441,22 @@ app.post('/modified/movie', upload.single('upload'), async function(req, res, ne
         res.redirect("/admin/modify_movie");
     }
 });
-
-
 app.post("/add/movie/to/timetable", async function (req, res, next) {
     let movieId = req.body.movieSelector;
     let datePicker =req.body.radioChecker;
-    datePicker=Number(datePicker.split(" ").at(-1))
-    var object ={
-    hallId:Number(req.body.hallSelector),
-    movieId:Number(movieId.split("id-").at(-1)),
-    time:Math.floor((datePicker/7)),
-    day:(datePicker%7==0)?7:datePicker%7 
+    if(datePicker!=="None"&&movieId.split("id-").at(-1)!=="None"){
+        datePicker=Number(datePicker.split(" ").at(-1))
+        var object ={
+        hallId:Number(req.body.hallSelector),
+        movieId:Number(movieId.split("id-").at(-1)),
+        time:Math.floor((datePicker/7)),
+        day:(datePicker%7==0)?7:datePicker%7 
+        }
+        timeTable.add(object)
+        res.redirect("/admin/time_table");
     }
+    
 
-    timeTable.add(object)
-    res.redirect("/admin/time_table");
 });
 
 app.post("/reservation/done", async function (req, res, next) {
@@ -511,7 +524,14 @@ app.get("/admin/modify_movie", async function (req, res, next) {
     if (req.session.email){
         if (req.session.admin){
             let result = await sequelize.query(`SELECT * FROM Movies`);
-            res.render("modify_movie.ejs", { data: { movies: result[0] } });
+            const adminResult= await login.getPublicData(req.session.email);
+
+            res.render("modify_movie.ejs", { 
+                data: { movies: result[0]},
+                admin:adminResult[0].name,
+                email:req.session.email,
+                phone:adminResult[0].phoneNumber,
+                birthdate:(adminResult[0].birthdate).split(" ").at(0)         });
         } else{
             res.send("You are not an admin, you are not allowed to enter this page");
         }
@@ -521,9 +541,17 @@ app.get("/admin/modify_movie", async function (req, res, next) {
 });
 
 app.get("/admin/time_table",async function (req, res, next) {
+    req.session.email="admin@admin.com"
+    req.session.admin=true
     if (req.session.email){
         if (req.session.admin){
-            const queryResultMovies = await movie.getAllMovies();
+            const userPreferences = await Preferences.findOne({ where: { email: req.session.email } });
+            let queryResultMovies;
+            if(userPreferences && userPreferences.showAll==="on"){
+                 queryResultMovies = await movie.getAllMovies();
+            }else{
+                 queryResultMovies = await movie.getAllAvailableMovies();
+            }
             const queryResultHalls = await hall.getAllHalls();
                             
             res.render("time_table.ejs",{movies:queryResultMovies,halls:queryResultHalls});
@@ -588,9 +616,45 @@ app.post('/admin/modify_movie/remove', async function (req, res, next) {
     var queryResult=req.query.id
     await movie.removeDeletedMoviePoster(queryResult).then(()=>{console.log("Done")});
     await movie.deleteMovie(queryResult).then(()=>{console.log("Done")});
-    res.redirect("/admin/add_movie")
+    res.redirect("/admin/modify_movie")
 });
 // end admin part
+
+
+
+//Preferences
+
+app.post('/preferences', async function (req, res, next) {
+    const userPreferences = await Preferences.findOne({ where: { email: req.session.email } });
+    if(Object.keys(req.body).length !== 0){
+
+        let showAll=(req.body.showAll)?req.body.showAll:"null";
+        let darkMode=(req.body.darkMode)?req.body.darkMode:"null";
+
+        if (userPreferences) {
+            sequelize.query(
+                `UPDATE Preferences 
+                SET showAll='${showAll}', darkMode='${darkMode}'
+                WHERE email='${req.session.email}'`
+            )
+          } else {
+                Preferences.create({
+                    email:req.session.email,
+                    showAll:showAll,
+                    darkMode:darkMode
+                })
+           }    
+    }else{
+        if (userPreferences) {
+            await Preferences.destroy({where:{email:req.session.email}});
+          } else {
+            console.log("User not found");
+          }  
+    }
+    res.redirect("/user")
+});
+
+
 
 
 const server =https.createServer({

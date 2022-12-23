@@ -91,7 +91,11 @@ async function getTimeTableByMovie(movieId){
  *  - {string} time - The time the movie is playing.
  */
 async function add(object){
-    TimeTable.create(object)
+    try{
+        TimeTable.create(object)
+    }catch (e){
+        return e;
+    }
 }
 
 

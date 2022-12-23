@@ -79,13 +79,27 @@ async function getAllMovies(letter) {
         query += ` WHERE movieName LIKE '%${letter}%'`;
       }
       const [result, meta] = await sequelize.query(query);
-      console.log(result);
       return result;
     } catch {
       return [];
     }
   }
 
+
+/**
+ * Gets all available movies in the database.
+ *
+ * @return {Array} The array given by sequelize when all movies are requested.
+ */
+async function getAllAvailableMovies() {
+    try {
+      let query = `SELECT DISTINCT * FROM Movies where releaseDate<'${new Date().toLocaleDateString('fr-CA')}'` ;
+      const [result, meta] = await sequelize.query(query);
+      return result;
+    } catch {
+      return [];
+    }
+  }
 /**
  * Checks if the Movies table in the database is empty or not.
  * If it is, some movies are added (by calling addmoviesTest function) for testing purposes.
@@ -543,4 +557,5 @@ module.exports={
     deleteMovie:deleteMovie,
     getMovieName:getMovieName,
     getAllGenres:getAllGenres,
+    getAllAvailableMovies:getAllAvailableMovies,
 }

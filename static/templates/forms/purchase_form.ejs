@@ -8,28 +8,28 @@
       <h1>Continue:</h1>
       Name:
       <p>
-        <input name="first" id ="first" placeholder="First name..." oninput="this.className = ''" />
+        <input type="text" name="first" id ="first" placeholder="First name..." oninput="this.className = ''" />
       </p>
       <p>
-        <input name="last" id ="last" placeholder="Last name..." oninput="this.className = ''" />
+        <input type="text" name="last" id ="last" placeholder="Last name..." oninput="this.className = ''" />
       </p>
       <p>
-        <input name="birthdate" id ="birthdate" placeholder="birthdate..." oninput="this.className = ''" />
+        <input type="date" name="birthdate" id ="birthdate" placeholder="birthdate..." oninput="this.className = ''" />
       </p>
     </div>
 
     <div class="tab">
       Contact Info:
-      <p><input name ="email" id ="email" placeholder="E-mail..." oninput="this.className = ''" /></p>
-      <p><input name ="phoneNumber" id ="phoneNumber" placeholder="Phone..." oninput="this.className = ''" /></p>
+      <p><input type="email" name ="email" id ="email" placeholder="E-mail..." oninput="this.className = ''" /></p>
+      <p><input type="tel" name ="phoneNumber" id ="phoneNumber" placeholder="Phone..." oninput="this.className = ''" /></p>
     </div>
     <div class="tab">
         <div class="span9" id="timeTable">
           <% for(var i=1; i<= 7; i++) { %> 
             <div class="row-fluid separator time-row">
                 <div class="span2 date-desc">
-                  <span class="date-desc-label">Sot, E MARTë</span>
-                  <time>20.12.2022</time>
+                  <span class="date-desc-label"></span>
+                  <time></time>
                 </div>
                 <div class="span10">
                   <% for(var j=0; i< data.length; i++) { %> 
@@ -76,9 +76,9 @@
     </div>
     <div class="tab">
       Payment:
-      <p><input name="cardName" placeholder="Card holder name" oninput="this.className = ''" /></p>
-      <p><input name="cardNumero" placeholder="Card number" oninput="this.className = ''" /></p>
-      <p><input name="cardExpDate" placeholder="Exp date" oninput="this.className = ''" /><input name="cardCSV" placeholder="CSV" oninput="this.className = ''" /></p>
+      <p><input type="Text" name="cardName" placeholder="Card holder name" oninput="this.className = ''" /></p>
+      <p><input type="number" maxlength="16" minlength="16"  name="cardNumero" placeholder="Card number" oninput="this.className = ''" /></p>
+      <p><input type="month"  name="cardExpDate" placeholder="Exp date" oninput="this.className = ''" /><input name="cardCSV" placeholder="CSV" oninput="this.className = ''" /></p>
     </div>
 
     <div style="overflow: auto">

@@ -23,6 +23,7 @@
           <button class="tablinks" onmouseover="openForm(event, 'name')">Personal information</button>
           <button class="tablinks" onmouseover="openForm(event, 'email')">Email</button>
           <button class="tablinks" onmouseover="openForm(event, 'password')">Password</button>
+          <button class="tablinks" onmouseover="openForm(event, 'preferences')">Preferences</button>
         </div>
 
         <!-- Different form sections -->
@@ -62,7 +63,17 @@
             <input type="submit" value="Change" id="password_change">
           </form>
         </div>   
-
+        <div id="preferences" class="tabcontent">
+          <form id="formpref" method="post" action="preferences">
+            <label for="darkMode"> Toggle Dark/Light Mode : </label>
+            <input type="checkbox" id="darkMode" name="darkMode"><br><br>
+            <% if (admincheck) {%> 
+              <label for="showAll">Show all movies in time table selector: </label>
+              <input type="checkbox" id="showAll" name="showAll" ><br><br>
+            <% } %> 
+            <input type="submit" value="Change" id="preferences">
+          </form>
+        </div>   
       </div>
    
 
