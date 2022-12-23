@@ -26,20 +26,12 @@ async function create3Halls(){
     }
 }
 async function getAllHalls(){
-    try {
         const [result, meta] = await sequelize.query("SELECT * from Halls");
         return result;
-    } catch {
-        return [];
-    }
 }
 async function getHallCapacity(id){
-    try {
         const [result, meta] = await sequelize.query(`SELECT capacity from Halls where id='${id}'`);
         return result;
-    } catch {
-        return [];
-    }
 }
 module.exports={
     getAllHalls:getAllHalls,

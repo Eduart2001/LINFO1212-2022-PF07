@@ -1,4 +1,5 @@
 const seat = require("../server/seat");
+const Seat = require("../Database/Seat")
 const sequelize = require("../Database/database");
 const server = require("../server/server_express").server;
 
@@ -8,6 +9,23 @@ beforeAll(() => {
 afterAll(() => {
   server.close();
 });
+
+
+describe("emptyTimeTableDB function tests", () => {
+   test('should return a string indicating whether the Seats table is empty or not.', async () => {
+      await Seat.destroy({
+        where: {},
+      })
+    const result = await seat.emptyTimeTableDB()
+    expect(result).toBe("empty Seats table")
+  });
+    
+  test('should return a string indicating whether the Seats table is empty or not.', async () => {
+        const result = await seat.emptyTimeTableDB()
+        expect(result).toBe("Seats table is not empty")
+  });
+});
+
 describe("getReservedSeatsForTimeTable function tests", () => {
     
     test('should return list of reserved seats for given time table', async () => {
@@ -25,14 +43,6 @@ describe("getReservedSeatsForTimeTable function tests", () => {
     });
 });
 
-describe("emptyTimeTableDB function tests", () => {
-    
-  test('should return a string indicating whether the Seats table is empty or not.', async () => {
-        const result = await seat.emptyTimeTableDB()
-        expect(result).toBe("Seats table is not empty")
-  });
-});
-
 describe("randomArray function tests", () => {
     
   test('should return a An array of random integers', async () => {
@@ -43,6 +53,6 @@ describe("randomArray function tests", () => {
   test('should return empty array when an error occurs', async () => {
       const arrayLength=-1
       const result = await seat.randomArray(arrayLength)
-      expect([]).toEqual(result);
+      expect([]).toEqual(result.length);
   });
 });

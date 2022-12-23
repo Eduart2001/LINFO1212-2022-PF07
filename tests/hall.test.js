@@ -1,5 +1,5 @@
-hall =require("../server/Hall")
-
+const hall =require("../server/Hall")
+const Hall = require("../Database/Hall")
 
 const sequelize = require("../Database/database");
 const server = require("../server/server_express").server;
@@ -11,25 +11,38 @@ afterAll(() => {
   server.close();
 });
 
+describe("create3Halls function tests", () => {
+  test('should return a the number of halls', async () => {
+    await Hall.destroy({
+      where: {},
+    })
+    const result = await hall.create3Halls()
+
+    expect(result).toBe("ok");
+});
+
+test('should return a the number of halls', async () => {
+       const result = await hall.create3Halls()
+
+       expect(result).toBe("not ok");
+});
+});
 
 describe("getAllHalls function tests", () => {
     test('should return a the number of halls', async () => {
            const id = 3;
+           
            const result = await hall.getAllHalls()
 
            expect(result.length).toEqual(3);
     });
+    test('should  a the number of halls', async () => {
+      const id = 3;
+      const result = await hall.getAllHalls()
+      expect(result).toEqual([]);
+});
 });
 
-
-describe("create3Halls function tests", () => {
-    
-    test('should return a the number of halls', async () => {
-           const result = await hall.create3Halls()
-
-           expect(result).toBe("not ok");
-    });
-});
 
 describe("getHallCapacity function tests", () => {
     
