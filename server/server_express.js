@@ -307,7 +307,7 @@ app.post('/email_change',function(req,res,next){
         })
     }
 
-})
+});
 
 app.post('/password_change', async function(req, res, next) {
     // Hash the passwords
