@@ -79,8 +79,10 @@
       <% for(var x=0; x< reservs.length; x++) {%> 
         <div class="reservation">
             <div class="movie-title"><%= reservs[x].movieName %> </div>
-            <div class="time"><%= reservs[x].Hour %> </div>
-            <div class="seat"><%= reservs[x].SeatNumber %> </div>
+            <div class="time">Hour: <%= reservs[x].Hour %> </div>
+            <div class="date">Day: <%=reservs[x].Day%> </div>
+            <div class="hall">Hall Number: <%= reservs[x].HallNumber %> </div>
+            <div class="seat">Seat Number: <%= reservs[x].SeatNumber %> </div>
         </div>
       <% } %> 
     </div>
