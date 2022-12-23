@@ -148,6 +148,54 @@ function addTimeTableTest(){
         day: 4,
         time: 2
     });
+    timeTable.push({
+        hallId: 3,
+        movieId: 5,
+        day: 2,
+        time: 3
+    });
+    timeTable.push({
+        hallId: 3,
+        movieId: 5,
+        day: 5,
+        time: 2
+    });
+    timeTable.push({
+        hallId: 3,
+        movieId: 1,
+        day: 2,
+        time: 2
+    });
+    timeTable.push({
+        hallId: 3,
+        movieId: 1,
+        day: 5,
+        time: 1
+    });
+    timeTable.push({
+        hallId: 3,
+        movieId: 6,
+        day: 0,
+        time: 2
+    });
+    timeTable.push({
+        hallId: 2,
+        movieId: 7,
+        day: 0,
+        time: 2
+    });
+    timeTable.push({
+        hallId: 1,
+        movieId: 9,
+        day: 5,
+        time: 0
+    });
+    timeTable.push({
+        hallId: 3,
+        movieId: 10,
+        day: 1,
+        time: 3
+    });
     for (let i = 0; i < timeTable.length; i++) {
         TimeTable.create(timeTable[i]);
     }

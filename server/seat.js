@@ -34,7 +34,7 @@ async function addSeats() {
     ids.push(obj.hallId +"-"+obj.movieId+"-"+ obj.day+"-"+ obj.time);
   }
   for (obj of ids){
-    var tempArray = randomArray(resultHall[obj.split("-")[0]].capacity);
+    var tempArray = randomArray(resultHall[parseInt(obj.split("-")[0])-1].capacity);
     for (var x = 0; x < 10; x++) {
         Seat.create({
           id: tempArray[x],
