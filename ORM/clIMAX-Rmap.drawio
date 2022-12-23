@@ -1,0 +1,76 @@
+<mxfile host="65bd71144e">
+    <diagram id="MxidzZrZKqTQIW_G4woe" name="Página-1">
+        <mxGraphModel dx="1406" dy="307" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="USER (&lt;u&gt;email&lt;/u&gt;, birthdate, name, [phoneNumber], password, admin)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-265" y="460" width="370" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="{true, false}" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="480" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="MOVIE RESERVED (&lt;u&gt;id&lt;/u&gt;, &lt;u&gt;email, movieName, HallNumber&lt;/u&gt;, seatNumber, day, hour)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="-315" y="530" width="450" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;dashed=1;rounded=0;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;entryX=0.165;entryY=1.169;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.351;exitY=-0.099;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="5" target="2">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="-140" y="520" as="sourcePoint"/>
+                        <mxPoint x="-110" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="" style="endArrow=none;html=1;rounded=0;labelBackgroundColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;entryX=0.213;entryY=0.97;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.139;exitY=0.981;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="2" target="2">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-210" y="490" as="sourcePoint"/>
+                        <mxPoint x="-160" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="14" value="" style="endArrow=none;html=1;rounded=0;labelBackgroundColor=default;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;entryX=0.299;entryY=1.012;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.277;exitY=1.005;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="5" target="5">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="-190" y="560" as="sourcePoint"/>
+                        <mxPoint x="-170" y="560" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="15" value="SEAT (&lt;u&gt;id&lt;/u&gt;, timeTableId)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+                    <mxGeometry x="180" y="540" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="HALL (&lt;u&gt;id&lt;/u&gt;, capacity)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+                    <mxGeometry x="80" y="600" width="110" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;dashed=1;rounded=0;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;exitX=0.61;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.457;entryY=0.012;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5" target="16">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="-10" y="590" as="sourcePoint"/>
+                        <mxPoint x="-240" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="19" value="TIMETABLE (time, day&lt;u&gt;,&lt;/u&gt; &lt;u&gt;HallId, MovieId&lt;/u&gt;)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+                    <mxGeometry x="-40" y="650" width="210" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="MOVIE (&lt;u&gt;id&lt;/u&gt;, movieName, Actors, Description, ReleaseDate, Genre, Duration, Poster, TrailerURL, Country, AgeRestriction, IMDBScore, Directors)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+                    <mxGeometry x="-300" y="700" width="720" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;dashed=1;rounded=0;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;exitX=0.837;exitY=1.075;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.073;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="19" target="20">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="-210" y="660" as="sourcePoint"/>
+                        <mxPoint x="-50" y="660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;dashed=1;rounded=0;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;exitX=0.685;exitY=-0.1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.426;entryY=1.075;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="19" target="16">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="-260" y="660" as="sourcePoint"/>
+                        <mxPoint x="-100" y="660" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;dashed=1;rounded=0;fontFamily=Helvetica;fontSize=11;fontColor=default;strokeColor=default;exitX=0.447;exitY=1.18;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.149;entryY=0.089;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5" target="20">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="-230" y="600" as="sourcePoint"/>
+                        <mxPoint x="-70" y="600" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="VF2lgtZxA_OWiTcrEhT0-24" value="{&quot;1-1-1-1&quot;-&amp;gt;&lt;br&gt;&quot;hallId, movieId,&lt;br&gt;day,time&quot;}" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontFamily=Helvetica;fontColor=default;" vertex="1" parent="1">
+                    <mxGeometry x="220" y="560" width="90" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -12,16 +12,32 @@ async function getReservedSeatsForTimeTable(timeTable){
     }
 }
 
+function randomArray(max){
+  var array = [];
+  var randomArray = [];
+  for (let i = 0;i<max;i++){
+    array.push(i);
+  }
+  for (let j = 0;j<max;j++){
+    var ranom = Math.floor(Math.random() * array.length);
+    randomArray.push(array[ranom]);
+    array.splice(ranom, 1);
+  }
+  return randomArray;
+}
+
 async function addSeats() {
   const [result, meta] = await sequelize.query("SELECT * FROM TimeTables");
+  const [resultHall, metaHall] = await sequelize.query("SELECT * FROM Halls");
   var ids = [];
   for (obj of result) {
     ids.push(obj.hallId +"-"+obj.movieId+"-"+ obj.day+"-"+ obj.time);
   }
   for (obj of ids){
-    for (var x = 0; x < 19; x++) {
+    var tempArray = randomArray(resultHall[obj.split("-")[0]].capacity);
+    for (var x = 0; x < 10; x++) {
         Seat.create({
-          id: x,
+          id: tempArray[x],
           timeTableId: obj,
         });
       }

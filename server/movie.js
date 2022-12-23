@@ -295,7 +295,7 @@ function addMoviesTest(){
         releaseDate: new Date("2022-12-21"),
         trailerURL: "https://www.youtube.com/watch?v=xgZLXyqbYOc",
         country: "United States of America",
-        ageRestriction: 6,
+        ageRestriction: 7,
         IMDBscore: "7.6",
         genre: "Animation",
         duration: 101
@@ -467,7 +467,7 @@ function addMoviesTest(){
         releaseDate: new Date("2023-6-2"),
         trailerURL: "https://www.youtube.com/watch?v=cqGjhVJWtEg",
         country: "United States of America",
-        ageRestriction: 6,
+        ageRestriction: 7,
         IMDBscore: "N/A",
         genre: "Animation",
         duration: 1
@@ -484,7 +484,7 @@ function addMoviesTest(){
         releaseDate: new Date("2023-7-19"),
         trailerURL: "https://www.youtube.com/watch?v=8zIf0XvoL9Y",
         country: "United States of America",
-        ageRestriction: 6,
+        ageRestriction: 7,
         IMDBscore: "N/A",
         genre: "Adventure",
         duration: 1
