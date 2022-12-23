@@ -1,5 +1,5 @@
-const sequelize = require("./server_express").sequelize;
-const User = require("./server_express").User;
+const sequelize = require("../Database/database");
+const User = require("../Database/User");
 var crypto = require("crypto");
 
 /**
@@ -164,4 +164,5 @@ module.exports={
     isAdmin : isAdmin,
     getName : getName,
     getPublicData:getPublicData,
+    getAllUsers:getAllUsers
 }

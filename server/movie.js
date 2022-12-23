@@ -24,7 +24,7 @@ async function getMovieById(movieId){
  * Finds the movie according to given id.
  *
  * @param {number} movieId The id of the movie to find.
- * @return {String} Movie name.
+ * @return {Object} Object containing the movieName in the key "movieName".
  */
 async function getMovieName(movieId){
     try {
@@ -35,6 +35,12 @@ async function getMovieName(movieId){
     }
 }
 
+/**
+ * Finds all genres from the movie table, if an argument is given the function will return similar results to the letter.
+ *
+ * @param {String} letter to match eventual similarities.
+ * @return {Array} genre array.
+ */
 async function getAllGenres(letter) {
     let genre = [];
     if (letter){
@@ -64,7 +70,7 @@ async function getAllGenres(letter) {
         console.log("Couldn't get the genres");
     }
     return genre;
-  }
+}
    
 
 /**
@@ -99,7 +105,8 @@ async function getAllAvailableMovies() {
     } catch {
       return [];
     }
-  }
+}
+
 /**
  * Checks if the Movies table in the database is empty or not.
  * If it is, some movies are added (by calling addmoviesTest function) for testing purposes.
@@ -143,9 +150,6 @@ function replaceInvalid(movieName){
  */
 function download(uri, filename, callback){
     request.head(uri, function(err, res, body){
-        console.log('content-type:', res.headers['content-type']);
-        console.log('content-length:', res.headers['content-length']);
-
         request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
     });
 }

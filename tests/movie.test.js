@@ -1,5 +1,5 @@
 const movie = require("../server/movie");
-const fs = require("../server/server_express").fs;
+const fs = require("fs");
 const server = require("../server/server_express").server;
 
 beforeAll( async () => {
@@ -25,9 +25,38 @@ describe("getMovieById function tests", () => {
     });
 });
 
+describe("getMovieName function tests", () => {
+    test("Existing movie", async () => {
+        let result = await movie.getMovieName(5);
+        expect(result.movieName).toBe("Puss in Boots: The Last Wish");
+    });
+    test("Not existing movie", async () => {
+        let result = await movie.getMovieName(0);
+        expect(result).toBeUndefined();
+    });
+});
+
+describe("getAllGenres function tests", () => {
+    test("Genre array", async () => {
+        let result = await movie.getAllGenres();
+        expect(result.length).toBeGreaterThan(0);
+    });
+    test("Similar to Ac", async () => {
+        let result = await movie.getAllGenres("Ac");
+        expect(result.length).toBeGreaterThan(0);
+    });
+});
+
 describe("getAllMovies function tests", () => {
     test("Getting the array of movies", async () => {
         let result = await movie.getAllMovies();
+        expect(result.length).toBeGreaterThan(0);
+    });
+});
+
+describe("getAllAvailableMovies function tests", () => {
+    test("Getting available movies", async () => {
+        let result = await movie.getAllAvailableMovies();
         expect(result.length).toBeGreaterThan(0);
     });
 });
@@ -56,9 +85,5 @@ describe("download function tests", () => {
         fs.readFile("./example.jpg", function (err, data){
             expect(data).toBeDefined();
         });
-    });
-    test("Download from invalid link", () => {
-        let result = movie.downlaod("na", "./example.jpg", function(){console.log('example.jpg downloaded');});
-        expect(result).toThrow();
     });
 });

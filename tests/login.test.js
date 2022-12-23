@@ -2,13 +2,15 @@ const login = require("../server/login");
 var crypto = require("crypto");
 const server = require("../server/server_express").server;
 
-afterAll(() => {
-  server.close();
-});
 beforeAll( async () => {
     await login.emptyUsersDB();
     server.close();
 });
+
+afterAll(() => {
+  server.close();
+});
+
 
 describe("Login function tests", () => {
     test("Not matching password", async () => {
@@ -73,5 +75,12 @@ describe("emptyUsersDB function tests", () => {
     test("Users table is not empty in database", async () => {
         let result = await login.emptyUsersDB();
         expect(result).toBe("Users table is not empty");
+    });
+});
+
+describe("getPublicData function tests", () => {
+    test("Getting data from an existing account", async () => {
+        let result = await login.getPublicData("isaimola@gmail.com");
+        expect(result.length).toBeGreaterThan(0);
     });
 });
