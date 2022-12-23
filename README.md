@@ -1,4 +1,4 @@
-# clIMAX `<img src="./static/images/logo.png" width="100" height="68"/>`
+# clIMAX <img src="./static/images/logo.png" width="100" height="68"/>
 
 > 30/11/2022
 
