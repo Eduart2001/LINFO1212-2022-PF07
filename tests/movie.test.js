@@ -1,5 +1,6 @@
 const movie = require("../server/movie");
 const fs = require("fs");
+const Movie = require("../Database/Movie");
 const server = require("../server/server_express").server;
 
 beforeAll( async () => {
@@ -85,5 +86,44 @@ describe("download function tests", () => {
         fs.readFile("./example.jpg", function (err, data){
             expect(data).toBeDefined();
         });
+    });
+});
+describe("updateMovieData function tests", () => {
+    test("Replace invalid characters", async () => {
+        test={
+            id:0,
+            movieName: "Black Panther: Wakanda Forever",
+            description: "Queen Ramonda (Angela Bassett), Shuri (Letitia Wright), M’Baku (Winston Duke), Okoye (Danai Gurira) and the Dora Milaje (including Florence Kasumba), fight to protect their nation from intervening world powers in the wake of King T’Challa’s death. As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia (Lupita Nyong’o) and Everett Ross (Martin Freeman) and forge a new path for the kingdom of Wakanda.",
+            actors: "Letitia Wright, Lupita Nyong'o, Danai Gurira, Winston Duke, Angela Bassett, Florence Kasumba, Tenoch Huerta",
+            directors:"Ryan Coogler",
+            releaseDate: new Date("2022-11-11"),
+            trailerURL: "https://www.youtube.com/watch?v=_Z3QKkl1WyM",
+            country: "United States of America",
+            ageRestriction: 15,
+            IMDBscore: "7.3",
+            genre: "Action",
+            duration: 161
+        }
+        let result = await movie.getAllMovies() 
+        test.id=result[0].id
+        await movie.updateMovieData(test)
+         result = await movie.getAllMovies() 
+        expect(test.ageRestriction).toEquals(result[0].ageRestriction);
+    });
+});
+
+
+describe("addMoviesTest function tests", () => {
+    test("add to db characters", async () => {
+        const movies= await movie.getAllMovies();
+
+        for(obj of movies){
+            await movie.removeDeletedMoviePoster(obj.id)
+        }
+        Movie.destroy({
+            where:{},
+        })
+        let result = await ovie.addMoviesTest()
+        expect(result).toBe("example movies added");
     });
 });

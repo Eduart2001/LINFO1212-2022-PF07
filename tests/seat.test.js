@@ -10,22 +10,6 @@ afterAll(() => {
   server.close();
 });
 
-
-describe("emptyTimeTableDB function tests", () => {
-   test('should return a string indicating whether the Seats table is empty or not.', async () => {
-      await Seat.destroy({
-        where: {},
-      })
-    const result = await seat.emptyTimeTableDB()
-    expect(result).toBe("empty Seats table")
-  });
-    
-  test('should return a string indicating whether the Seats table is empty or not.', async () => {
-        const result = await seat.emptyTimeTableDB()
-        expect(result).toBe("Seats table is not empty")
-  });
-});
-
 describe("getReservedSeatsForTimeTable function tests", () => {
     
     test('should return list of reserved seats for given time table', async () => {
@@ -56,3 +40,29 @@ describe("randomArray function tests", () => {
       expect([]).toEqual(result.length);
   });
 });
+
+describe("emptyTimeTableDB function tests", () => {
+  test('should return a string indicating whether the Seats table is empty or not.', async () => {
+     await Seat.destroy({
+       where: {},
+     })
+   const result = await seat.emptyTimeTableDB()
+   expect(result).toBe("empty Seats table")
+ });
+ test('should return a string indicating whether the Seats table is empty or not.', async () => {
+       const result = await seat.emptyTimeTableDB()
+       expect(result).toBe("Seats table is not empty")
+ });
+});
+
+describe("emptyTimeTableDB function tests", () => {
+  test('should return a string indicating whether the Seats table is empty or not.', async () => {
+     await Seat.destroy({
+       where: {},
+     })
+   const result = await seat.addSeats()
+   expect(result).toBe("empty Seats table")
+ });
+   
+});
+

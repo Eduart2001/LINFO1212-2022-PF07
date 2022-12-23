@@ -8,13 +8,8 @@ const Seat = require("../Database/Seat");
  * @throws {Error} - If there is an error executing the database query.
  */
 async function getReservedSeatsForTimeTable(timeTable){
-    try{
-        const [result,meta]=await sequelize.query(`Select id from Seats where timeTableId='${timeTable}'`);
-        return result;
-
-    }catch (e){
-        return []
-    }
+      const [result,meta]=await sequelize.query(`Select id from Seats where timeTableId='${timeTable}'`);
+      return result;
 }
 
 /**
