@@ -462,7 +462,6 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
 });
 
 app.post("/reservation/done", async function (req, res, next) {
-    req.session.email="admin@admin.com"
     function getNearestDateWithDayNumber(dayNumber) {
         const today = new Date();
         const todayDayNumber = today.getDay();
@@ -544,8 +543,6 @@ app.get("/admin/modify_movie", async function (req, res, next) {
 });
 
 app.get("/admin/time_table",async function (req, res, next) {
-    req.session.email="admin@admin.com"
-    req.session.admin=true
     if (req.session.email){
         if (req.session.admin){
             const userPreferences = await Preferences.findOne({ where: { email: req.session.email } });
@@ -595,7 +592,6 @@ app.post('/hall/timetable/get', async function (req, res, next) {
 });
 
 app.post('/movie/reservation/getData', async function (req, res, next) {
-    req.session.email="admin@admin.com"
     if (req.session.email){
         userResult = await login.getPublicData(req.session.email);
     } else {
