@@ -338,6 +338,34 @@ app.post('/password_change', async function(req, res, next) {
   
 //End of the forms
 
+//Delete reservations
+app.post("/removeReserv", (req, res) => {
+    console.log(req.body.title);
+    console.log(req.body.hour);
+    MovieReserved.destroy({
+      where: {
+        email: req.session.email,
+        movieName: req.body.title,
+        Hour: req.body.hour,
+        Day: req.body.date,
+        HallNumber: req.body.hall,
+        SeatNumber: req.body.seat
+      }
+    })
+      .then(() => {
+        console.log("Reservation deleted");
+        res.redirect("/user?alert=Reservation deleted");
+      })
+      .catch(err => {
+        console.error(err);
+        res.redirect("/user?alert=Reservation has not been deleted");
+      });
+  });
+  
+  
+
+
+
 app.get("/movie/reservation", async function (req, res, next) {
     let result = await movie.getMovieById(req.query.id);
     if (!result.length > 0){
