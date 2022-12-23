@@ -160,7 +160,7 @@ app.post('/ident', async function(req, res, next){
     if (result == req.body.email.toLowerCase()){
         req.session.email = result;
         req.session.admin = await login.isAdmin(req.session.email);
-        res.redirect('/');
+        res.redirect('/user');
     } else res.redirect('/login?incorrect=true');
 });
 
@@ -210,9 +210,11 @@ app.get("/register", function (req, res, next) {
 //user
 app.get('/user',async function(req,res,next){
     if (req.session.email){
+        const userPreferences = await Preferences.findOne({ where: { email: req.session.email } });
+        console.log(userPreferences)
         if (req.query.alert){
             if (req.session.admin){
-                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
+                res.render('User_page.ejs', {admincheck: true,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email),userPreferences:userPreferences});
             }
             else {
                 res.render('User_page.ejs', {admincheck: false,alerting:req.query.alert,reservs:await moviereserved.AllMovieUser(req.session.email)});
@@ -220,7 +222,7 @@ app.get('/user',async function(req,res,next){
         }
         else {
             if (req.session.admin){
-                res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
+                res.render('User_page.ejs', {admincheck: true,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email),userPreferences:userPreferences});
             }
             else {
                 res.render('User_page.ejs', {admincheck: false,alerting:"",reservs:await moviereserved.AllMovieUser(req.session.email)});
@@ -460,6 +462,7 @@ app.post("/add/movie/to/timetable", async function (req, res, next) {
 });
 
 app.post("/reservation/done", async function (req, res, next) {
+    req.session.email="admin@admin.com"
     function getNearestDateWithDayNumber(dayNumber) {
         const today = new Date();
         const todayDayNumber = today.getDay();
@@ -592,6 +595,7 @@ app.post('/hall/timetable/get', async function (req, res, next) {
 });
 
 app.post('/movie/reservation/getData', async function (req, res, next) {
+    req.session.email="admin@admin.com"
     if (req.session.email){
         userResult = await login.getPublicData(req.session.email);
     } else {

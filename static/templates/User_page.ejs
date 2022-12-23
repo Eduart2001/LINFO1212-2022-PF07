@@ -6,8 +6,7 @@
     <link rel="shortcut icon" href="../images/IMAX-logo.png">
 </head>
 <link rel="stylesheet" href="../css/user_page.css">
-<script src="../script/script-user-page.js"></script>
-
+<link rel="stylesheet" href="../css/darkMode.css">
 <body>
     <div class="navbar">
         <a href="/">CLimax</a>
@@ -66,10 +65,28 @@
         <div id="preferences" class="tabcontent">
           <form id="formpref" method="post" action="preferences">
             <label for="darkMode"> Toggle Dark/Light Mode : </label>
-            <input type="checkbox" id="darkMode" name="darkMode"><br><br>
+            <% if (userPreferences!==null) {%> 
+              <% if(userPreferences.darkMode==="on"){%>
+                  <input type="checkbox" id="darkMode" name="darkMode" checked><br><br>
+              <% } else{%>
+                  <input type="checkbox" id="darkMode" name="darkMode" ><br><br>
+              <% } %>
+            <% } else {%>
+              <input type="checkbox" id="darkMode" name="darkMode"><br><br>
+            <% } %>
+
+
             <% if (admincheck) {%> 
               <label for="showAll">Show all movies in time table selector: </label>
-              <input type="checkbox" id="showAll" name="showAll" ><br><br>
+              <% if (userPreferences!==null) {%> 
+                <% if(userPreferences.showAll==="on"){%>
+                    <input type="checkbox" id="showAll" name="showAll" checked><br><br>
+                <% } else{%>
+                    <input type="checkbox" id="showAll" name="showAll" ><br><br>
+                <% } %>
+              <% } else {%>
+                  <input type="checkbox" id="showAll" name="showAll" ><br><br>
+              <% } %>
             <% } %> 
             <input type="submit" value="Change" id="preferences">
           </form>
@@ -111,7 +128,7 @@
     </div>
 </div>
 
-
+<script src="../script/script-user-page.js"></script>
 </body>
   <script>
       var alertMessage = "<%= alerting %>";

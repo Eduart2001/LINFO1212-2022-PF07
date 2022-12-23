@@ -23,4 +23,40 @@ function openForm(evt, cityName) {
     }
 
 
+// enable dark mode//
+let mode=document.getElementById("darkMode")
+
+
+const enableDarkMode = () => {
+    // 1. Add the class to the body
+    document.body.classList.add('darkmode');
+    // 2. Update darkMode in localStorage
+    localStorage.setItem('darkMode', 'enabled');
+  }
+  
+const disableDarkMode = () => {
+    // 1. Remove the class from the body
+    document.body.classList.remove('darkmode');
+    // 2. Update darkMode in localStorage 
+    localStorage.setItem('darkMode', null);
+  }
+  if (darkMode === 'enabled') {
+    enableDarkMode();
+}   
+if(mode.checked===true){
+    enableDarkMode();
+}else{
+    disableDarkMode();
+}
+mode.addEventListener('click', () => {
+    // get their darkMode setting
+    darkMode = localStorage.getItem('darkMode'); 
     
+    // if it not current enabled, enable it
+    if (darkMode !== 'enabled') {
+      enableDarkMode();
+    // if it has been enabled, turn it off  
+    } else {  
+      disableDarkMode(); 
+    }
+  });

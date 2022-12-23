@@ -11,7 +11,7 @@ function toReserveMoviePage() {
  * The container element for the seating chart.
  */
 const container = document.querySelector(".container");
-
+let selected=0;
 /**
  * Handles click events on seats in the seating chart.
  * Toggles the "selected" class for seats that are not already sold.
@@ -24,6 +24,9 @@ container.addEventListener("click", (e) => {
     !e.target.classList.contains("sold")
   ) {
     e.target.classList.toggle("selected");
+    selected-=1;
+  }else{
+    selected+=1;
   }
 });
 
@@ -326,7 +329,20 @@ function validateForm() {
   var x,y,i,valid = true;
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
-
+  if(currentTab===2){
+    let a = document.querySelectorAll("input[type=radio]");
+    valid=false;
+    for (object of a) {
+      if (object.checked === true) {
+        return true;
+      }
+    }
+  }
+  if(currentTab===3){
+    if(selected<=0){
+      return false;
+    }
+  }
   for (i = 0; i < y.length; i++) {
     if (y[i].value == "") {
       y[i].className += " invalid";
