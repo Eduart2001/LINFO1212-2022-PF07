@@ -62,8 +62,9 @@ async function getTimeTableByMovie(movieId){
         const [movieTimeTable, meta] = await sequelize.query(`Select * From TimeTables where movieId = ${movieId}`);
         var result=[]
         for(var i =0;i< movieTimeTable.length;i++){
-            const id=movieTimeTable[i].hallId*1000+movieTimeTable[i].movieId*100+movieTimeTable[i].day*10+movieTimeTable[i].time;
-            
+            //ancien notation
+            //const id=movieTimeTable[i].hallId*1000+movieTimeTable[i].movieId*100+movieTimeTable[i].day*10+movieTimeTable[i].time;
+            const id=movieTimeTable[i].hallId+"-"+movieTimeTable[i].movieId+"-"+movieTimeTable[i].day+"-"+movieTimeTable[i].time;//changements apres avoir rendu le projet
             result.push({
                 hallId:movieTimeTable[i].hallId,
                 movieId:movieTimeTable[i].movieId,

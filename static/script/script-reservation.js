@@ -11,7 +11,6 @@ function toReserveMoviePage() {
  * The container element for the seating chart.
  */
 const container = document.querySelector(".container");
-let selected=0;
 /**
  * Handles click events on seats in the seating chart.
  * Toggles the "selected" class for seats that are not already sold.
@@ -24,9 +23,6 @@ container.addEventListener("click", (e) => {
     !e.target.classList.contains("sold")
   ) {
     e.target.classList.toggle("selected");
-    selected-=1;
-  }else{
-    selected+=1;
   }
 });
 
@@ -224,18 +220,44 @@ function loadHallData(id) {
     innerHtml += '<div class="row">';
     for (var j = 0; j < 10; j++) {
       var result=i * 10 + j;
+
+      /* 
+      
+      cette methode ne fonction pas on comprend pas on nous laisse pas selectionesr les 5 premiers, on a eu le meme probleme avec la time table et cest le tuteur qui nous a aider
+      mais meme lui ne savais pas pourquoi ca ne marchait pas.
+
+      celui la etait le dernier commit qu'on avait fait mais nous on n'a pas eu de problem lors qu'on a tester car pour la plus part de temps ces chaises etaient deja selectionne mais quand on a fait d'y avoir des chaises aleatoirement certaines etaient ouvert et ca envoyait une erreur
+      
+      */
+      // if (bookedSeats.includes(result)) {
+      //   innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=${
+      //     result
+      //   } name="selectedSeat" value=${result} disabled>
+      //   <label for=${result}><div class="col-3 w-30 seat sold" id=${
+      //     result
+      //   } ></div></label></div>`;
+      // } else {
+      //   innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=${
+      //     result
+      //   } name="selectedSeat" value=${result}>
+      //   <label for=${result}><div class="col-3 w-30 seat" id=${
+      //     result
+      //   } ></div></label></div>`;
+      // }
+
+      //solution pour que cette erreur ne se reproduit plus changement apres la date qu'il fallait rendre
       if (bookedSeats.includes(result)) {
-        innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=${
+        innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=seat-${
           result
-        } name="selectedSeat" value=${result} disabled>
-        <label for=${result}><div class="col-3 w-30 seat sold" id=${
+        } name="selectedSeat" value=seat-${result} disabled>
+        <label for=seat-${result}><div class="col-3 w-30 seat sold" id=seat-${
           result
         } ></div></label></div>`;
       } else {
-        innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=${
+        innerHtml += `<div class="col-2"><input class="checkbox" type="checkbox" id=seat-${
           result
         } name="selectedSeat" value=${result}>
-        <label for=${result}><div class="col-3 w-30 seat" id=${
+        <label for=seat-${result}><div class="col-3 w-30 seat" id=seat-${
           result
         } ></div></label></div>`;
       }
@@ -339,7 +361,7 @@ function validateForm() {
     }
   }
   if(currentTab===3){
-    if(selected<=0){
+    if(document.querySelectorAll("input[type=checkbox]:checked").length===0){
       return false;
     }
   }
